@@ -59,6 +59,7 @@ public class JobController {
 	public String createJob(@RequestBody JobDTO jobDTO)
 	{
 		String result = "";
+log.debug("ENTERING: createJob() method, parameters: jobDTO={}", jobDTO);
 		try {
 			result = jobService.createJob(jobDTO);
 		} catch (Exception e) {
@@ -71,6 +72,7 @@ public class JobController {
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
 		String testValue = "Testing my local changes";
+log.debug("ENTERING: updateJob() method, parameters: jobDTO={}", jobDTO);
 		testValue = "value changed, needs logging";
 
 		jobService.updateJob(jobDTO);
@@ -80,6 +82,7 @@ public class JobController {
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
 		return searchService.searchJobsByTerm(term, p);
+log.debug("ENTERING: search() method, parameters: term={}, p={}", term, p);
 	}
 
 }
