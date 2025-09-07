@@ -17,6 +17,7 @@ import com.jobportal.model.Employer;
 
 
 @Service
+import lombok.extern.slf4j.Slf4j;
 public class EmployerService {
 
 	@Autowired
@@ -36,12 +37,14 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+log.debug("ENTERING: findAll() method, parameters: no parameters");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
 	public EmployerDTO findById(String id)
 	{
+log.debug("ENTERING: findById() method, parameters: id={}", id);
 		Optional<Employer> optEmp = dao.findById(id);
 		
 		if (!optEmp.isPresent())
@@ -61,6 +64,7 @@ public class EmployerService {
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+log.debug("ENTERING: createEmployer() method, parameters: empDTO={}", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
 		emp.setUpdatedOn(emp.getCreatedOn());
@@ -77,6 +81,7 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+log.debug("ENTERING: updateEmployer() method, parameters: empDTO={}", empDTO);
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
 		if (!optEmp.isPresent())
