@@ -58,6 +58,7 @@ public class JobController {
 	@PostMapping
 	public String createJob(@RequestBody JobDTO jobDTO)
 	{
+		log.debug("ENTERING: createJob() method, parameters: jobDTO={}", jobDTO);
 		String result = "";
 		try {
 			result = jobService.createJob(jobDTO);
@@ -70,6 +71,7 @@ public class JobController {
 	@PutMapping
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
+		log.debug("ENTERING: updateJob() method, parameters: jobDTO={}", jobDTO);
 		String testValue = "Testing my local changes";
 		testValue = "value changed, needs logging";
 
@@ -79,6 +81,7 @@ public class JobController {
 	@GetMapping(value = "/search")
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.debug("ENTERING: search() method, parameters: term={}, p={}", term, p);
 		return searchService.searchJobsByTerm(term, p);
 	}
 
