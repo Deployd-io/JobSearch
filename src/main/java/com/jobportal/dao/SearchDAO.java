@@ -28,6 +28,8 @@ public class SearchDAO {
 				.with(Sort.by(Sort.Direction.DESC, "updatedOn"))
 				.with(p);
 
-		return template.find(query, className);
+		List<T> result = template.find(query, className);
+
+		return result;
 	}
 }
