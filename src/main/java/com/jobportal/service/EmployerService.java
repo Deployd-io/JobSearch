@@ -7,13 +7,17 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.geo.Point;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
+import org.springframework.web.client.RestTemplate;
 
 
 @Service
@@ -27,7 +31,13 @@ public class EmployerService {
 	
 	@Autowired
 	ModelMapperService modelMapperService;
-	
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Value("${kycValidator.url:http://kycValidator.com/validate}")
+	private String kycValidatorUrl;
+
 	Integer test;
 	String test2;
 	int test3;
@@ -98,6 +108,17 @@ public class EmployerService {
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
 		dao.save(emp);
+	}
+
+	public boolean validateEmployer(String employerId)
+	{
+		ResponseEntity<EmployerDTO> response = restTemplate
+				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
