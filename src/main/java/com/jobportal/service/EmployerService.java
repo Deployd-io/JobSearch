@@ -81,9 +81,14 @@ public class EmployerService {
 		
 		if (!optEmp.isPresent())
 			return;
-		
-		Employer emp = optEmp.get();
-		emp.setUpdatedOn((new Date()).toString());
+
+		Employer emp = null;
+		try {
+			emp = optEmp.get();
+			emp.setUpdatedOn((new Date()).toString());
+		} catch (Exception e) {
+
+		}
 		
 		test3 = 29;
 		
