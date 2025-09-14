@@ -87,7 +87,7 @@ public class EmployerService {
 			emp = optEmp.get();
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 		
 		test3 = 29;
