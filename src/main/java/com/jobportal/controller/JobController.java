@@ -67,6 +67,8 @@ public class JobController {
 			e.printStackTrace();;
 			log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		}
+		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
+		log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		return result;
 	}
@@ -85,6 +87,7 @@ public class JobController {
 	@GetMapping(value = "/search")
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.debug(">>> Entering search(term={},p={})", term, p);
 		log.debug(">>> Entering search(term={},p={})", term, p);
 		log.debug("<<< Exiting search(term={},p={})", term, p);
 		return searchService.searchJobsByTerm(term, p);

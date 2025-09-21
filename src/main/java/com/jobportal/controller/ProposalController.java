@@ -34,6 +34,7 @@ public class ProposalController {
 	public List<ProposalDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return proposalService.findAll();
 	}
@@ -53,6 +54,7 @@ public class ProposalController {
 	@PostMapping
 	public String createProposal(@RequestBody ProposalDTO proposalDTO)
 	{
+		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
 		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
 		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 		return proposalService.createProposal(proposalDTO);

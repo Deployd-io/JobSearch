@@ -49,8 +49,8 @@ public class EmployerService {
 	public List<EmployerDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
-		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
+		log.debug("<<< Exiting findAll()");
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
@@ -71,6 +71,8 @@ public class EmployerService {
 		test2 = "tesst 2";
 		e.setEmail("a@yahoo.com");
 		
+		log.debug(">>> Entering findById(id={})", id);
+		log.error("Exception in findById(id={}): {}", id, e.getMessage(), e);
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
@@ -88,6 +90,7 @@ public class EmployerService {
 		
 		dao.save(emp);
 		
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return emp.getEmployerId();
 	}
@@ -131,6 +134,7 @@ public class EmployerService {
 			return true;
 		}
 
+		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
 		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}

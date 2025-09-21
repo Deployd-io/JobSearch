@@ -16,6 +16,7 @@ public class ModelMapperService {
 		ModelMapper mm = new ModelMapper();
 		
 		mm.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+		log.debug(">>> Entering getNonNullModelMapper()");
 		log.debug("<<< Exiting getNonNullModelMapper()");
 		return mm;
 	}

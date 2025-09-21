@@ -41,8 +41,8 @@ public class JobService {
 	public List<JobDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
-		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(job -> 
+		log.debug("<<< Exiting findAll()");
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	
@@ -52,9 +52,11 @@ public class JobService {
 		Optional<Job> optJob = dao.findById(id);
 		
 		if (!optJob.isPresent())
-			log.debug("<<< Exiting findById(id={})", id);
 			return null;
 		
+		log.debug("<<< Exiting findById(id={})", id);
+		log.debug(">>> Entering findById(id={})", id);
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
 	}
 	
@@ -71,6 +73,7 @@ public class JobService {
 			job.setProposals(proposalService.findByJobId(job.getJobId()));
 		});
 		
+		log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
 		return jobs;
 	}
@@ -90,6 +93,7 @@ public class JobService {
 		
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
+		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		return job.getJobId();
 	}

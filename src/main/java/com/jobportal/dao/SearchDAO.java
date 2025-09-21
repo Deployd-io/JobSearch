@@ -33,6 +33,7 @@ public class SearchDAO {
 
 		List<T> result = template.find(query, className);
 
+		log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
 		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
 		return result;
 	}

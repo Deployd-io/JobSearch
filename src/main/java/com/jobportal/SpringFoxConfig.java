@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 public class SpringFoxConfig {                                    
     @Bean
     public Docket api() { 
-log.debug(">>> Entering api()");
         return new Docket(DocumentationType.SWAGGER_2)  
+log.debug(">>> Entering api()");
           .select()                                  
           .apis(RequestHandlerSelectors.any())              
           .paths(PathSelectors.any())                          

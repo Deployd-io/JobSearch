@@ -36,6 +36,7 @@ public class CandidateController {
 	public List<CandidateDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return candidateService.findAll();
 	}
@@ -49,6 +50,7 @@ public class CandidateController {
 	@PostMapping
 	public String createCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
+		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 		return candidateService.createCandidate(cndtDTO);
@@ -65,6 +67,7 @@ public class CandidateController {
 	@GetMapping(value = "/search")
 	public List<CandidateDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.debug(">>> Entering search(term={},p={})", term, p);
 		log.debug(">>> Entering search(term={},p={})", term, p);
 		log.debug("<<< Exiting search(term={},p={})", term, p);
 		return searchService.searchCandidatesByTerm(term, p);
