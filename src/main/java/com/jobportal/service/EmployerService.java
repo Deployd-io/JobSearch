@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -46,6 +48,7 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		log.info("findAll()=): query {} executed in {} ms", , query, (System.currentTimeMillis() - start));
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
@@ -65,6 +68,7 @@ public class EmployerService {
 		test2 = "tesst 2";
 		e.setEmail("a@yahoo.com");
 		
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
 	
@@ -80,6 +84,7 @@ public class EmployerService {
 		
 		dao.save(emp);
 		
+		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return emp.getEmployerId();
 	}
 	
@@ -109,6 +114,7 @@ public class EmployerService {
 		
 		dao.save(emp);
 	}
+	log.info("updateEmployer(empDTO)={}): query {} executed in {} ms", empDTO, query, (System.currentTimeMillis() - start));
 
 	public boolean validateEmployer(String employerId)
 	{
@@ -118,6 +124,7 @@ public class EmployerService {
 			return true;
 		}
 
+		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
 
