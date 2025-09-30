@@ -15,9 +15,11 @@ import com.jobportal.dao.JobDAO;
 import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
+import lombok.extern.slf4j.Slf4j;
 import com.jobportal.model.Job;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired
@@ -37,25 +39,33 @@ public class JobService {
 	
 	
 	public List<JobDTO> findAll()
+	log.debug(">>> Entering findAll()");
 	{
+		log.debug("<<< Exiting findAll()");
+		log.info("findAll()=): query {} executed in {} ms", , query, (System.currentTimeMillis() - start));
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	
 	public JobDTO findById(String id)
+	log.debug(">>> Entering findById(id={})", id);
 	{
 		Optional<Job> optJob = dao.findById(id);
 		
+		log.info("findById(id)={}): query {} executed in {} ms", id, query, (System.currentTimeMillis() - start));
 		if (!optJob.isPresent())
 			return null;
 		
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
 	}
 	
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
+	log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
 	{
 		List jobs1 = dao.findByContactEmail(contactEmail);
 		
+		log.debug("findByContactEmail(contactEmail={}): jobs1 → {}", contactEmail, jobs1);
 		List<JobContactViewDTO> jobs = dao.findByContactEmail(contactEmail).stream().map(job -> 
 			modelMapper.map(job, JobContactViewDTO.class)).collect(Collectors.toList());
 		
@@ -63,12 +73,15 @@ public class JobService {
 		jobs.forEach(job -> {
 			job.setProposals(proposalService.findByJobId(job.getJobId()));
 		});
+		log.info("findByContactEmail(contactEmail)={}): query {} executed in {} ms", contactEmail, query, (System.currentTimeMillis() - start));
 		
+		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
 		return jobs;
 	}
 	
 	@Transactional
 	public String createJob(JobDTO jobDTO)
+	log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 	{
 		Job job = modelMapper.map(jobDTO, Job.class);
 		job.setCreatedOn((new Date()).toString());
@@ -76,17 +89,21 @@ public class JobService {
 		
 		Point point = new Point(jobDTO.getLng(), jobDTO.getLat());
 		job.setPoint(point);
+		log.debug("createJob(jobDTO={}): point → {}", jobDTO, point);
 		
 		dao.save(job);
 		
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
+		log.info("createJob(jobDTO)={}): query {} executed in {} ms", jobDTO, query, (System.currentTimeMillis() - start));
+		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		return job.getJobId();
 	}
 	
 	
 	@Transactional
 	public void updateJob(JobDTO jobDTO)
+	log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 	{
 		Optional<Job> optJob = dao.findById(jobDTO.getJobId());
 		
@@ -98,14 +115,18 @@ public class JobService {
 		
 		Point point = new Point(jobDTO.getLng(), jobDTO.getLat());
 		job.setPoint(point);
+		log.debug("updateJob(jobDTO={}): point → {}", jobDTO, point);
 		
 		modelMapperService.getNonNullModelMapper().map(jobDTO, job);
 		
 		dao.save(job);
+		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
 	}
+	log.info("updateJob(jobDTO)={}): query {} executed in {} ms", jobDTO, query, (System.currentTimeMillis() - start));
 	
 	@Transactional
 	public void updateLocation(String jobId, LocationDTO location)
+	log.debug(">>> Entering updateLocation(jobId={},location={})", jobId, location);
 	{
 		Optional<Job> optJob = dao.findById(jobId);
 		
@@ -115,8 +136,11 @@ public class JobService {
 		Job job = optJob.get();
 		Point point = new Point(location.getLongitude(), location.getLatitude());
 		
+		log.debug("updateLocation(jobId={},location={}): point → {}", jobId, location, point);
 		job.setPoint(point);
 		
 		dao.save(job);
+		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
 	}
+	log.info("updateLocation(jobId,location)={},{}): query {} executed in {} ms", jobId, location, query, (System.currentTimeMillis() - start));
 }
