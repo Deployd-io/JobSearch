@@ -12,9 +12,11 @@ import com.jobportal.dao.SearchDAO;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.model.Candidate;
+import lombok.extern.slf4j.Slf4j;
 import com.jobportal.model.Job;
 
 @Service
+@Slf4j
 public class SearchService {
 	
 	@Autowired
@@ -25,12 +27,17 @@ public class SearchService {
 	
 	public List<JobDTO> searchJobsByTerm(String term, Pageable p)
 	{
+		log.debug(">>> Entering searchJobsByTerm(term={},p={})", term, p);
+		log.debug("<<< Exiting searchJobsByTerm(term={},p={})", term, p);
 		return dao.searchByTerm(Job.class, term, p).stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	
 	public List<CandidateDTO> searchCandidatesByTerm(String term, Pageable p)
 	{
+		log.debug(">>> Entering searchCandidatesByTerm(term={},p={})", term, p);
+		log.debug("searchCandidatesByTerm(term={},p={}): term → {}", term, p, term);
+		log.debug("<<< Exiting searchCandidatesByTerm(term={},p={})", term, p);
 		return dao.searchByTerm(Candidate.class, term, p).stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
 	}
