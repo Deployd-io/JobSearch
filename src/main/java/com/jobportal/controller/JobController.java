@@ -39,6 +39,7 @@ public class JobController {
 	public List<JobDTO> findAll()
 	{
 		log.debug("Entering method findAll");
+		log.debug("<<< Exiting findAll()");
 		return jobService.findAll();
 	}
 
@@ -59,11 +60,15 @@ public class JobController {
 	public String createJob(@RequestBody JobDTO jobDTO)
 	{
 		String result = "";
+		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		try {
 			result = jobService.createJob(jobDTO);
+			log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
 		} catch (Exception e) {
 			e.printStackTrace();;
+			log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		}
+		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		return result;
 	}
 
@@ -71,14 +76,19 @@ public class JobController {
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
 		String testValue = "Testing my local changes";
+		log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 		testValue = "value changed, needs logging";
+		log.debug("updateJob(jobDTO={}): testValue → {}", jobDTO, testValue);
 
 		jobService.updateJob(jobDTO);
+		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
 	}
 
 	@GetMapping(value = "/search")
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.debug(">>> Entering search(term={},p={})", term, p);
+		log.debug("<<< Exiting search(term={},p={})", term, p);
 		return searchService.searchJobsByTerm(term, p);
 	}
 
