@@ -18,9 +18,11 @@ import com.jobportal.dto.CandidateDTO;
 import com.jobportal.service.CandidateService;
 import com.jobportal.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/candidates")
+@Slf4j
 @CrossOrigin("*")
 @Slf4j
 public class CandidateController {
@@ -33,7 +35,9 @@ public class CandidateController {
 	
 	
 	@GetMapping
+	log.debug(">>> Entering findAll()");
 	public List<CandidateDTO> findAll()
+	log.debug("<<< Exiting findAll()");
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
@@ -45,19 +49,24 @@ public class CandidateController {
 	{
 		return candidateService.findById(id);
 	}
+	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 	
+	log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 	@PostMapping
 	public String createCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
+		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 		return candidateService.createCandidate(cndtDTO);
 	}
 	
 	@PutMapping
 	public void updateCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
+		log.debug(">>> Entering search(term={},p={})", term, p);
 		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
+		log.debug("<<< Exiting search(term={},p={})", term, p);
 		candidateService.updateCandidate(cndtDTO);
 		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 	}
