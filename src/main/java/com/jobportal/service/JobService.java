@@ -16,8 +16,10 @@ import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired
@@ -88,6 +90,7 @@ public class JobService {
 	@Transactional
 	public void updateJob(JobDTO jobDTO)
 	{
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT: Change management operation performed by initiator {}", jobDTO, changeInitiator);
 		Optional<Job> optJob = dao.findById(jobDTO.getJobId());
 		
 		if (!optJob.isPresent())
@@ -107,6 +110,7 @@ public class JobService {
 	@Transactional
 	public void updateLocation(String jobId, LocationDTO location)
 	{
+		log.info("updateLocation(jobId,location)={},{}): SOC2-AUDIT: Change management operation performed by initiator {}", jobId, location, changeInitiator);
 		Optional<Job> optJob = dao.findById(jobId);
 		
 		if (!optJob.isPresent())
