@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.ProposalDAO;
 import com.jobportal.dto.ProposalDTO;
 import com.jobportal.model.Proposal;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProposalService {
 	
 	@Autowired
@@ -74,6 +76,7 @@ public class ProposalService {
 	@Transactional
 	public void updateProposal(ProposalDTO proposalDTO)
 	{
+		log.info("updateProposal(proposalDTO)={}): SOC2-AUDIT: Change management operation performed by initiator {}", proposalDTO, changeInitiator);
 		Optional<Proposal> optProposal = dao.findById(proposalDTO.getProposalId());
 		
 		if (!optProposal.isPresent())
