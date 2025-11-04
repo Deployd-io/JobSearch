@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -87,6 +89,7 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT: Change management operation performed by initiator {}", empDTO, changeInitiator);
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
 		if (!optEmp.isPresent())
@@ -112,7 +115,9 @@ public class EmployerService {
 
 	public boolean validateEmployer(String employerId)
 	{
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT: System operation completed with status {}", employerId, operationStatus);
 		ResponseEntity<EmployerDTO> response = restTemplate
+				log.info("validateEmployer(employerId)={}): SOC2-AUDIT: Database transaction completed with status {}", employerId, transactionStatus);
 				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return true;
