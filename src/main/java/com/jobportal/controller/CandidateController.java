@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.service.CandidateService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/candidates")
 @CrossOrigin("*")
+@Slf4j
 public class CandidateController {
 	
 	@Autowired
@@ -52,6 +54,7 @@ public class CandidateController {
 	public void updateCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
 		candidateService.updateCandidate(cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", cndtDTO);
 	}
 	
 	@GetMapping(value = "/search")
