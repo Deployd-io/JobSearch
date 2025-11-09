@@ -16,8 +16,10 @@ import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired
@@ -45,6 +47,8 @@ public class JobService {
 	public JobDTO findById(String id)
 	{
 		Optional<Job> optJob = dao.findById(id);
+		long start = System.currentTimeMillis();
+		log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 		
 		if (!optJob.isPresent())
 			return null;
@@ -55,9 +59,11 @@ public class JobService {
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
 	{
 		List jobs1 = dao.findByContactEmail(contactEmail);
+		long start = System.currentTimeMillis();
 		
 		List<JobContactViewDTO> jobs = dao.findByContactEmail(contactEmail).stream().map(job -> 
 			modelMapper.map(job, JobContactViewDTO.class)).collect(Collectors.toList());
+			log.info("findByContactEmail(contactEmail)={}: find query executed in {} ms", contactEmail, (System.currentTimeMillis() - start));
 		
 		// fill in the proposal details
 		jobs.forEach(job -> {
@@ -71,6 +77,7 @@ public class JobService {
 	public String createJob(JobDTO jobDTO)
 	{
 		Job job = modelMapper.map(jobDTO, Job.class);
+		long start = System.currentTimeMillis();
 		job.setCreatedOn((new Date()).toString());
 		job.setUpdatedOn(job.getCreatedOn());
 		
@@ -78,6 +85,7 @@ public class JobService {
 		job.setPoint(point);
 		
 		dao.save(job);
+		log.info("createJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
@@ -89,6 +97,8 @@ public class JobService {
 	public void updateJob(JobDTO jobDTO)
 	{
 		Optional<Job> optJob = dao.findById(jobDTO.getJobId());
+		long start = System.currentTimeMillis();
+		log.info("updateJob(jobDTO)={}: find query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		
 		if (!optJob.isPresent())
 			return;
@@ -102,12 +112,15 @@ public class JobService {
 		modelMapperService.getNonNullModelMapper().map(jobDTO, job);
 		
 		dao.save(job);
+		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 	}
 	
 	@Transactional
 	public void updateLocation(String jobId, LocationDTO location)
 	{
 		Optional<Job> optJob = dao.findById(jobId);
+		long start = System.currentTimeMillis();
+		log.info("updateLocation(jobId,location)={},{}: find query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
 		
 		if (!optJob.isPresent())
 			return;
@@ -118,5 +131,6 @@ public class JobService {
 		job.setPoint(point);
 		
 		dao.save(job);
+		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
 	}
 }
