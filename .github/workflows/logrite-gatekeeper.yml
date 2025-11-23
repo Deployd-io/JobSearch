@@ -1,4 +1,4 @@
-name: LLM Gatekeeper
+name: LogRite Gatekeeper
 
 on:
   pull_request:
@@ -19,14 +19,14 @@ jobs:
 
       - name: Build Gatekeeper Plugin
         run: |
-          cd llm-plugin
+          cd logrite-plugin
           go build -o gatekeeper
 
-      - name: Run LLM Gatekeeper
+      - name: Run LogRite Gatekeeper
         env:
           API_URL: ${{ secrets.API_URL }}
         run: |
-          cd llm-plugin
+          cd logrite-plugin
 
           ./gatekeeper \
             --branch "${{ github.head_ref }}" \
