@@ -1,0 +1,35 @@
+name: LLM Gatekeeper
+
+on:
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  llm-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Build Gatekeeper Plugin
+        run: |
+          cd llm-plugin
+          go build -o gatekeeper
+
+      - name: Run LLM Gatekeeper
+        env:
+          API_URL: ${{ secrets.API_URL }}
+        run: |
+          cd llm-plugin
+
+          ./gatekeeper \
+            --branch "${{ github.head_ref }}" \
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --commit "${{ github.sha }}"
+
