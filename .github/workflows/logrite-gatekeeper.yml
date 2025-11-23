@@ -22,6 +22,7 @@ jobs:
       - name: Build Gatekeeper Plugin
         run: |
           cd logrite-plugin
+          go mod tidy
           go build -o gatekeeper
 
       - name: Run LogRite Gatekeeper
