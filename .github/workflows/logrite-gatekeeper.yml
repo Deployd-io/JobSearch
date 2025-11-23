@@ -5,7 +5,7 @@ on:
     branches: [ main, master ]
 
 jobs:
-  llm-check:
+  log_coverage-check:
     runs-on: ubuntu-latest
 
     steps:
