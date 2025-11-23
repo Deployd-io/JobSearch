@@ -36,3 +36,10 @@ jobs:
             --base "${{ github.event.pull_request.base.sha }}" \
             --commit "${{ github.sha }}"
 
+      - name: Debug API access
+        run: |
+          echo "API_URL: $API_URL"
+          curl -v $API_URL || echo "Cannot reach API"
+        env:
+          API_URL: ${{ secrets.API_URL }}
+      
