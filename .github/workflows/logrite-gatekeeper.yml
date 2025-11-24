@@ -32,6 +32,12 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
 
+      - name: Debug PR variables
+        run: |
+          echo "HEAD_REF: ${{ github.head_ref }}"
+          echo "BASE_SHA: ${{ github.event.pull_request.base.sha }}"
+          echo "CURRENT_SHA: ${{ github.sha }}"
+
       - name: Run LogRite Gatekeeper
         env:
           API_URL: ${{ secrets.API_URL }}
