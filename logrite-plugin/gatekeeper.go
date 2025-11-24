@@ -58,6 +58,11 @@ func main() {
 
     changed := getChangedFiles(*base, *commit)
 
+    fmt.Println("Branch:", *branch)
+    fmt.Println("Base commit:", *base)
+    fmt.Println("Current commit:", *commit)
+    fmt.Println("Changed files:", changed)	
+
     reqBody := Request{
         Branch:       *branch,
         BaseCommit:   *base,
