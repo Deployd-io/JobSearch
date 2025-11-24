@@ -14,7 +14,7 @@ type Request struct {
     Branch       string   `json:"branch"`
     BaseCommit   string   `json:"base_commit"`
     Commit       string   `json:"commit"`
-    ChangedFiles []string `json:"changed_files"`
+    ChangedFiles []string `json:"changedFiles"`
 }
 
 type Response struct {
