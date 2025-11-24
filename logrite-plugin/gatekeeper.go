@@ -72,6 +72,7 @@ func main() {
 
     body, _ := json.Marshal(reqBody)
 
+    fmt.Println("JSON being sent:", string(body))
     req, _ := http.NewRequest("POST", apiURL, bytes.NewReader(body))
     req.Header.Set("Content-Type", "application/json")
 
