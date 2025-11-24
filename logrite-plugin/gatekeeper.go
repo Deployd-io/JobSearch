@@ -15,6 +15,7 @@ type Request struct {
     BaseCommit   string   `json:"base_commit"`
     Commit       string   `json:"commit"`
     ChangedFiles []string `json:"changedFiles"`
+    LogCoverage  string   `json:"logCoverageThreshold"
 }
 
 type Response struct {
@@ -55,6 +56,7 @@ func main() {
         fmt.Println("ERROR: API_URL env var not set")
         os.Exit(1)
     }
+    logCoverage := os.Getenv("LOG_COVERAGE_THRESHOLD")
 
     changed := getChangedFiles(*base, *commit)
 
@@ -68,6 +70,7 @@ func main() {
         BaseCommit:   *base,
         Commit:       *commit,
         ChangedFiles: changed,
+	LogCoverage:  logCoverage,
     }
 
     body, _ := json.Marshal(reqBody)
