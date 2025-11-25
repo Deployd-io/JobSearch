@@ -41,6 +41,7 @@ jobs:
       - name: Run LogRite Gatekeeper
         env:
           API_URL: ${{ secrets.API_URL }}
+          LOG_COVERAGE_THRESHOLD: ${{ secrets.LOG_COVERAGE_THRESHOLD }}
         run: |
           cd logrite-plugin
 
