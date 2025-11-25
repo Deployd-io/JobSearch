@@ -15,7 +15,7 @@ type Request struct {
     BaseCommit   string   `json:"base_commit"`
     Commit       string   `json:"commit"`
     ChangedFiles []string `json:"changedFiles"`
-    LogCoverage  string   `json:"logCoverageThreshold"
+    LogCoverage  string   `json:"logCoverageThreshold"`
 }
 
 type Response struct {
