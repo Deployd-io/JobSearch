@@ -41,6 +41,7 @@ jobs:
       - name: Run LogRite Gatekeeper
         env:
           API_URL: ${{ secrets.API_URL }}
+          REPO_URL: "${{ github.server_url }}/${{ github.repository }}/tree/main"
           LOG_COVERAGE_THRESHOLD: ${{ vars.LOG_COVERAGE_THRESHOLD }}
         run: |
           cd logrite-plugin

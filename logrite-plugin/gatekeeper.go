@@ -14,6 +14,7 @@ type Request struct {
     Branch       string   `json:"branch"`
     BaseCommit   string   `json:"base_commit"`
     Commit       string   `json:"commit"`
+    RepoUrl      string   `json:"repoUrl"`
     ChangedFiles []string `json:"changedFiles"`
     LogCoverage  string   `json:"logCoverageThreshold"`
 }
@@ -48,6 +49,7 @@ func main() {
     branch := flag.String("branch", "", "Branch name")
     base := flag.String("base", "", "Base commit SHA")
     commit := flag.String("commit", "", "Current commit SHA")
+    repoURL := os.Getenv("REPO_URL")
 
     flag.Parse()
 
@@ -69,6 +71,7 @@ func main() {
         Branch:       *branch,
         BaseCommit:   *base,
         Commit:       *commit,
+	RepoUrl:      *repoURL,
         ChangedFiles: changed,
 	LogCoverage:  logCoverage,
     }
