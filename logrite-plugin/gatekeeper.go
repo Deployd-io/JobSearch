@@ -49,7 +49,7 @@ func main() {
     branch := flag.String("branch", "", "Branch name")
     base := flag.String("base", "", "Base commit SHA")
     commit := flag.String("commit", "", "Current commit SHA")
-    repoURL := os.Getenv("REPO_URL")
+    repoURL := flag.String("repoURL", "", "Git Repo URL")
 
     flag.Parse()
 
