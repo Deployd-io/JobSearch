@@ -57,7 +57,7 @@ jobs:
 
           # Extract PR link
           # PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
-          PR_LINK: "test.github"
+          PR_LINK="test.github"
 
           # Set the step output
           echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
