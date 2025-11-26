@@ -15,6 +15,7 @@ type Request struct {
     BaseCommit   string   `json:"base_commit"`
     Commit       string   `json:"commit"`
     RepoUrl      string   `json:"repoUrl"`
+    GithubToken  string   `json:"githubToken"`
     ChangedFiles []string `json:"changedFiles"`
     LogCoverage  string   `json:"logCoverageThreshold"`
 }
@@ -58,6 +59,7 @@ func main() {
         fmt.Println("ERROR: API_URL env var not set")
         os.Exit(1)
     }
+    githubToken := os.Getenv("GITHUB_TOKEN")
     logCoverage := os.Getenv("LOG_COVERAGE_THRESHOLD")
 
     changed := getChangedFiles(*base, *commit)
@@ -72,6 +74,7 @@ func main() {
         BaseCommit:   *base,
         Commit:       *commit,
 	RepoUrl:      *repoURL,
+	GithubToken:  githubToken,
         ChangedFiles: changed,
 	LogCoverage:  logCoverage,
     }
