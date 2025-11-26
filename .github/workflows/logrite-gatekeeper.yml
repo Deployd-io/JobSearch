@@ -42,6 +42,7 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
           LOG_COVERAGE_THRESHOLD: ${{ vars.LOG_COVERAGE_THRESHOLD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd logrite-plugin
 
@@ -49,7 +50,7 @@ jobs:
             --branch "${{ github.head_ref }}" \
             --base "${{ github.event.pull_request.base.sha }}" \
             --commit "${{ github.sha }}" \
-            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/main"
+            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master"
 
       - name: Debug API access
         run: |
