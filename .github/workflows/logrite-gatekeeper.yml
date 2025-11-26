@@ -55,17 +55,15 @@ jobs:
 
           echo "$OUTPUT"
 
-          PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
+          # Extract PR link
+          # PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
+          PR_LINK: "test.github"
+
+          # Set the step output
           echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
 
-          echo "::error ::Coverage failed. Auto-fix PR created:"
-          exit 1
-
-          # Detect failure based on plugin exit code
-          if echo "$OUTPUT" | grep -q "STATUS=fail"; then
-            echo "::error file=logrite.txt,line=1::Coverage failed. Auto-fix PR created: $PR_LINK"
-            exit 1
-          fi
+          # Fail the step (still shows failure)
+          exit 1  
 
       - name: Show PR link in Checks UI
         if: failure()   # only if previous step failed
