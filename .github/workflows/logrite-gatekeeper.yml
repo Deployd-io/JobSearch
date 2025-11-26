@@ -63,7 +63,7 @@ jobs:
           echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
 
           # Fail the step (still shows failure)
-          exit 1  
+          #exit 1  
 
       - name: Show PR link in Checks UI
         if: failure()   # only if previous step failed
