@@ -58,7 +58,7 @@ jobs:
           PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
           echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
 
-          echo "::error file=logrite.txt,line=1::Coverage failed. Auto-fix PR created:"
+          echo "::error ::Coverage failed. Auto-fix PR created:"
           exit 1
 
           # Detect failure based on plugin exit code
