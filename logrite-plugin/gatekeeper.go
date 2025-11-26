@@ -103,6 +103,7 @@ func main() {
     	fmt.Printf("❌ Coverage check failed! Scan ID: %d\n", apiResp.ScanID)
     	fmt.Printf("❌ Coverage failed! Fixing automatically...\n")
 
+	fmt.Printf("pr_link=%s\n", "test.com")
     	// Call your API to fix the issue
     	// fixResp, err := callFixAPI(apiResp.ScanID) // implement this function
     	//if err != nil {
