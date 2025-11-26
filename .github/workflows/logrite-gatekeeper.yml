@@ -60,7 +60,7 @@ jobs:
 
           # Detect failure based on plugin exit code
           if echo "$OUTPUT" | grep -q "STATUS=fail"; then
-            echo "::error::Coverage failed. Auto-fix PR created: $PR_LINK"
+            echo "::error file=logrite.txt,line=1::Coverage failed. Auto-fix PR created: $PR_LINK"
             exit 1
           fi
 
