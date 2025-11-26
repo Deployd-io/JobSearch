@@ -51,6 +51,13 @@ jobs:
             --base "${{ github.event.pull_request.base.sha }}" \
             --commit "${{ github.sha }}" \
             --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master"
+          echo "pr_link=$(grep pr_link gatekeeper.log | cut -d '=' -f2)" >> $GITHUB_OUTPUT
+
+    - name: Show PR link in Checks UI
+        if: failure()   # only if previous step failed
+          run: |
+            echo "::error::Coverage failed. Auto-fix PR created: ${{ steps.gatekeeper.outputs.pr_link }}"
+
 
       - name: Debug API access
         run: |
