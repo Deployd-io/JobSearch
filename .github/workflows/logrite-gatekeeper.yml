@@ -39,6 +39,7 @@ jobs:
           echo "CURRENT_SHA: ${{ github.sha }}"
 
       - name: Run LogRite Gatekeeper
+        id: gatekeeper
         env:
           API_URL: ${{ secrets.API_URL }}
           LOG_COVERAGE_THRESHOLD: ${{ vars.LOG_COVERAGE_THRESHOLD }}
@@ -53,10 +54,10 @@ jobs:
             --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master"
           echo "pr_link=$(grep pr_link gatekeeper.log | cut -d '=' -f2)" >> $GITHUB_OUTPUT
 
-    - name: Show PR link in Checks UI
+      - name: Show PR link in Checks UI
         if: failure()   # only if previous step failed
-          run: |
-            echo "::error::Coverage failed. Auto-fix PR created: ${{ steps.gatekeeper.outputs.pr_link }}"
+        run: |
+          echo "::error::Coverage failed. Auto-fix PR created: ${{ steps.gatekeeper.outputs.pr_link }}"
 
 
       - name: Debug API access
