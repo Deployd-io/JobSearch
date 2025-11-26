@@ -62,6 +62,8 @@ jobs:
           # Set the step output
           echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
 
+          echo "::error::Coverage failed. Auto-fix PR created: test.com"
+
           # Fail the step (still shows failure)
           #exit 1  
 
