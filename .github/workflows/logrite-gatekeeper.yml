@@ -53,16 +53,16 @@ jobs:
           --commit "${{ github.sha }}" \
           --repoURL "${{ github.server_url }}/${{ github.repository }}.git")
 
-        echo "$OUTPUT"
+          echo "$OUTPUT"
 
-        PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
-        echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
+          PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
+          echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
 
-        # Detect failure based on plugin exit code
-        if echo "$OUTPUT" | grep -q "STATUS=fail"; then
-          echo "::error::Coverage failed. Auto-fix PR created: $PR_LINK"
-          exit 1
-        fi
+          # Detect failure based on plugin exit code
+          if echo "$OUTPUT" | grep -q "STATUS=fail"; then
+            echo "::error::Coverage failed. Auto-fix PR created: $PR_LINK"
+            exit 1
+          fi
 
       - name: Show PR link in Checks UI
         if: failure()   # only if previous step failed
