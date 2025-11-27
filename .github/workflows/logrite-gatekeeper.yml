@@ -47,16 +47,22 @@ jobs:
         run: |
           cd logrite-plugin
 
-          ./gatekeeper \
-            --branch "${{ github.head_ref }}" \
-            --base "${{ github.event.pull_request.base.sha }}" \
-            --commit "${{ github.sha }}" \
-            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master"
+        OUTPUT=$(./gatekeeper \
+          --branch "${{ github.head_ref }}" \
+          --base "${{ github.event.pull_request.base.sha }}" \
+          --commit "${{ github.sha }}" \
+          --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master" 2>&1)
 
-          echo "::error::Coverage1 failed. Auto-fix PR created: test.com"
+        echo "--- Gatekeeper Output ---"
+        echo "$OUTPUT"
 
-          # Fail the step (still shows failure)
-          #exit 1  
+        # Extract STATUS
+        STATUS=$(echo "$OUTPUT" | grep "STATUS:" | awk '{print $2}')
+        echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
+
+        # Extract PR link
+        PR_LINK=$(echo "$OUTPUT" | grep "PR_LINK:" | awk '{print $2}')
+        echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT  
 
       - name: Debug API access
         run: |
