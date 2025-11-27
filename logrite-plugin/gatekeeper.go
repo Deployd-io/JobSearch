@@ -21,7 +21,7 @@ type Request struct {
 }
 
 type Response struct {
-    ScanID      int    `json:"scanId"`
+    PRLink  string    `json:"prLink"`
     Status  string `json:"status"`
     Message string `json:"message"`
 }
@@ -100,20 +100,9 @@ func main() {
     if apiResp.Status == "allow" {
     	os.Exit(0)
     } else {
-    	fmt.Printf("❌ Coverage check failed! Scan ID: %d\n", apiResp.ScanID)
     	fmt.Printf("❌ Coverage failed! Fixing automatically...\n")
 
-	fmt.Printf("pr_link=%s\n", "test.com")
-    	// Call your API to fix the issue
-    	// fixResp, err := callFixAPI(apiResp.ScanID) // implement this function
-    	//if err != nil {
-        //	fmt.Println("API ERROR while fixing:", err)
-        //	os.Exit(1)
-    	//}
-
-    	// fixResp should contain the PR link
-    	// fmt.Printf("✅ Fix applied! Review the PR here: %s\n", fixResp.PRLink)
-
+	fmt.Println("PR_LINK:", "test.com")
     	os.Exit(1)
     }
 
