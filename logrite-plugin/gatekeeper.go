@@ -95,16 +95,13 @@ func main() {
     var apiResp Response
     json.NewDecoder(res.Body).Decode(&apiResp)
 
+    fmt.Println("STATUS:", apiResp.Status)
     fmt.Println("API RESPONSE:", apiResp.Message)
+    fmt.Println("PR Link:", apiResp.PRLink)
 
-    if apiResp.Status == "allow" {
-    	os.Exit(0)
-    } else {
+    if apiResp.Status != "allow" {
     	fmt.Printf("❌ Coverage failed! Fixing automatically...\n")
-
-	fmt.Println("PR_LINK:", "test.com")
-    	os.Exit(0)
+    	fmt.Println("PR_LINK:", apiResp.PRLink)
     }
-
 }
 
