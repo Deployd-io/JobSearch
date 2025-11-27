@@ -49,20 +49,20 @@ jobs:
 
           OUTPUT=$(./gatekeeper \
             --branch "${{ github.head_ref }}" \
-          --base "${{ github.event.pull_request.base.sha }}" \
-          --commit "${{ github.sha }}" \
-          --repoURL "${{ github.server_url }}/${{ github.repository }}.git")
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --commit "${{ github.sha }}" \
+            --repoURL "${{ github.server_url }}/${{ github.repository }}.git" 2>&1)
 
           echo "$OUTPUT"
 
           # Extract PR link
-          # PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
-          PR_LINK="test.github"
+          PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
+          # PR_LINK="test.github"
 
           # Set the step output
           echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
 
-          echo "::error::Coverage failed. Auto-fix PR created: test.com"
+          echo "::error::Coverage1 failed. Auto-fix PR created: test.com"
 
           # Fail the step (still shows failure)
           #exit 1  
