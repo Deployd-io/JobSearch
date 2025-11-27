@@ -58,12 +58,6 @@ jobs:
           # Fail the step (still shows failure)
           #exit 1  
 
-      - name: Show PR link in Checks UI
-        if: failure()   # only if previous step failed
-        run: |
-          echo "::error::Coverage failed. Auto-fix PR created: ${{ steps.gatekeeper.outputs.pr_link }}"
-
-
       - name: Debug API access
         run: |
           echo "API_URL: $API_URL"
