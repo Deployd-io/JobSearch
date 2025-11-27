@@ -47,20 +47,11 @@ jobs:
         run: |
           cd logrite-plugin
 
-          OUTPUT=$(./gatekeeper \
+          ./gatekeeper \
             --branch "${{ github.head_ref }}" \
             --base "${{ github.event.pull_request.base.sha }}" \
             --commit "${{ github.sha }}" \
-            --repoURL "${{ github.server_url }}/${{ github.repository }}.git" 2>&1)
-
-          echo "$OUTPUT"
-
-          # Extract PR link
-          PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
-          # PR_LINK="test.github"
-
-          # Set the step output
-          echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
+            --repoURL "${{ github.server_url }}/${{ github.repository }}.git"
 
           echo "::error::Coverage1 failed. Auto-fix PR created: test.com"
 
