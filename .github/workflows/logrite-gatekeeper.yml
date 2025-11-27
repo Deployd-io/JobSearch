@@ -64,6 +64,32 @@ jobs:
           PR_LINK=$(echo "$OUTPUT" | grep "PR_LINK:" | awk '{print $2}')
           echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT  
 
+      - name: Fail if gatekeeper fails
+        if: steps.gatekeeper.outputs.STATUS != 'allow'
+        run: |
+          echo "::error::Coverage failed. See auto-fix PR."
+          exit 1
+
+      - name: Comment on PR with PR link
+        if: steps.gatekeeper.outputs.STATUS != 'allow'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) return;
+
+            const prLink = "${{ steps.gatekeeper.outputs.pr_link }}"; // or hardcoded
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body: `❌ **Coverage check failed**
+              Auto-fix PR created: [Click here](${prLink})`
+            });
+          
+
       - name: Debug API access
         run: |
           echo "API_URL: $API_URL"
