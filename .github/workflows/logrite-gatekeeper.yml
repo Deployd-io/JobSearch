@@ -53,7 +53,7 @@ jobs:
             --commit "${{ github.sha }}" \
             --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master"
 
-            #echo "::error::Coverage1 failed. Auto-fix PR created: test.com"
+          echo "::error::Coverage1 failed. Auto-fix PR created: test.com"
 
           # Fail the step (still shows failure)
           #exit 1  
