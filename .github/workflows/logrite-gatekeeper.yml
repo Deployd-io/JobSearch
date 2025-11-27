@@ -47,22 +47,22 @@ jobs:
         run: |
           cd logrite-plugin
 
-        OUTPUT=$(./gatekeeper \
-          --branch "${{ github.head_ref }}" \
-          --base "${{ github.event.pull_request.base.sha }}" \
-          --commit "${{ github.sha }}" \
-          --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master" 2>&1)
+          OUTPUT=$(./gatekeeper \
+            --branch "${{ github.head_ref }}" \
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --commit "${{ github.sha }}" \
+            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master" 2>&1)
 
-        echo "--- Gatekeeper Output ---"
-        echo "$OUTPUT"
+          echo "--- Gatekeeper Output ---"
+          echo "$OUTPUT"
 
-        # Extract STATUS
-        STATUS=$(echo "$OUTPUT" | grep "STATUS:" | awk '{print $2}')
-        echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
+          # Extract STATUS
+          STATUS=$(echo "$OUTPUT" | grep "STATUS:" | awk '{print $2}')
+          echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
 
-        # Extract PR link
-        PR_LINK=$(echo "$OUTPUT" | grep "PR_LINK:" | awk '{print $2}')
-        echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT  
+          # Extract PR link
+          PR_LINK=$(echo "$OUTPUT" | grep "PR_LINK:" | awk '{print $2}')
+          echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT  
 
       - name: Debug API access
         run: |
