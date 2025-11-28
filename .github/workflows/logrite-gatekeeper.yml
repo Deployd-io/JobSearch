@@ -1,5 +1,10 @@
 name: LogRite Gatekeeper
 
+permissions:
+  pull-requests: write
+  contents: write
+  issues: write
+
 on:
   pull_request:
     branches: [ main, master, develop ]
@@ -49,26 +54,54 @@ jobs:
 
           OUTPUT=$(./gatekeeper \
             --branch "${{ github.head_ref }}" \
-          --base "${{ github.event.pull_request.base.sha }}" \
-          --commit "${{ github.sha }}" \
-          --repoURL "${{ github.server_url }}/${{ github.repository }}.git")
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --commit "${{ github.sha }}" \
+            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master" 2>&1)
 
+          echo "--- Gatekeeper Output ---"
           echo "$OUTPUT"
 
-          PR_LINK=$(echo "$OUTPUT" | grep pr_link | cut -d '=' -f2)
-          echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT
+          # Extract STATUS
+          STATUS=$(echo "$OUTPUT" | grep "STATUS:" | awk '{print $2}')
+          echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
 
-          # Detect failure based on plugin exit code
-          if echo "$OUTPUT" | grep -q "STATUS=fail"; then
-            echo "::error::Coverage failed. Auto-fix PR created: $PR_LINK"
-            exit 1
+          # Extract PR link
+          PR_LINK=$(echo "$OUTPUT" | grep "PR_LINK:" | awk '{print $2}')
+          echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT  
+
+      - name: Mark gatekeeper status
+        id: gatekeeper_status
+        run: |
+          if [ "${{ steps.gatekeeper.outputs.STATUS }}" != "allow" ]; then
+            echo "failed=true" >> $GITHUB_OUTPUT
+          else
+            echo "failed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Show PR link in Checks UI
-        if: failure()   # only if previous step failed
-        run: |
-          echo "::error::Coverage failed. Auto-fix PR created: ${{ steps.gatekeeper.outputs.pr_link }}"
 
+      - name: Comment on PR with PR link
+        if: steps.gatekeeper_status.outputs.failed == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) return;
+
+            const prLink = "${{ steps.gatekeeper.outputs.pr_link }}";
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body: `❌ **Coverage check failed**
+              Auto-fix PR created: [Click here](${prLink})`
+            });
+
+      - name: Fail job if needed
+        if: steps.gatekeeper_status.outputs.failed == 'true'
+        run: exit 1
+          
 
       - name: Debug API access
         run: |
