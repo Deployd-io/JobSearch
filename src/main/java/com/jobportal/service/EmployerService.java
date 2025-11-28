@@ -50,6 +50,8 @@ public class EmployerService {
 	{
 		log.debug(">>> Entering findAll()");
 		long start = System.currentTimeMillis();
+		long start = System.currentTimeMillis();
+		log.debug("findAll(): start → {}", start);
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
@@ -77,7 +79,9 @@ public class EmployerService {
 		}
 		test2 = "tesst 2";
 		log.debug("findById(id={}): test2 → {}", id, test2);
+		log.debug("findById(id={}): test2 → {}", id, test2);
 		e.setEmail("a@yahoo.com");
+		log.debug("findById(id={}): e → {}", id, e);
 		log.debug("findById(id={}): e → {}", id, e);
 		
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
@@ -128,9 +132,11 @@ public class EmployerService {
 		
 		test3 = 29;
 		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
+		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
 		emp.setPoint(point);
+		log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 		log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
