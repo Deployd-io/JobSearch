@@ -25,7 +25,7 @@ public class SearchDAO {
 				.matchingAny(term.split("\\s+"));  // handles multiple words
 
 		Query query = TextQuery.queryText(criteria)
-				.with(Sort.by(Sort.Direction.DESC, "updatedOn"))
+				.with(Sort.by(Sort.Direction.ASC, "updatedOn"))
 				.with(p);
 
 		List<T> result = template.find(query, className);
