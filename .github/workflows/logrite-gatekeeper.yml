@@ -94,7 +94,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: pr.number,
-              body: `❌ **Coverage check failed**
+              body: `❌ **LogCoverage check failed**
               Auto-fix PR created: [Click here](${prLink})`
             });
 
