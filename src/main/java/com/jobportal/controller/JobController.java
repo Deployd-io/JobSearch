@@ -71,7 +71,6 @@ public class JobController {
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
 		String testValue = "Testing my local changes";
-		testValue = "value changed, needs logging";
 
 		jobService.updateJob(jobDTO);
 	}
