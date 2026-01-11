@@ -28,10 +28,7 @@ public class JobService {
 	
 	@Autowired
 	ModelMapperService modelMapperService;
-	
-	@Autowired
-	LocationService locationService;
-	
+
 	@Autowired
 	ProposalService proposalService;
 	
