@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Backend Engineer",
+    "description": "Java Spring Boot role",
+    "city": "San Francisco",
+    "companyName": "Tech Inc"
+  },
+  {
+    "title": "Full Stack Developer",
+    "description": "React + Java",
+    "city": "Austin",
+    "companyName": "Startup LLC"
+  }
+]
