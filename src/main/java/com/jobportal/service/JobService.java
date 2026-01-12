@@ -16,8 +16,10 @@ import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired
@@ -35,12 +37,14 @@ public class JobService {
 	
 	public List<JobDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	
 	public JobDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
 		Optional<Job> optJob = dao.findById(id);
 		
 		if (!optJob.isPresent())
@@ -51,6 +55,7 @@ public class JobService {
 	
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
 	{
+		log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
 		List jobs1 = dao.findByContactEmail(contactEmail);
 		
 		List<JobContactViewDTO> jobs = dao.findByContactEmail(contactEmail).stream().map(job -> 
@@ -67,6 +72,7 @@ public class JobService {
 	@Transactional
 	public String createJob(JobDTO jobDTO)
 	{
+		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		Job job = modelMapper.map(jobDTO, Job.class);
 		job.setCreatedOn((new Date()).toString());
 		job.setUpdatedOn(job.getCreatedOn());
@@ -85,6 +91,7 @@ public class JobService {
 	@Transactional
 	public void updateJob(JobDTO jobDTO)
 	{
+		log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 		Optional<Job> optJob = dao.findById(jobDTO.getJobId());
 		
 		if (!optJob.isPresent())
@@ -104,6 +111,7 @@ public class JobService {
 	@Transactional
 	public void updateLocation(String jobId, LocationDTO location)
 	{
+		log.debug(">>> Entering updateLocation(jobId={},location={})", jobId, location);
 		Optional<Job> optJob = dao.findById(jobId);
 		
 		if (!optJob.isPresent())
