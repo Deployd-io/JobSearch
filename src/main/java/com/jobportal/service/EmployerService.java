@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -53,6 +55,7 @@ public class EmployerService {
 	public EmployerDTO findById(String id)
 	{
 		Optional<Employer> optEmp = dao.findById(id);
+		long start = System.currentTimeMillis();
 		
 		if (!optEmp.isPresent())
 			return null;
@@ -72,6 +75,7 @@ public class EmployerService {
 	public String createEmployer(EmployerDTO empDTO)
 	{
 		Employer emp = modelMapper.map(empDTO, Employer.class);
+		long start = System.currentTimeMillis();
 		emp.setCreatedOn((new Date()).toString());
 		emp.setUpdatedOn(emp.getCreatedOn());
 		
@@ -79,6 +83,7 @@ public class EmployerService {
 		emp.setPoint(point);
 		
 		dao.save(emp);
+		log.info("createEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		
 		return emp.getEmployerId();
 	}
@@ -88,6 +93,7 @@ public class EmployerService {
 	public void updateEmployer(EmployerDTO empDTO)
 	{
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
+		long start = System.currentTimeMillis();
 		
 		if (!optEmp.isPresent())
 			return;
@@ -108,6 +114,7 @@ public class EmployerService {
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
 		dao.save(emp);
+		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 	}
 
 	public boolean validateEmployer(String employerId)
