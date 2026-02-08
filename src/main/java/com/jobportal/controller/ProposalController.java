@@ -16,9 +16,11 @@ import com.jobportal.dto.ProposalDTO;
 import com.jobportal.service.ProposalService;
 import com.jobportal.service.SearchService;
 
+import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/proposals")
 @CrossOrigin("*")
+@Slf4j
 public class ProposalController {
 	
 	@Autowired
@@ -30,7 +32,10 @@ public class ProposalController {
 	
 	@GetMapping
 	public List<ProposalDTO> findAll()
+	log.debug(">>> Entering findAll()");
 	{
+		log.debug("<<< Exiting findAll()");
+		log.info("findAll()=): query {} executed in {} ms", , query, (System.currentTimeMillis() - start));
 		return proposalService.findAll();
 	}
 	
@@ -48,14 +53,18 @@ public class ProposalController {
 	
 	@PostMapping
 	public String createProposal(@RequestBody ProposalDTO proposalDTO)
+	log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
 	{
+		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 		return proposalService.createProposal(proposalDTO);
 	}
 	
 	@PutMapping
 	public void updateProposal(@RequestBody ProposalDTO proposalDTO)
+	log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
 	{
 		proposalService.updateProposal(proposalDTO);
+		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	}
  
 }
