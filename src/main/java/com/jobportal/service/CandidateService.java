@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.CandidateDAO;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.model.Candidate;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class CandidateService {
 
 	@Autowired
@@ -63,6 +65,7 @@ public class CandidateService {
 	@Transactional
 	public void updateCandidate(CandidateDTO cndtDTO)
 	{
+		log.info("updateCandidate(cndtDTO)={}): SOC2-AUDIT: Change management operation performed by initiator {}", cndtDTO, changeInitiator);
 		Optional<Candidate> optCndt = dao.findById(cndtDTO.getCandidateId());
 		
 		if (!optCndt.isPresent())
