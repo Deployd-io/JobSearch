@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/employers")
 @CrossOrigin("*")
+@Slf4j
 public class EmployerController {
 	
 	@Autowired
@@ -31,6 +33,8 @@ public class EmployerController {
 	@GetMapping
 	public List<EmployerDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
+		log.debug("<<< Exiting findAll()");
 		return employerService.findAll();
 	}
 	
@@ -43,6 +47,8 @@ public class EmployerController {
 	@PostMapping
 	public String createEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
+		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return employerService.createEmployer(empDTO);
 	}
 	
@@ -50,6 +56,8 @@ public class EmployerController {
 	public void updateEmployer(@RequestBody EmployerDTO empDTO)
 	{
 		employerService.updateEmployer(empDTO);
+		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
+		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	}
  
 }
