@@ -16,8 +16,10 @@ import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired
@@ -99,6 +101,7 @@ public class JobService {
 		modelMapperService.getNonNullModelMapper().map(jobDTO, job);
 		
 		dao.save(job);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT: Change management operation performed", jobDTO);
 	}
 	
 	@Transactional
@@ -115,5 +118,6 @@ public class JobService {
 		job.setPoint(point);
 		
 		dao.save(job);
+		log.info("updateLocation(jobId,location)={},{}): SOC2-AUDIT: Change management operation performed", jobId, location);
 	}
 }
