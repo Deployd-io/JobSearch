@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -46,24 +48,36 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
+		long start = System.currentTimeMillis();
+		log.info("findAll(): find query executed in {} ms", (System.currentTimeMillis() - start));
+		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
 	public EmployerDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		long start = System.currentTimeMillis();
+		log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 		Optional<Employer> optEmp = dao.findById(id);
 		
 		if (!optEmp.isPresent())
 			return null;
 		
+		log.debug("findById(id={}): test2 → {}", id, test2);
 		try {
 			
+			log.debug("findById(id={}): test2 → {}", id, test2);
 		} catch (Exception e) {
+			log.debug("<<< Exiting findById(id={})", id);
 			e.printStackTrace();
+			log.error("Exception in findById(id={}): {}", id, e.getMessage(), e);
 		}
 		test2 = "tesst 2";
 		e.setEmail("a@yahoo.com");
+		log.debug("findById(id={}): e → {}", id, e);
 		
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
@@ -71,15 +85,21 @@ public class EmployerService {
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
+		long start = System.currentTimeMillis();
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
 		emp.setUpdatedOn(emp.getCreatedOn());
+		log.debug("createEmployer(empDTO={}): emp → {}", empDTO, emp);
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
+		log.debug("createEmployer(empDTO={}): point → {}", empDTO, point);
 		emp.setPoint(point);
 		
 		dao.save(emp);
+		log.info("createEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		
+		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return emp.getEmployerId();
 	}
 	
@@ -87,37 +107,51 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
+		long start = System.currentTimeMillis();
+		log.info("updateEmployer(empDTO)={}: find query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
 		if (!optEmp.isPresent())
 			return;
+			log.debug("updateEmployer(empDTO={}): optEmp → {}", empDTO, optEmp);
 
 		Employer emp = null;
 		try {
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Exception in updateEmployer(empDTO={}): {}", empDTO, e.getMessage(), e);
 		}
 		
 		test3 = 29;
+		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
+		log.debug("updateEmployer(empDTO={}): point → {}", empDTO, point);
+		log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 		emp.setPoint(point);
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
 		dao.save(emp);
+		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 	}
 
 	public boolean validateEmployer(String employerId)
 	{
+		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
+		long start = System.currentTimeMillis();
 		ResponseEntity<EmployerDTO> response = restTemplate
 				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
 		if (response.getStatusCode() == HttpStatus.OK) {
+			log.info("validateEmployer(employerId)={}: external service call {} took {} ms", employerId, kycValidatorUrl, (System.currentTimeMillis() - start));
 			return true;
 		}
 
+		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
 
