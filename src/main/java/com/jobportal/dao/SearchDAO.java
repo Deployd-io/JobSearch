@@ -24,7 +24,7 @@ public class SearchDAO {
 		TextCriteria criteria = TextCriteria.forDefaultLanguage()
 				.matchingAny(term.split("\\s+"));  // handles multiple words
 
-		Query query = TextQuery.queryText(criteria)
+		Query query = new Query()
 				.with(Sort.by(Sort.Direction.DESC, "updatedOn"))
 				.with(p);
 
