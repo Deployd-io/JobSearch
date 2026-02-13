@@ -22,7 +22,7 @@ public class SearchDAO {
 	public <T> List<T> searchByTerm(Class<T> className, String term, Pageable p)
 	{
 		TextCriteria criteria = TextCriteria.forDefaultLanguage()
-				.matchingAny(term.split("\\s+"));  // handles multiple words
+				.matching(term);  // use direct matching for better performance
 
 		Query query = TextQuery.queryText(criteria)
 				.with(Sort.by(Sort.Direction.DESC, "updatedOn"))
