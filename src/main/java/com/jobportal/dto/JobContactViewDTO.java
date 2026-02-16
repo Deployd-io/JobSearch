@@ -9,6 +9,7 @@ import lombok.Setter;
 public class JobContactViewDTO extends AuditableDTO {
 	
 	private String jobId;	
+logger.debug("Entering getProposalCount() method");
 	private String title;
 	private String description;
 	
