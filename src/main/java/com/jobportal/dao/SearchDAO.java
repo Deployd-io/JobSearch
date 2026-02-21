@@ -29,9 +29,10 @@ public class SearchDAO {
 				.matchingAny(term.split("\\s+"));  // handles multiple words
 
 		Query query = new Query()
+				.addCriteria(criteria)
 				.with(Sort.by(Sort.Direction.DESC, "updatedOn"))
 				.with(p);
-				log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
 
 		List<T> result = template.find(query, className);
 		log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
