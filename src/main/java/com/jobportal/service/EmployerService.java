@@ -141,13 +141,17 @@ public class EmployerService {
 	{
 		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
 		long start = System.currentTimeMillis();
-		ResponseEntity<EmployerDTO> response = restTemplate
-				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
-		if (response.getStatusCode() == HttpStatus.OK) {
-			log.info("validateEmployer(employerId)={}: external service call {} took {} ms", employerId, kycValidatorUrl, (System.currentTimeMillis() - start));
-			return true;
+		try {
+			String url = kycValidatorUrl.contains("{") ? kycValidatorUrl : kycValidatorUrl + "?employerId={id}";
+			ResponseEntity<EmployerDTO> response = restTemplate
+					.getForEntity(url, EmployerDTO.class, employerId);
+			if (response.getStatusCode() == HttpStatus.OK) {
+				log.info("validateEmployer(employerId)={}: external service call {} took {} ms", employerId, kycValidatorUrl, (System.currentTimeMillis() - start));
+				return true;
+			}
+		} catch (Exception e) {
+			log.error("Exception in validateEmployer(employerId={}): {}", employerId, e.getMessage(), e);
 		}
-
 		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
