@@ -22,20 +22,31 @@ public class EmployerMongoJsonDataLoader {
     private final ObjectMapper objectMapper;
 
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
         this.mongoTemplate = mongoTemplate;
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
         this.objectMapper = objectMapper;
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
+		log.debug("<<< Exiting EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
     }
 
     @PostConstruct
+	log.debug(">>> Entering loadEmployers()");
     public void loadEmployers() throws Exception {
+	log.debug(">>> Entering loadEmployers()");
 
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
             return;
         }
+		log.debug("loadEmployers(): is → {}", is);
 
         InputStream is = new ClassPathResource("employers.json").getInputStream();
+		log.debug(">>> Entering readValue()");
         List<Employer> employers =
                 objectMapper.readValue(is, new TypeReference<List<Employer>>() {});
+				log.debug("<<< Exiting readValue()");
+				log.debug(">>> Entering readValue()");
 
         mongoTemplate.insert(employers, Employer.class);
 
