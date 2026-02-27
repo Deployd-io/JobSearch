@@ -12,24 +12,31 @@ import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @Slf4j
 public class MongoJsonDataLoader {
 
     private final MongoTemplate mongoTemplate;
     private final ObjectMapper objectMapper;
+	log.debug(">>> Entering MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
 
     public MongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
 		log.debug(">>> Entering MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
         this.mongoTemplate = mongoTemplate;
+		log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
         this.objectMapper = objectMapper;
+		log.debug("<<< Exiting MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
     }
 
     @PostConstruct
     public void loadData() throws Exception {
 		log.debug(">>> Entering loadData()");
         if (mongoTemplate.getCollection("job").countDocuments() > 0) {
+			log.debug("loadData(): is → {}", is);
             return;
         }
 
