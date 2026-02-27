@@ -11,20 +11,24 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class MongoJsonDataLoader {
 
     private final MongoTemplate mongoTemplate;
     private final ObjectMapper objectMapper;
 
     public MongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug(">>> Entering MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
         this.mongoTemplate = mongoTemplate;
         this.objectMapper = objectMapper;
     }
 
     @PostConstruct
     public void loadData() throws Exception {
+		log.debug(">>> Entering loadData()");
         if (mongoTemplate.getCollection("job").countDocuments() > 0) {
             return;
         }
