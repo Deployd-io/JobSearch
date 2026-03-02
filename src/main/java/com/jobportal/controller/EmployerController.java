@@ -16,10 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/employers")
+@Slf4j
 @CrossOrigin("*")
+@Slf4j
 public class EmployerController {
 	
 	@Autowired
@@ -28,34 +34,55 @@ public class EmployerController {
 	@Autowired
 	SearchService searchService;
 	
+	log.debug(">>> Entering findAll()");
 	
 	@GetMapping
+	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting findAll()");
 	public List<EmployerDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
+		log.debug("<<< Exiting findAll()");
 		return employerService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		return employerService.findById(id);
 	}
+	log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 	
+	log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 	@PostMapping
 	public String createEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		return employerService.createEmployer(empDTO);
 	}
+	log.debug(">>> Entering validateEmployer()");
+	log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 	
+	log.debug("validateEmployer(): isValid → {}", isValid);
 	@PutMapping
+	log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+	log.debug("<<< Exiting validateEmployer()");
 	public void updateEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		employerService.updateEmployer(empDTO);
+		log.debug(">>> Entering validateEmployer()");
 	}
 
+	log.debug("validateEmployer(): isValid → {}", isValid);
     @GetMapping("/{employerId}/validate")
     public ResponseEntity<Boolean> validateEmployer(
             @PathVariable String employerId) {
+			log.debug("<<< Exiting validateEmployer()");
+			log.debug(">>> Entering validateEmployer()");
 
         boolean isValid = employerService.validateEmployer(employerId);
         return ResponseEntity.ok(isValid);
