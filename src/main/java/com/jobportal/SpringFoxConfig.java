@@ -13,10 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
+log.debug(">>> Entering api()");
 @Slf4j
 @Configuration
 log.debug(">>> Entering api()");
+log.debug("<<< Exiting api()");
 @Slf4j
 @EnableSwagger2
 log.debug(">>> Entering api()");

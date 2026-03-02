@@ -16,14 +16,21 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 
 @Slf4j
 @Repository
+log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
+long start = System.currentTimeMillis();
 @Slf4j
 public class SearchDAO {
 	log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
+	log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+	log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
+	log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
 	long start = System.currentTimeMillis();
 	
 	@Autowired

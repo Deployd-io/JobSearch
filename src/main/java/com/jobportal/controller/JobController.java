@@ -61,27 +61,35 @@ public class JobController {
 	{
 	log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 	log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
+	log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
+		log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
+		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		String result = "";
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		try {
 			log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
+			log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 			result = jobService.createJob(jobDTO);
+			log.debug("updateJob(jobDTO={}): testValue → {}", jobDTO, testValue);
 		} catch (Exception e) {
 			log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 			log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
+			log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
 			e.printStackTrace();;
 			log.debug("updateJob(jobDTO={}): testValue → {}", jobDTO, testValue);
 			log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		}
 		log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
+		log.debug(">>> Entering search(term={},p={})", term, p);
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
 		return result;
 	}
+	log.debug("<<< Exiting search(term={},p={})", term, p);
 
 	@PutMapping
 	log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
