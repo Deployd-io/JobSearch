@@ -24,20 +24,27 @@ public class EmployerMongoJsonDataLoader {
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
 		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
 		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
         this.mongoTemplate = mongoTemplate;
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
         this.objectMapper = objectMapper;
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
+		log.debug(">>> Entering loadEmployers()");
 		log.debug("<<< Exiting EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
     }
 
     @PostConstruct
 	log.debug(">>> Entering loadEmployers()");
     public void loadEmployers() throws Exception {
+	log.debug("loadEmployers(): is → {}", is);
 	log.debug(">>> Entering loadEmployers()");
 
+		log.debug(">>> Entering readValue()");
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
             return;
+			log.debug("<<< Exiting readValue()");
         }
 		log.debug("loadEmployers(): is → {}", is);
 

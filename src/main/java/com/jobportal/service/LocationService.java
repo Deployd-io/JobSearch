@@ -8,6 +8,8 @@ import com.jobportal.client.LocationClient;
 import com.jobportal.dto.LocationDTO;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
@@ -19,9 +21,12 @@ public class LocationService {
 	
 	@Autowired
 	JobService jobService;
+	log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
 	
+	log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 	@Async
 	log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
+	log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
 	public void findByAddress(String jobId, String address)
 	{
 	log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);

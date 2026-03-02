@@ -18,6 +18,8 @@ import com.jobportal.dto.LocationDTO;
 import com.jobportal.model.Job;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
@@ -35,30 +37,43 @@ public class JobService {
 
 	@Autowired
 	ProposalService proposalService;
+	log.debug(">>> Entering findAll()");
+	long start = System.currentTimeMillis();
 	
 	
 	log.debug(">>> Entering findAll()");
 	long start = System.currentTimeMillis();
 	public List<JobDTO> findAll()
 	{
+	log.debug("<<< Exiting findAll()");
 		log.debug(">>> Entering findAll()");
+		log.debug("findById(id={}): optJob → {}", id, optJob);
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	log.debug(">>> Entering findById(id={})", id);
+	log.debug("<<< Exiting findById(id={})", id);
 	long start = System.currentTimeMillis();
 	
 	log.debug("findById(id={}): optJob → {}", id, optJob);
 	long start = System.currentTimeMillis();
+	log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
+	long start = System.currentTimeMillis();
 	log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
+	log.debug("findByContactEmail(contactEmail={}): jobs1 → {}", contactEmail, jobs1);
+	long start = System.currentTimeMillis();
 	public JobDTO findById(String id)
 	{
 		log.debug(">>> Entering findById(id={})", id);
+		log.info("findByContactEmail(contactEmail)={}: find query executed in {} ms", contactEmail, (System.currentTimeMillis() - start));
 		Optional<Job> optJob = dao.findById(id);
 		
 		log.debug("<<< Exiting findById(id={})", id);
+		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
 		if (!optJob.isPresent())
+			log.debug("findByContactEmail(contactEmail={}): job → {}", contactEmail, job);
 			return null;
 		
 		return modelMapper.map(optJob.get(), JobDTO.class);
@@ -68,15 +83,21 @@ public class JobService {
 	
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
 	{
+	log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
+	long start = System.currentTimeMillis();
 		log.info("findByContactEmail(contactEmail)={}: find query executed in {} ms", contactEmail, (System.currentTimeMillis() - start));
 		log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
 		List jobs1 = dao.findByContactEmail(contactEmail);
 		
+		log.debug("createJob(jobDTO={}): point → {}", jobDTO, point);
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
 		List<JobContactViewDTO> jobs = dao.findByContactEmail(contactEmail).stream().map(job -> 
 			modelMapper.map(job, JobContactViewDTO.class)).collect(Collectors.toList());
+			log.debug("createJob(jobDTO={}): job → {}", jobDTO, job);
+			log.info("createJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 			log.debug("findByContactEmail(contactEmail={}): job → {}", contactEmail, job);
 		
+		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		// fill in the proposal details
 		jobs.forEach(job -> {
 			job.setProposals(proposalService.findByJobId(job.getJobId()));
@@ -85,6 +106,9 @@ public class JobService {
 		return jobs;
 	}
 	log.debug("createJob(jobDTO={}): job → {}", jobDTO, job);
+	log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
+	log.debug("updateJob(jobDTO={}): optJob → {}", jobDTO, optJob);
+	long start = System.currentTimeMillis();
 	long start = System.currentTimeMillis();
 	
 	@Transactional
@@ -95,15 +119,20 @@ public class JobService {
 		Job job = modelMapper.map(jobDTO, Job.class);
 		job.setCreatedOn((new Date()).toString());
 		log.debug("createJob(jobDTO={}): job → {}", jobDTO, job);
+		log.debug("updateJob(jobDTO={}): job → {}", jobDTO, job);
 		log.info("createJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		job.setUpdatedOn(job.getCreatedOn());
 		
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
+		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		Point point = new Point(jobDTO.getLng(), jobDTO.getLat());
 		job.setPoint(point);
 		
 		dao.save(job);
 		
+		log.debug(">>> Entering updateLocation(jobId={},location={})", jobId, location);
+		log.debug("updateLocation(jobId={},location={}): optJob → {}", jobId, location, optJob);
+		long start = System.currentTimeMillis();
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
 		return job.getJobId();
@@ -113,8 +142,10 @@ public class JobService {
 	
 	
 	@Transactional
+	log.debug("updateLocation(jobId={},location={}): job → {}", jobId, location, job);
 	public void updateJob(JobDTO jobDTO)
 	{
+		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
 		log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 		Optional<Job> optJob = dao.findById(jobDTO.getJobId());
 		
