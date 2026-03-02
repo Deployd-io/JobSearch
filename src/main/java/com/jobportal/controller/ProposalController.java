@@ -18,7 +18,9 @@ import com.jobportal.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @Slf4j
 @RequestMapping("/proposals")
@@ -31,9 +33,11 @@ public class ProposalController {
 	ProposalService proposalService;
 	
 	@Autowired
+	log.debug(">>> Entering findAll()");
 	SearchService searchService;
 	
 	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting findAll()");
 	
 	@GetMapping
 	log.debug(">>> Entering findAll()");
@@ -54,9 +58,12 @@ public class ProposalController {
 	@GetMapping(value = "/jobs/{jobId}")
 	public List<ProposalDTO> findByJobId(@PathVariable( "jobId" ) String jobId)
 	{
+	log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 	log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
+		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
 		return proposalService.findByJobId(jobId);
 	}
+	log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 	
 	log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);

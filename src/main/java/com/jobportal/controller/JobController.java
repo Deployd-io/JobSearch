@@ -60,28 +60,36 @@ public class JobController {
 	public String createJob(@RequestBody JobDTO jobDTO)
 	{
 	log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
+	log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
+		log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		String result = "";
+		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
 		try {
 			log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 			result = jobService.createJob(jobDTO);
 		} catch (Exception e) {
 			log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
+			log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 			e.printStackTrace();;
+			log.debug("updateJob(jobDTO={}): testValue → {}", jobDTO, testValue);
 			log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		}
 		log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
+		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
 		return result;
 	}
 
 	@PutMapping
 	log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+	log.debug(">>> Entering search(term={},p={})", term, p);
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
 	log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
+		log.debug("<<< Exiting search(term={},p={})", term, p);
 		log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 		String testValue = "Testing my local changes";
 		log.debug(">>> Entering search(term={},p={})", term, p);

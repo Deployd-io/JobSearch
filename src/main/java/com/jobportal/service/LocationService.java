@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
@@ -19,9 +21,12 @@ public class LocationService {
 	@Autowired
 	private LocationClient locationClient;
 	
+	log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
 	@Autowired
+	log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 	JobService jobService;
 	log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
+	log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
 	
 	log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 	@Async

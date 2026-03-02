@@ -20,7 +20,9 @@ import com.jobportal.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @Slf4j
 @RequestMapping("/candidates")
@@ -33,9 +35,11 @@ public class CandidateController {
 	CandidateService candidateService;
 	
 	@Autowired
+	log.debug(">>> Entering findAll()");
 	SearchService searchService;
 	
 	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting findAll()");
 	
 	@GetMapping
 	log.debug(">>> Entering findAll()");
@@ -50,16 +54,21 @@ public class CandidateController {
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
+		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 		return candidateService.findById(id);
 	}
+	log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 	log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 	
 	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 	@PostMapping
+	log.debug(">>> Entering search(term={},p={})", term, p);
 	public String createCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
 		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+		log.debug("<<< Exiting search(term={},p={})", term, p);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		return candidateService.createCandidate(cndtDTO);
