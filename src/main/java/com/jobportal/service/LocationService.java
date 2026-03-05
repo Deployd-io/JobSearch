@@ -14,14 +14,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
 @Slf4j
 public class LocationService {
+log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
 
+	log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 	@Autowired
 	log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
+	log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
 	private LocationClient locationClient;
 	log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 	

@@ -19,17 +19,25 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
-
+import lombok.extern.slf4j.Slf4j;
 @Slf4j
 log.debug(">>> Entering MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
+
+@Slf4j
+log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
+log.debug(">>> Entering MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
+log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
+log.debug("<<< Exiting MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
 @Component
 @Slf4j
 log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
+log.debug(">>> Entering loadData()");
 log.debug(">>> Entering MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
 public class MongoJsonDataLoader {
 log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
 
 	log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
+	log.debug("loadData(): is → {}", is);
 	log.debug(">>> Entering loadData()");
 	log.debug(">>> Entering MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
 	log.debug("<<< Exiting MongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);

@@ -23,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @RestController
@@ -33,9 +35,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CandidateController {
 	
+	log.debug(">>> Entering findAll()");
 	@Autowired
 	CandidateService candidateService;
 	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting findAll()");
 	
 	@Autowired
 	log.debug(">>> Entering findAll()");
@@ -45,22 +49,28 @@ public class CandidateController {
 	log.debug(">>> Entering findAll()");
 	log.debug("<<< Exiting findAll()");
 	
+	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 	@GetMapping
 	log.debug(">>> Entering findAll()");
 	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 	public List<CandidateDTO> findAll()
 	{
 	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
+		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 		return candidateService.findAll();
 	}
 	
+	log.debug(">>> Entering search(term={},p={})", term, p);
 	log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug("<<< Exiting search(term={},p={})", term, p);
 	log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 	log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
