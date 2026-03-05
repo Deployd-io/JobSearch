@@ -24,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @RestController
@@ -32,9 +34,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @CrossOrigin("*")
 @Slf4j
+log.debug(">>> Entering findAll()");
 public class EmployerController {
 	
 	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting findAll()");
 	@Autowired
 	EmployerService employerService;
 	log.debug(">>> Entering findAll()");
@@ -44,22 +48,27 @@ public class EmployerController {
 	log.debug(">>> Entering findAll()");
 	log.debug("<<< Exiting findAll()");
 	SearchService searchService;
+	log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 	
 	log.debug(">>> Entering findAll()");
 	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 	
 	log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 	@GetMapping
 	log.debug(">>> Entering findAll()");
 	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 	public List<EmployerDTO> findAll()
 	{
 	log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
+		log.debug(">>> Entering validateEmployer()");
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.debug("<<< Exiting validateEmployer()");
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return employerService.findAll();
 	}

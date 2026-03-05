@@ -24,22 +24,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
 @Slf4j
 public class CandidateService {
 
+	log.debug(">>> Entering findAll()");
+	long start = System.currentTimeMillis();
 	@Autowired
 	CandidateDAO dao;
 	log.debug(">>> Entering findAll()");
 	long start = System.currentTimeMillis();
 	
 	@Autowired
-	log.debug(">>> Entering findAll()");
-	long start = System.currentTimeMillis();
-	ModelMapper modelMapper;
-	
 	log.debug(">>> Entering findById(id={})", id);
 	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findAll()");
@@ -47,8 +47,8 @@ public class CandidateService {
 	long start = System.currentTimeMillis();
 	log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 	long start = System.currentTimeMillis();
-	@Autowired
-	ModelMapperService modelMapperService;
+	ModelMapper modelMapper;
+	
 	log.debug(">>> Entering findById(id={})", id);
 	log.debug("<<< Exiting findById(id={})", id);
 	long start = System.currentTimeMillis();
@@ -59,11 +59,33 @@ public class CandidateService {
 	long start = System.currentTimeMillis();
 	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 	long start = System.currentTimeMillis();
+	@Autowired
+	log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
+	long start = System.currentTimeMillis();
+	ModelMapperService modelMapperService;
+	log.debug(">>> Entering findById(id={})", id);
+	log.debug("<<< Exiting findById(id={})", id);
+	long start = System.currentTimeMillis();
+	log.debug("createCandidate(cndtDTO={}): point → {}", cndtDTO, point);
+	log.debug(">>> Entering findAll()");
+	log.debug("findById(id={}): optCndt → {}", id, optCndt);
+	long start = System.currentTimeMillis();
+	log.info("createCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
+	log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
+	long start = System.currentTimeMillis();
+	log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
+	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
+	long start = System.currentTimeMillis();
 	
 	log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 	long start = System.currentTimeMillis();
 	log.debug("<<< Exiting findAll()");
+	log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
+	long start = System.currentTimeMillis();
 	
+	log.debug("updateCandidate(cndtDTO={}): optCndt → {}", cndtDTO, optCndt);
+	long start = System.currentTimeMillis();
+	log.info("updateCandidate(cndtDTO)={}: find query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 	log.debug(">>> Entering findById(id={})", id);
 	log.debug("<<< Exiting findById(id={})", id);
 	log.debug("createCandidate(cndtDTO={}): point → {}", cndtDTO, point);
@@ -73,10 +95,12 @@ public class CandidateService {
 	log.info("createCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 	long start = System.currentTimeMillis();
 	log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
+	log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 	log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 	long start = System.currentTimeMillis();
 	long start = System.currentTimeMillis();
+	log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 	log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 	long start = System.currentTimeMillis();
 	public List<CandidateDTO> findAll()
