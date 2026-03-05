@@ -11,20 +11,27 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class MongoJsonDataLoader {
 
     private final MongoTemplate mongoTemplate;
     private final ObjectMapper objectMapper;
 
     public MongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug(">>> Entering MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
         this.mongoTemplate = mongoTemplate;
         this.objectMapper = objectMapper;
+		log.debug("MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
+		log.debug("<<< Exiting MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
+		log.debug("MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
     }
 
     @PostConstruct
     public void loadData() throws Exception {
+		log.debug(">>> Entering loadData()");
         if (mongoTemplate.getCollection("job").countDocuments() > 0) {
             return;
         }
@@ -32,6 +39,7 @@ public class MongoJsonDataLoader {
         InputStream is = new ClassPathResource("jobs.json").getInputStream();
         List<Job> jobs = objectMapper.readValue(is, new TypeReference<List<Job>>() {});
         mongoTemplate.insert(jobs, Job.class);
+		log.debug("loadData(): is → {}", is);
     }
 }
 
