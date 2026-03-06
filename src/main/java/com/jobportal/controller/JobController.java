@@ -128,6 +128,15 @@ public class JobController {
 	log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 	log.debug(">>> Entering updateJob()");
 	log.debug(">>> Entering createJob()");
+	log.debug("createJob(): result → {}", result);
+	log.debug("<<< Exiting createJob()");
+	log.debug("updateJob(): testValue → {}", testValue);
+	log.debug(">>> Entering search(Pageable p={})", Pageable p);
+	log.debug("<<< Exiting updateJob()");
+	log.error("Exception in createJob(): {}", e.getMessage(), e);
+	log.debug("<<< Exiting search(Pageable p={})", Pageable p);
+	log.debug(">>> Entering updateJob()");
+	log.debug(">>> Entering createJob()");
 		log.debug("createJob(): result → {}", result);
 		log.debug("<<< Exiting createJob()");
 		log.debug("updateJob(): testValue → {}", testValue);
