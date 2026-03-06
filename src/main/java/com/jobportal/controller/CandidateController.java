@@ -21,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @RestController
@@ -33,8 +35,10 @@ public class CandidateController {
 	
 	@Autowired
 	CandidateService candidateService;
+	log.debug(">>> Entering findAll()");
 	
 	@Autowired
+	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering findAll()");
 	SearchService searchService;
 	
@@ -46,19 +50,24 @@ public class CandidateController {
 	log.debug(">>> Entering findAll()");
 	public List<CandidateDTO> findAll()
 	{
+	log.debug(">>> Entering createCandidate()");
 		log.debug("<<< Exiting findAll()");
+		log.debug("<<< Exiting createCandidate()");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		log.debug(">>> Entering createCandidate()");
 		return candidateService.findAll();
 	}
 	log.debug("<<< Exiting createCandidate()");
+	log.debug("<<< Exiting updateCandidate()");
 	
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug(">>> Entering search(Pageable p={})", Pageable p);
 	log.debug(">>> Entering updateCandidate()");
 	log.debug(">>> Entering createCandidate()");
+		log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 		return candidateService.findById(id);
 	}
 	log.debug(">>> Entering createCandidate()");
