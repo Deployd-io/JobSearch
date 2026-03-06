@@ -53,7 +53,7 @@ log.debug(">>> Entering createEmployer()");
 log.debug("<<< Exiting findAll()");
 log.debug("<<< Exiting createEmployer()");
 log.debug(">>> Entering findAll()");
-
+import lombok.extern.slf4j.Slf4j;
 log.debug(">>> Entering createEmployer()");
 @Slf4j
 log.debug(">>> Entering updateEmployer()");
@@ -61,6 +61,17 @@ log.debug("<<< Exiting findAll()");
 log.debug("<<< Exiting createEmployer()");
 log.debug("<<< Exiting updateEmployer()");
 log.debug(">>> Entering findAll()");
+
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
 @RestController
 log.debug(">>> Entering createEmployer()");
 @Slf4j
