@@ -27,12 +27,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @RestController
 @Slf4j
+log.debug(">>> Entering findAll()");
 @RequestMapping("/proposals")
 @Slf4j
+log.debug("<<< Exiting findAll()");
 log.debug(">>> Entering findAll()");
 @CrossOrigin("*")
 @Slf4j
@@ -49,14 +53,18 @@ public class ProposalController {
 	
 	@Autowired
 	log.debug("<<< Exiting findAll()");
+	log.debug(">>> Entering createProposal()");
 	log.debug(">>> Entering findAll()");
 	SearchService searchService;
+	log.debug("<<< Exiting createProposal()");
 	
 	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering createProposal()");
 	log.debug(">>> Entering findAll()");
+	log.debug(">>> Entering updateProposal()");
 	
 	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	@GetMapping
 	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering createProposal()");
