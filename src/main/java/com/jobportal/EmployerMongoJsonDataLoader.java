@@ -22,12 +22,17 @@ public class EmployerMongoJsonDataLoader {
     private final ObjectMapper objectMapper;
 
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
         this.mongoTemplate = mongoTemplate;
         this.objectMapper = objectMapper;
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
+		log.debug("<<< Exiting EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
     }
 
     @PostConstruct
     public void loadEmployers() throws Exception {
+	log.debug(">>> Entering loadEmployers()");
 
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
             return;
@@ -36,6 +41,7 @@ public class EmployerMongoJsonDataLoader {
         InputStream is = new ClassPathResource("employers.json").getInputStream();
         List<Employer> employers =
                 objectMapper.readValue(is, new TypeReference<List<Employer>>() {});
+				log.debug("loadEmployers(): is → {}", is);
 
         mongoTemplate.insert(employers, Employer.class);
 
