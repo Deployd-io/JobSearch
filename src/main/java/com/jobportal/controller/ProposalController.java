@@ -34,6 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
 
 @Slf4j
 log.debug("<<< Exiting findAll()");
@@ -49,14 +53,18 @@ log.debug(">>> Entering findAll()");
 @CrossOrigin("*")
 @Slf4j
 log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
 log.debug(">>> Entering findAll()");
 public class ProposalController {
+	log.debug("<<< Exiting createProposal()");
 	
 	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering createProposal()");
 	log.debug(">>> Entering findAll()");
+	log.debug(">>> Entering updateProposal()");
 	@Autowired
 	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	ProposalService proposalService;
 	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering createProposal()");
