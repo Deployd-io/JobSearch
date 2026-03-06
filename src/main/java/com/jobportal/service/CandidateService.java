@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
 log.debug(">>> Entering findAll()");
-
+import lombok.extern.slf4j.Slf4j;
 log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
 long start = System.currentTimeMillis();
 @Slf4j
@@ -50,7 +50,7 @@ long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
 log.debug("<<< Exiting findById(String id={})", String id);
 log.debug(">>> Entering findAll()");
-@Service
+
 log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
 long start = System.currentTimeMillis();
 @Slf4j
@@ -61,10 +61,27 @@ log.debug("<<< Exiting findById(String id={})", String id);
 log.debug("createCandidate(CandidateDTO cndtDTO={}): cndt → {}", CandidateDTO cndtDTO, cndt);
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findAll()");
-public class CandidateService {
+@Service
 log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
 long start = System.currentTimeMillis();
 log.debug("createCandidate(CandidateDTO cndtDTO={}): point → {}", CandidateDTO cndtDTO, point);
+@Slf4j
+long start = System.currentTimeMillis();
+log.info("createCandidate(CandidateDTO cndtDTO)={}: save query executed in {} ms", CandidateDTO cndtDTO, (System.currentTimeMillis() - start));
+log.debug("<<< Exiting createCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
+log.debug(">>> Entering createCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
+log.debug(">>> Entering findById(String id={})", String id);
+log.debug("<<< Exiting findById(String id={})", String id);
+log.debug("createCandidate(CandidateDTO cndtDTO={}): cndt → {}", CandidateDTO cndtDTO, cndt);
+long start = System.currentTimeMillis();
+log.debug(">>> Entering findAll()");
+public class CandidateService {
+log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
+log.debug(">>> Entering updateCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
+long start = System.currentTimeMillis();
+log.debug("createCandidate(CandidateDTO cndtDTO={}): point → {}", CandidateDTO cndtDTO, point);
+log.debug("updateCandidate(CandidateDTO cndtDTO={}): optCndt → {}", CandidateDTO cndtDTO, optCndt);
+long start = System.currentTimeMillis();
 
 	long start = System.currentTimeMillis();
 	log.debug("createCandidate(CandidateDTO cndtDTO={}): cndt → {}", CandidateDTO cndtDTO, cndt);
@@ -73,10 +90,12 @@ log.debug("createCandidate(CandidateDTO cndtDTO={}): point → {}", CandidateDTO
 	log.debug(">>> Entering createCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
 	log.debug(">>> Entering findById(String id={})", String id);
 	log.debug("<<< Exiting findById(String id={})", String id);
+	log.debug("updateCandidate(CandidateDTO cndtDTO={}): cndt → {}", CandidateDTO cndtDTO, cndt);
 	log.debug("createCandidate(CandidateDTO cndtDTO={}): cndt → {}", CandidateDTO cndtDTO, cndt);
 	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findAll()");
 	@Autowired
+	log.info("updateCandidate(CandidateDTO cndtDTO)={}: save query executed in {} ms", CandidateDTO cndtDTO, (System.currentTimeMillis() - start));
 	log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
 	log.debug(">>> Entering updateCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
 	long start = System.currentTimeMillis();
