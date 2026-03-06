@@ -9,13 +9,17 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
+@Slf4j
 @EnableSwagger2
 @Slf4j
 public class SpringFoxConfig {                                    
+	log.debug(">>> Entering api()");
     @Bean
     public Docket api() { 
+		log.debug("<<< Exiting api()");
 		log.debug(">>> Entering api()");
 		log.debug("<<< Exiting api()");
         return new Docket(DocumentationType.SWAGGER_2)  

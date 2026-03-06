@@ -23,11 +23,16 @@ public class EmployerMongoJsonDataLoader {
 
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
 		log.debug(">>> Entering EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
         this.mongoTemplate = mongoTemplate;
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
+		log.debug("<<< Exiting EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
         this.objectMapper = objectMapper;
 		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
 		log.debug("<<< Exiting EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
+		log.debug(">>> Entering loadEmployers()");
     }
 
     @PostConstruct
@@ -35,7 +40,9 @@ public class EmployerMongoJsonDataLoader {
 	log.debug(">>> Entering loadEmployers()");
 
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
+			log.debug("loadEmployers(): is → {}", is);
             return;
+			log.debug(">>> Entering readValue()");
         }
 
         InputStream is = new ClassPathResource("employers.json").getInputStream();

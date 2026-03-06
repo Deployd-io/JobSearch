@@ -12,19 +12,26 @@ import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @Slf4j
 public class MongoJsonDataLoader {
 
     private final MongoTemplate mongoTemplate;
     private final ObjectMapper objectMapper;
+	log.debug(">>> Entering MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
 
     public MongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug("MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
+		log.debug("<<< Exiting MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
 		log.debug(">>> Entering MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
         this.mongoTemplate = mongoTemplate;
         this.objectMapper = objectMapper;
+		log.debug("MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
 		log.debug("MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
+		log.debug(">>> Entering loadData()");
 		log.debug("<<< Exiting MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
 		log.debug("MongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
     }
@@ -32,6 +39,7 @@ public class MongoJsonDataLoader {
     @PostConstruct
     public void loadData() throws Exception {
 		log.debug(">>> Entering loadData()");
+		log.debug("loadData(): is → {}", is);
         if (mongoTemplate.getCollection("job").countDocuments() > 0) {
             return;
         }

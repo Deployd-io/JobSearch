@@ -15,7 +15,9 @@ import com.jobportal.dao.CandidateDAO;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.model.Candidate;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Slf4j
 public class CandidateService {
@@ -30,18 +32,25 @@ public class CandidateService {
 	ModelMapperService modelMapperService;
 	
 	
+	log.debug(">>> Entering findAll()");
 	public List<CandidateDTO> findAll()
 	{
+		long start = System.currentTimeMillis();
+		log.debug("<<< Exiting findAll()");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
+			log.debug(">>> Entering findById(String id={})", String id);
 	}
 	
+	log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
+	long start = System.currentTimeMillis();
 	public CandidateDTO findById(String id)
 	{
 		log.debug(">>> Entering findById(String id={})", String id);
 		Optional<Candidate> optCndt = dao.findById(id);
+		log.debug("<<< Exiting findById(String id={})", String id);
 		
 		log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
 		long start = System.currentTimeMillis();
@@ -49,12 +58,17 @@ public class CandidateService {
 			return null;
 		
 		log.debug("<<< Exiting findById(String id={})", String id);
+		log.debug("createCandidate(CandidateDTO cndtDTO={}): cndt → {}", CandidateDTO cndtDTO, cndt);
+		long start = System.currentTimeMillis();
 		return modelMapper.map(optCndt.get(), CandidateDTO.class);
 	}
 	
 	@Transactional
+	log.debug("createCandidate(CandidateDTO cndtDTO={}): point → {}", CandidateDTO cndtDTO, point);
 	public String createCandidate(CandidateDTO cndtDTO)
 	{
+		log.info("createCandidate(CandidateDTO cndtDTO)={}: save query executed in {} ms", CandidateDTO cndtDTO, (System.currentTimeMillis() - start));
+		log.debug("<<< Exiting createCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
 		log.debug(">>> Entering createCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
 		Candidate cndt = modelMapper.map(cndtDTO, Candidate.class);
 		cndt.setCreatedOn((new Date()).toString());
@@ -63,8 +77,11 @@ public class CandidateService {
 		cndt.setUpdatedOn(cndt.getCreatedOn());
 		
 		Point point = new Point(cndtDTO.getLng(), cndtDTO.getLat());
+		log.debug(">>> Entering updateCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
 		cndt.setPoint(point);
 		log.debug("createCandidate(CandidateDTO cndtDTO={}): point → {}", CandidateDTO cndtDTO, point);
+		log.debug("updateCandidate(CandidateDTO cndtDTO={}): optCndt → {}", CandidateDTO cndtDTO, optCndt);
+		long start = System.currentTimeMillis();
 		
 		dao.save(cndt);
 		log.info("createCandidate(CandidateDTO cndtDTO)={}: save query executed in {} ms", CandidateDTO cndtDTO, (System.currentTimeMillis() - start));
@@ -73,10 +90,12 @@ public class CandidateService {
 		return cndt.getCandidateId();
 	}
 	
+	log.debug("updateCandidate(CandidateDTO cndtDTO={}): cndt → {}", CandidateDTO cndtDTO, cndt);
 	
 	@Transactional
 	public void updateCandidate(CandidateDTO cndtDTO)
 	{
+		log.info("updateCandidate(CandidateDTO cndtDTO)={}: save query executed in {} ms", CandidateDTO cndtDTO, (System.currentTimeMillis() - start));
 		log.debug(">>> Entering updateCandidate(CandidateDTO cndtDTO={})", CandidateDTO cndtDTO);
 		Optional<Candidate> optCndt = dao.findById(cndtDTO.getCandidateId());
 		
