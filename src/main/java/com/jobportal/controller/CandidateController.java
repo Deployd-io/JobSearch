@@ -72,6 +72,16 @@ log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 log.debug("<<< Exiting createCandidate()");
 log.debug("<<< Exiting updateCandidate()");
 log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering createCandidate()");
+@Slf4j
+log.debug(">>> Entering search(Pageable p={})", Pageable p);
+log.debug(">>> Entering updateCandidate()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting search(Pageable p={})", Pageable p);
+log.debug("<<< Exiting createCandidate()");
+log.debug("<<< Exiting updateCandidate()");
+log.debug(">>> Entering findAll()");
 
 log.debug(">>> Entering createCandidate()");
 @Slf4j

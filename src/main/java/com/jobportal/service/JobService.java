@@ -85,7 +85,7 @@ log.debug("findById(String id={}): optJob → {}", String id, optJob);
 long start = System.currentTimeMillis();
 log.debug("createJob(JobDTO jobDTO={}): job → {}", JobDTO jobDTO, job);
 long start = System.currentTimeMillis();
-
+import lombok.extern.slf4j.Slf4j;
 log.debug("findByContactEmail(String contactEmail={}): job → {}", String contactEmail, job);
 log.debug(">>> Entering findByContactEmail(String contactEmail={})", String contactEmail);
 log.debug("<<< Exiting findByContactEmail(String contactEmail={})", String contactEmail);
@@ -105,7 +105,7 @@ long start = System.currentTimeMillis();
 log.debug("createJob(JobDTO jobDTO={}): job → {}", JobDTO jobDTO, job);
 long start = System.currentTimeMillis();
 log.debug(">>> Entering updateJob(JobDTO jobDTO={})", JobDTO jobDTO);
-@Service
+
 log.debug("findByContactEmail(String contactEmail={}): job → {}", String contactEmail, job);
 log.debug("updateJob(JobDTO jobDTO={}): optJob → {}", JobDTO jobDTO, optJob);
 long start = System.currentTimeMillis();
@@ -115,6 +115,35 @@ log.debug("createJob(JobDTO jobDTO={}): point → {}", JobDTO jobDTO, point);
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
 log.info("createJob(JobDTO jobDTO)={}: save query executed in {} ms", JobDTO jobDTO, (System.currentTimeMillis() - start));
+log.debug("findByContactEmail(String contactEmail={}): jobs1 → {}", String contactEmail, jobs1);
+long start = System.currentTimeMillis();
+log.debug("updateJob(JobDTO jobDTO={}): job → {}", JobDTO jobDTO, job);
+log.debug("<<< Exiting findById(String id={})", String id);
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting createJob(JobDTO jobDTO={})", JobDTO jobDTO);
+@Slf4j
+log.info("updateJob(JobDTO jobDTO)={}: save query executed in {} ms", JobDTO jobDTO, (System.currentTimeMillis() - start));
+log.debug(">>> Entering createJob(JobDTO jobDTO={})", JobDTO jobDTO);
+log.debug("findById(String id={}): optJob → {}", String id, optJob);
+long start = System.currentTimeMillis();
+log.debug("createJob(JobDTO jobDTO={}): job → {}", JobDTO jobDTO, job);
+long start = System.currentTimeMillis();
+log.debug(">>> Entering updateLocation(String jobId={},LocationDTO location={})", String jobId, LocationDTO location);
+log.debug(">>> Entering updateJob(JobDTO jobDTO={})", JobDTO jobDTO);
+@Service
+log.debug("findByContactEmail(String contactEmail={}): job → {}", String contactEmail, job);
+log.info("updateLocation(String jobId,LocationDTO location)={},{}: find query executed in {} ms", String jobId, LocationDTO location, (System.currentTimeMillis() - start));
+long start = System.currentTimeMillis();
+log.debug("updateJob(JobDTO jobDTO={}): optJob → {}", JobDTO jobDTO, optJob);
+long start = System.currentTimeMillis();
+log.debug(">>> Entering findByContactEmail(String contactEmail={})", String contactEmail);
+log.debug("<<< Exiting findByContactEmail(String contactEmail={})", String contactEmail);
+log.debug("createJob(JobDTO jobDTO={}): point → {}", JobDTO jobDTO, point);
+long start = System.currentTimeMillis();
+log.debug("updateLocation(String jobId={},LocationDTO location={}): job → {}", String jobId, LocationDTO location, job);
+log.debug(">>> Entering findById(String id={})", String id);
+log.info("createJob(JobDTO jobDTO)={}: save query executed in {} ms", JobDTO jobDTO, (System.currentTimeMillis() - start));
+log.info("updateLocation(String jobId,LocationDTO location)={},{}: save query executed in {} ms", String jobId, LocationDTO location, (System.currentTimeMillis() - start));
 log.debug("findByContactEmail(String contactEmail={}): jobs1 → {}", String contactEmail, jobs1);
 long start = System.currentTimeMillis();
 log.debug("updateJob(JobDTO jobDTO={}): job → {}", JobDTO jobDTO, job);
