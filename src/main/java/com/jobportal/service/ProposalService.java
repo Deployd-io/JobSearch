@@ -24,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
@@ -33,40 +35,54 @@ public class ProposalService {
 	@Autowired
 	ProposalDAO dao;
 	
+	log.debug(">>> Entering findAll()");
 	@Autowired
 	ModelMapper modelMapper;
+	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findAll()");
 	
 	@Autowired
 	long start = System.currentTimeMillis();
+	log.debug(">>> Entering findById(String id={})", String id);
 	log.debug(">>> Entering findAll()");
 	ModelMapperService modelMapperService;
+	log.debug("findById(String id={}): optProposal → {}", String id, optProposal);
+	long start = System.currentTimeMillis();
 	
 	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findById(String id={})", String id);
+	log.debug("<<< Exiting findById(String id={})", String id);
 	log.debug(">>> Entering findAll()");
 	@Autowired
 	log.debug("findById(String id={}): optProposal → {}", String id, optProposal);
 	long start = System.currentTimeMillis();
 	LocationService locationService;
-	long start = System.currentTimeMillis();
-	log.debug(">>> Entering findById(String id={})", String id);
-	log.debug("<<< Exiting findById(String id={})", String id);
-	log.debug(">>> Entering findAll()");
-	
-	log.debug("findById(String id={}): optProposal → {}", String id, optProposal);
-	long start = System.currentTimeMillis();
-	
 	log.debug(">>> Entering findByJobId(String jobId={})", String jobId);
 	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findById(String id={})", String id);
 	long start = System.currentTimeMillis();
 	log.debug("<<< Exiting findById(String id={})", String id);
 	log.debug(">>> Entering findAll()");
+	
+	log.debug("findById(String id={}): optProposal → {}", String id, optProposal);
+	long start = System.currentTimeMillis();
+	log.debug(">>> Entering createProposal(ProposalDTO proposalDTO={})", ProposalDTO proposalDTO);
+	
+	log.debug(">>> Entering findByJobId(String jobId={})", String jobId);
+	log.debug("createProposal(ProposalDTO proposalDTO={}): proposal → {}", ProposalDTO proposalDTO, proposal);
+	long start = System.currentTimeMillis();
+	long start = System.currentTimeMillis();
+	log.debug(">>> Entering findById(String id={})", String id);
+	long start = System.currentTimeMillis();
+	log.debug("<<< Exiting findById(String id={})", String id);
+	log.debug("createProposal(ProposalDTO proposalDTO={}): point → {}", ProposalDTO proposalDTO, point);
+	log.debug(">>> Entering findAll()");
 	public List<ProposalDTO> findAll()
 	{
+	log.info("createProposal(ProposalDTO proposalDTO)={}: save query executed in {} ms", ProposalDTO proposalDTO, (System.currentTimeMillis() - start));
 	log.debug("findById(String id={}): optProposal → {}", String id, optProposal);
 	log.debug(">>> Entering createProposal(ProposalDTO proposalDTO={})", ProposalDTO proposalDTO);
+	log.debug("<<< Exiting createProposal(ProposalDTO proposalDTO={})", ProposalDTO proposalDTO);
 	long start = System.currentTimeMillis();
 		log.debug(">>> Entering findByJobId(String jobId={})", String jobId);
 		log.debug("createProposal(ProposalDTO proposalDTO={}): proposal → {}", ProposalDTO proposalDTO, proposal);
@@ -74,8 +90,11 @@ public class ProposalService {
 		long start = System.currentTimeMillis();
 		log.debug(">>> Entering findById(String id={})", String id);
 		long start = System.currentTimeMillis();
+		log.debug(">>> Entering updateProposal(ProposalDTO proposalDTO={})", ProposalDTO proposalDTO);
 		log.debug("<<< Exiting findById(String id={})", String id);
 		log.debug("createProposal(ProposalDTO proposalDTO={}): point → {}", ProposalDTO proposalDTO, point);
+		log.debug("updateProposal(ProposalDTO proposalDTO={}): optProposal → {}", ProposalDTO proposalDTO, optProposal);
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		log.debug(">>> Entering findAll()");
 		log.info("createProposal(ProposalDTO proposalDTO)={}: save query executed in {} ms", ProposalDTO proposalDTO, (System.currentTimeMillis() - start));
@@ -84,11 +103,13 @@ public class ProposalService {
 		log.debug(">>> Entering createProposal(ProposalDTO proposalDTO={})", ProposalDTO proposalDTO);
 		log.debug("<<< Exiting createProposal(ProposalDTO proposalDTO={})", ProposalDTO proposalDTO);
 		log.debug("<<< Exiting findAll()");
+		log.debug("updateProposal(ProposalDTO proposalDTO={}): proposal → {}", ProposalDTO proposalDTO, proposal);
 		log.debug(">>> Entering findByJobId(String jobId={})", String jobId);
 		log.debug("createProposal(ProposalDTO proposalDTO={}): proposal → {}", ProposalDTO proposalDTO, proposal);
 		long start = System.currentTimeMillis();
 		return dao.findAll().stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
+		log.info("updateProposal(ProposalDTO proposalDTO)={}: save query executed in {} ms", ProposalDTO proposalDTO, (System.currentTimeMillis() - start));
 			long start = System.currentTimeMillis();
 			log.debug(">>> Entering updateProposal(ProposalDTO proposalDTO={})", ProposalDTO proposalDTO);
 			log.debug(">>> Entering findById(String id={})", String id);
