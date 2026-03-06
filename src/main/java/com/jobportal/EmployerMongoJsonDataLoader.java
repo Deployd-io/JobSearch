@@ -24,10 +24,15 @@ public class EmployerMongoJsonDataLoader {
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
 		log.debug(">>> Entering EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
 		log.debug(">>> Entering EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
+		log.debug("<<< Exiting EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
         this.mongoTemplate = mongoTemplate;
 		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
 		log.debug("<<< Exiting EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
         this.objectMapper = objectMapper;
+		log.debug(">>> Entering loadEmployers()");
 		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
 		log.debug("<<< Exiting EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
@@ -35,7 +40,9 @@ public class EmployerMongoJsonDataLoader {
 		log.debug(">>> Entering loadEmployers()");
     }
 
+	log.debug("loadEmployers(): is → {}", is);
     @PostConstruct
+	log.debug(">>> Entering readValue()");
     public void loadEmployers() throws Exception {
 	log.debug(">>> Entering loadEmployers()");
 

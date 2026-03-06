@@ -20,7 +20,9 @@ import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 
 @Slf4j
 @Service
@@ -46,14 +48,19 @@ public class EmployerService {
 	String test2;
 	int test3;
 	Employer e;
+	log.debug(">>> Entering findAll()");
 	
 	
+	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findAll()");
 	public List<EmployerDTO> findAll()
 	{
 		long start = System.currentTimeMillis();
+		log.debug(">>> Entering findById(String id={})", String id);
 		log.debug("<<< Exiting findAll()");
 		log.debug(">>> Entering findAll()");
+		log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
@@ -61,24 +68,34 @@ public class EmployerService {
 	}
 	
 	log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
+	log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
 	long start = System.currentTimeMillis();
 	public EmployerDTO findById(String id)
 	{
+	log.debug("findById(String id={}): test2 → {}", String id, test2);
 		log.debug(">>> Entering findById(String id={})", String id);
 		Optional<Employer> optEmp = dao.findById(id);
+		log.debug("<<< Exiting findById(String id={})", String id);
 		
 		log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
 		long start = System.currentTimeMillis();
 		log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
 		if (!optEmp.isPresent())
+			log.debug(">>> Entering createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 			return null;
 		
+		log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
+		long start = System.currentTimeMillis();
 		log.debug("findById(String id={}): e → {}", String id, e);
 		try {
 			
 			log.debug("<<< Exiting findById(String id={})", String id);
+			log.debug("createEmployer(EmployerDTO empDTO={}): point → {}", EmployerDTO empDTO, point);
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
+			log.info("createEmployer(EmployerDTO empDTO)={}: save query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
+			log.debug("<<< Exiting createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 			log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
 		}
 		test2 = "tesst 2";
@@ -87,8 +104,11 @@ public class EmployerService {
 		e.setEmail("a@yahoo.com");
 		log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
 		long start = System.currentTimeMillis();
+		log.debug(">>> Entering updateEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 		log.debug("findById(String id={}): e → {}", String id, e);
 		
+		log.debug("updateEmployer(EmployerDTO empDTO={}): optEmp → {}", EmployerDTO empDTO, optEmp);
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findById(String id={})", String id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
@@ -99,12 +119,16 @@ public class EmployerService {
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+	log.error("Exception in updateEmployer(EmployerDTO empDTO={}): {}", EmployerDTO empDTO, e.getMessage(), e);
 		log.debug(">>> Entering createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
+		log.debug("updateEmployer(EmployerDTO empDTO={}): test3 → {}", EmployerDTO empDTO, test3);
 		emp.setCreatedOn((new Date()).toString());
 		log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
 		long start = System.currentTimeMillis();
+		log.debug("updateEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
 		log.debug(">>> Entering updateEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
+		log.info("updateEmployer(EmployerDTO empDTO)={}: save query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
 		emp.setUpdatedOn(emp.getCreatedOn());
 		
 		log.debug("updateEmployer(EmployerDTO empDTO={}): optEmp → {}", EmployerDTO empDTO, optEmp);
@@ -112,13 +136,17 @@ public class EmployerService {
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
 		emp.setPoint(point);
 		log.debug("createEmployer(EmployerDTO empDTO={}): point → {}", EmployerDTO empDTO, point);
+		log.debug(">>> Entering validateEmployer(String employerId={})", String employerId);
+		long start = System.currentTimeMillis();
 		
 		dao.save(emp);
 		log.info("createEmployer(EmployerDTO empDTO)={}: save query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
+		log.info("validateEmployer(String employerId)={}: external service call {} took {} ms", String employerId, kycValidatorUrl, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 		
 		return emp.getEmployerId();
 	}
+	log.debug("<<< Exiting validateEmployer(String employerId={})", String employerId);
 	
 	
 	log.debug("updateEmployer(EmployerDTO empDTO={}): test3 → {}", EmployerDTO empDTO, test3);

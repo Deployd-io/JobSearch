@@ -18,8 +18,10 @@ import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/employers")
 @Slf4j
 @CrossOrigin("*")
@@ -32,8 +34,10 @@ public class EmployerController {
 	@Autowired
 	SearchService searchService;
 	
+	log.debug(">>> Entering findAll()");
 	
 	@GetMapping
+	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering findAll()");
 	public List<EmployerDTO> findAll()
 	{
@@ -46,21 +50,27 @@ public class EmployerController {
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug(">>> Entering createEmployer()");
 		return employerService.findById(id);
 	}
 	log.debug(">>> Entering createEmployer()");
 	
+	log.debug(">>> Entering updateEmployer()");
 	@PostMapping
 	log.debug("<<< Exiting createEmployer()");
+	log.debug("<<< Exiting updateEmployer()");
 	public String createEmployer(@RequestBody EmployerDTO empDTO)
 	{
 		log.debug(">>> Entering createEmployer()");
 		log.debug("<<< Exiting createEmployer()");
+		log.debug(">>> Entering validateEmployer()");
 		log.debug(">>> Entering updateEmployer()");
 		return employerService.createEmployer(empDTO);
 	}
+	log.debug("validateEmployer(): isValid → {}", isValid);
 	log.debug("<<< Exiting updateEmployer()");
 	
+	log.debug("<<< Exiting validateEmployer()");
 	@PutMapping
 	public void updateEmployer(@RequestBody EmployerDTO empDTO)
 	{

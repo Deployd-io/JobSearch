@@ -19,8 +19,10 @@ import com.jobportal.service.CandidateService;
 import com.jobportal.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/candidates")
 @Slf4j
 @CrossOrigin("*")
@@ -33,8 +35,10 @@ public class CandidateController {
 	@Autowired
 	SearchService searchService;
 	
+	log.debug(">>> Entering findAll()");
 	
 	@GetMapping
+	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering findAll()");
 	public List<CandidateDTO> findAll()
 	{
@@ -47,16 +51,20 @@ public class CandidateController {
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug(">>> Entering createCandidate()");
 		return candidateService.findById(id);
 	}
 	log.debug(">>> Entering createCandidate()");
 	
+	log.debug(">>> Entering updateCandidate()");
 	@PostMapping
 	log.debug("<<< Exiting createCandidate()");
+	log.debug("<<< Exiting updateCandidate()");
 	public String createCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
 		log.debug(">>> Entering createCandidate()");
 		log.debug("<<< Exiting createCandidate()");
+		log.debug(">>> Entering search(Pageable p={})", Pageable p);
 		log.debug(">>> Entering updateCandidate()");
 		return candidateService.createCandidate(cndtDTO);
 	}
