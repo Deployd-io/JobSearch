@@ -15,7 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering api()");
+@Slf4j
 
+log.debug("<<< Exiting api()");
 log.debug(">>> Entering api()");
 @Slf4j
 @Configuration

@@ -64,23 +64,32 @@ public class JobController {
 	log.debug(">>> Entering createJob()");
 	log.debug("createJob(): result → {}", result);
 	log.debug(">>> Entering createJob()");
+	log.debug("createJob(): result → {}", result);
+	log.error("Exception in createJob(): {}", e.getMessage(), e);
+	log.debug(">>> Entering createJob()");
 		log.debug("createJob(): result → {}", result);
+		log.debug("<<< Exiting createJob()");
 		log.error("Exception in createJob(): {}", e.getMessage(), e);
 		log.debug(">>> Entering createJob()");
 		log.debug("createJob(): result → {}", result);
 		log.debug("<<< Exiting createJob()");
 		log.error("Exception in createJob(): {}", e.getMessage(), e);
+		log.debug(">>> Entering updateJob()");
 		String result = "";
 		log.debug("createJob(): result → {}", result);
 		log.debug("<<< Exiting createJob()");
+		log.debug("updateJob(): testValue → {}", testValue);
+		log.debug("<<< Exiting updateJob()");
 		log.error("Exception in createJob(): {}", e.getMessage(), e);
 		log.debug(">>> Entering updateJob()");
 		try {
 			result = jobService.createJob(jobDTO);
 			log.debug("<<< Exiting createJob()");
 			log.debug("updateJob(): testValue → {}", testValue);
+			log.debug(">>> Entering search(Pageable p={})", Pageable p);
 			log.debug("<<< Exiting updateJob()");
 			log.error("Exception in createJob(): {}", e.getMessage(), e);
+			log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 			log.debug(">>> Entering updateJob()");
 			log.debug("createJob(): result → {}", result);
 		} catch (Exception e) {

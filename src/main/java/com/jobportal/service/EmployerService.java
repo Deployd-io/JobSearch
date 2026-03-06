@@ -25,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 
@@ -47,16 +49,25 @@ public class EmployerService {
 
 	@Value("${kycValidator.url:http://kycValidator.com/validate}")
 	private String kycValidatorUrl;
+	log.debug(">>> Entering findAll()");
 
+	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findAll()");
 	Integer test;
 	String test2;
 	long start = System.currentTimeMillis();
+	log.debug(">>> Entering findById(String id={})", String id);
 	log.debug(">>> Entering findAll()");
 	int test3;
+	log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
+	long start = System.currentTimeMillis();
 	Employer e;
 	long start = System.currentTimeMillis();
 	log.debug(">>> Entering findById(String id={})", String id);
+	log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
+	log.debug("findById(String id={}): test2 → {}", String id, test2);
+	log.debug("findById(String id={}): e → {}", String id, e);
+	log.debug("<<< Exiting findById(String id={})", String id);
 	log.debug(">>> Entering findAll()");
 	
 	log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
@@ -71,14 +82,20 @@ public class EmployerService {
 	log.debug(">>> Entering findAll()");
 	public List<EmployerDTO> findAll()
 	{
+	log.debug(">>> Entering createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 	log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
 	long start = System.currentTimeMillis();
+		log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
+		long start = System.currentTimeMillis();
 		long start = System.currentTimeMillis();
 		log.debug(">>> Entering findById(String id={})", String id);
 		log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
 		log.debug("findById(String id={}): test2 → {}", String id, test2);
+		log.debug("createEmployer(EmployerDTO empDTO={}): point → {}", EmployerDTO empDTO, point);
 		log.debug("findById(String id={}): e → {}", String id, e);
 		log.debug("<<< Exiting findById(String id={})", String id);
+		log.info("createEmployer(EmployerDTO empDTO)={}: save query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
+		log.debug("<<< Exiting createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 		log.debug("<<< Exiting findAll()");
 		log.debug(">>> Entering findAll()");
 		log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
@@ -87,8 +104,11 @@ public class EmployerService {
 		log.debug("<<< Exiting findAll()");
 		log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
 		long start = System.currentTimeMillis();
+		log.debug(">>> Entering updateEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
+			log.debug("updateEmployer(EmployerDTO empDTO={}): optEmp → {}", EmployerDTO empDTO, optEmp);
+			long start = System.currentTimeMillis();
 			log.debug(">>> Entering findById(String id={})", String id);
 	}
 	log.debug("createEmployer(EmployerDTO empDTO={}): point → {}", EmployerDTO empDTO, point);
@@ -98,27 +118,35 @@ public class EmployerService {
 	log.info("createEmployer(EmployerDTO empDTO)={}: save query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
 	log.debug("<<< Exiting createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 	log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
+	log.error("Exception in updateEmployer(EmployerDTO empDTO={}): {}", EmployerDTO empDTO, e.getMessage(), e);
 	long start = System.currentTimeMillis();
 	public EmployerDTO findById(String id)
 	{
+	log.debug("updateEmployer(EmployerDTO empDTO={}): test3 → {}", EmployerDTO empDTO, test3);
 	log.debug(">>> Entering createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 	log.debug("findById(String id={}): test2 → {}", String id, test2);
 		log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
+		log.debug("updateEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDTO, emp);
 		long start = System.currentTimeMillis();
 		log.debug(">>> Entering updateEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
+		log.info("updateEmployer(EmployerDTO empDTO)={}: save query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
 		log.debug(">>> Entering findById(String id={})", String id);
 		Optional<Employer> optEmp = dao.findById(id);
 		log.debug("updateEmployer(EmployerDTO empDTO={}): optEmp → {}", EmployerDTO empDTO, optEmp);
 		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findById(String id={})", String id);
 		
+		log.debug(">>> Entering validateEmployer(String employerId={})", String employerId);
+		long start = System.currentTimeMillis();
 		log.debug("createEmployer(EmployerDTO empDTO={}): point → {}", EmployerDTO empDTO, point);
 		log.debug("findById(String id={}): optEmp → {}", String id, optEmp);
 		long start = System.currentTimeMillis();
+		log.info("validateEmployer(String employerId)={}: external service call {} took {} ms", String employerId, kycValidatorUrl, (System.currentTimeMillis() - start));
 		log.info("createEmployer(EmployerDTO empDTO)={}: save query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 		log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
 		if (!optEmp.isPresent())
+			log.debug("<<< Exiting validateEmployer(String employerId={})", String employerId);
 			log.error("Exception in updateEmployer(EmployerDTO empDTO={}): {}", EmployerDTO empDTO, e.getMessage(), e);
 			log.debug(">>> Entering createEmployer(EmployerDTO empDTO={})", EmployerDTO empDTO);
 			return null;

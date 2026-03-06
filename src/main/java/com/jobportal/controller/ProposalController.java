@@ -21,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @RestController
@@ -31,8 +33,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProposalController {
 	
+	log.debug(">>> Entering findAll()");
 	@Autowired
 	ProposalService proposalService;
+	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering findAll()");
 	
 	@Autowired
@@ -49,15 +53,19 @@ public class ProposalController {
 	public List<ProposalDTO> findAll()
 	{
 		log.debug("<<< Exiting findAll()");
+		log.debug(">>> Entering createProposal()");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.debug("<<< Exiting createProposal()");
 		return proposalService.findAll();
 	}
 	log.debug(">>> Entering createProposal()");
 	
+	log.debug(">>> Entering updateProposal()");
 	@GetMapping(value = "/{id}")
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug("<<< Exiting updateProposal()");
 	log.debug("<<< Exiting createProposal()");
 		log.debug(">>> Entering createProposal()");
 		return proposalService.findById(id);
