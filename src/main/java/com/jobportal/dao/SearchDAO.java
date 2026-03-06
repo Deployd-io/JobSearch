@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 
@@ -21,9 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 @Slf4j
 public class SearchDAO {
+	log.debug(">>> Entering searchByTerm(Class className={},String term={},Pageable p={})", Class className, String term, Pageable p);
+	long start = System.currentTimeMillis();
 	
 	@Autowired
 	log.debug(">>> Entering searchByTerm(Class className={},String term={},Pageable p={})", Class className, String term, Pageable p);
+	log.debug("searchByTerm(Class className={},String term={},Pageable p={}): result → {}", Class className, String term, Pageable p, result);
+	log.debug("<<< Exiting searchByTerm(Class className={},String term={},Pageable p={})", Class className, String term, Pageable p);
+	log.info("searchByTerm(Class className,String term,Pageable p)={},{},{}: find query executed in {} ms", Class className, String term, Pageable p, (System.currentTimeMillis() - start));
 	long start = System.currentTimeMillis();
 	MongoTemplate template;
 

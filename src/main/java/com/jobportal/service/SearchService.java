@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
@@ -25,14 +27,17 @@ public class SearchService {
 	
 	@Autowired
 	SearchDAO dao;
+	log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
 	
 	@Autowired
 	log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
 	ModelMapper modelMapper;
 	
 	log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
+	log.debug(">>> Entering searchCandidatesByTerm(String term={},Pageable p={})", String term, Pageable p);
 	public List<JobDTO> searchJobsByTerm(String term, Pageable p)
 	{
+		log.debug("<<< Exiting searchCandidatesByTerm(String term={},Pageable p={})", String term, Pageable p);
 		log.debug("<<< Exiting searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
 		log.debug(">>> Entering searchCandidatesByTerm(String term={},Pageable p={})", String term, Pageable p);
 		log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
