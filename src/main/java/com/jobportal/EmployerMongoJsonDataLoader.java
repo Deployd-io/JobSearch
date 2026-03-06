@@ -22,20 +22,33 @@ public class EmployerMongoJsonDataLoader {
     private final ObjectMapper objectMapper;
 
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
         this.mongoTemplate = mongoTemplate;
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
+		log.debug("<<< Exiting EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
         this.objectMapper = objectMapper;
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): mongoTemplate → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, mongoTemplate);
+		log.debug("<<< Exiting EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={})", MongoTemplate mongoTemplate, ObjectMapper objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate={},ObjectMapper objectMapper={}): objectMapper → {}", MongoTemplate mongoTemplate, ObjectMapper objectMapper, objectMapper);
+		log.debug(">>> Entering loadEmployers()");
     }
 
     @PostConstruct
     public void loadEmployers() throws Exception {
+	log.debug(">>> Entering loadEmployers()");
 
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
+			log.debug("loadEmployers(): is → {}", is);
             return;
+			log.debug(">>> Entering readValue()");
         }
 
         InputStream is = new ClassPathResource("employers.json").getInputStream();
         List<Employer> employers =
                 objectMapper.readValue(is, new TypeReference<List<Employer>>() {});
+				log.debug("loadEmployers(): is → {}", is);
 
         mongoTemplate.insert(employers, Employer.class);
 
