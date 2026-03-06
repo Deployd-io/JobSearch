@@ -25,14 +25,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
 
 @Slf4j
 log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
 @Service
 @Slf4j
 log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
+log.debug(">>> Entering searchCandidatesByTerm(String term={},Pageable p={})", String term, Pageable p);
 public class SearchService {
 	
+	log.debug("<<< Exiting searchCandidatesByTerm(String term={},Pageable p={})", String term, Pageable p);
 	log.debug(">>> Entering searchJobsByTerm(String term={},Pageable p={})", String term, Pageable p);
 	log.debug(">>> Entering searchCandidatesByTerm(String term={},Pageable p={})", String term, Pageable p);
 	@Autowired

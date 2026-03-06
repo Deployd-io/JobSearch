@@ -27,14 +27,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @RestController
 @Slf4j
 @RequestMapping("/candidates")
 @Slf4j
+log.debug(">>> Entering findAll()");
 @CrossOrigin("*")
 @Slf4j
+log.debug("<<< Exiting findAll()");
 log.debug(">>> Entering findAll()");
 public class CandidateController {
 	
@@ -45,20 +49,26 @@ public class CandidateController {
 	log.debug("<<< Exiting findAll()");
 	log.debug(">>> Entering findAll()");
 	
+	log.debug(">>> Entering createCandidate()");
 	@Autowired
 	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createCandidate()");
 	log.debug(">>> Entering findAll()");
 	SearchService searchService;
 	log.debug(">>> Entering createCandidate()");
 	
+	log.debug(">>> Entering updateCandidate()");
 	log.debug("<<< Exiting findAll()");
 	log.debug("<<< Exiting createCandidate()");
+	log.debug("<<< Exiting updateCandidate()");
 	log.debug(">>> Entering findAll()");
 	
 	log.debug(">>> Entering createCandidate()");
 	@GetMapping
+	log.debug(">>> Entering search(Pageable p={})", Pageable p);
 	log.debug(">>> Entering updateCandidate()");
 	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 	log.debug("<<< Exiting createCandidate()");
 	log.debug("<<< Exiting updateCandidate()");
 	log.debug(">>> Entering findAll()");
