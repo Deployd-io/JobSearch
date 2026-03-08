@@ -16,48 +16,263 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
+import lombok.extern.slf4j.Slf4j;
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
 
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
 @RestController
+log.debug(">>> Entering createEmployer()");
+@Slf4j
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
 @RequestMapping("/employers")
+@Slf4j
+log.debug(">>> Entering createEmployer()");
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
 @CrossOrigin("*")
+@Slf4j
+log.debug(">>> Entering createEmployer()");
+log.debug(">>> Entering validateEmployer()");
+log.debug(">>> Entering updateEmployer()");
+log.debug("<<< Exiting findAll()");
+log.debug("<<< Exiting createEmployer()");
+log.debug("validateEmployer(): isValid → {}", isValid);
+log.debug("<<< Exiting updateEmployer()");
+log.debug(">>> Entering findAll()");
+log.debug("<<< Exiting validateEmployer()");
 public class EmployerController {
+	log.debug(">>> Entering createEmployer()");
 	
+	log.debug(">>> Entering validateEmployer()");
+	log.debug(">>> Entering updateEmployer()");
+	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createEmployer()");
+	log.debug("validateEmployer(): isValid → {}", isValid);
+	log.debug("<<< Exiting updateEmployer()");
+	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting validateEmployer()");
 	@Autowired
+	log.debug(">>> Entering createEmployer()");
 	EmployerService employerService;
+	log.debug(">>> Entering validateEmployer()");
+	log.debug(">>> Entering updateEmployer()");
+	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createEmployer()");
+	log.debug("validateEmployer(): isValid → {}", isValid);
+	log.debug("<<< Exiting updateEmployer()");
+	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting validateEmployer()");
 	
+	log.debug(">>> Entering createEmployer()");
 	@Autowired
+	log.debug(">>> Entering validateEmployer()");
+	log.debug(">>> Entering updateEmployer()");
+	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createEmployer()");
+	log.debug("validateEmployer(): isValid → {}", isValid);
+	log.debug("<<< Exiting updateEmployer()");
+	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting validateEmployer()");
 	SearchService searchService;
+	log.debug(">>> Entering createEmployer()");
 	
+	log.debug(">>> Entering validateEmployer()");
+	log.debug(">>> Entering updateEmployer()");
+	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createEmployer()");
+	log.debug("validateEmployer(): isValid → {}", isValid);
+	log.debug("<<< Exiting updateEmployer()");
+	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting validateEmployer()");
 	
+	log.debug(">>> Entering createEmployer()");
 	@GetMapping
+	log.debug(">>> Entering validateEmployer()");
+	log.debug(">>> Entering updateEmployer()");
+	log.debug("<<< Exiting findAll()");
+	log.debug("<<< Exiting createEmployer()");
+	log.debug("validateEmployer(): isValid → {}", isValid);
+	log.debug("<<< Exiting updateEmployer()");
+	log.debug(">>> Entering findAll()");
+	log.debug("<<< Exiting validateEmployer()");
 	public List<EmployerDTO> findAll()
 	{
+	log.debug(">>> Entering createEmployer()");
+		log.debug(">>> Entering validateEmployer()");
+		log.debug(">>> Entering updateEmployer()");
+		log.debug("<<< Exiting findAll()");
+		log.debug("<<< Exiting createEmployer()");
+		log.debug("validateEmployer(): isValid → {}", isValid);
+		log.debug("<<< Exiting updateEmployer()");
+		log.debug(">>> Entering findAll()");
+		log.debug("<<< Exiting validateEmployer()");
+		log.debug("<<< Exiting findAll()");
+		log.debug(">>> Entering createEmployer()");
 		return employerService.findAll();
 	}
+	log.debug("<<< Exiting createEmployer()");
+	log.debug("<<< Exiting updateEmployer()");
+	log.debug("validateEmployer(): isValid → {}", isValid);
 	
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug("<<< Exiting validateEmployer()");
+	log.debug(">>> Entering validateEmployer()");
+	log.debug(">>> Entering updateEmployer()");
+	log.debug(">>> Entering createEmployer()");
 		return employerService.findById(id);
 	}
+	log.debug(">>> Entering createEmployer()");
+	log.debug("<<< Exiting validateEmployer()");
 	
+	log.debug(">>> Entering updateEmployer()");
+	log.debug(">>> Entering validateEmployer()");
 	@PostMapping
+	log.debug("<<< Exiting createEmployer()");
+	log.debug("<<< Exiting updateEmployer()");
+	log.debug("validateEmployer(): isValid → {}", isValid);
 	public String createEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		log.debug("<<< Exiting validateEmployer()");
+		log.debug(">>> Entering createEmployer()");
+		log.debug("<<< Exiting createEmployer()");
+		log.debug(">>> Entering validateEmployer()");
+		log.debug(">>> Entering updateEmployer()");
 		return employerService.createEmployer(empDTO);
 	}
+	log.debug("validateEmployer(): isValid → {}", isValid);
+	log.debug("<<< Exiting updateEmployer()");
 	
+	log.debug("<<< Exiting validateEmployer()");
 	@PutMapping
 	public void updateEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering validateEmployer()");
+		log.debug(">>> Entering updateEmployer()");
 		employerService.updateEmployer(empDTO);
+		log.debug("<<< Exiting updateEmployer()");
+		log.debug("validateEmployer(): isValid → {}", isValid);
 	}
 
+	log.debug("<<< Exiting validateEmployer()");
     @GetMapping("/{employerId}/validate")
     public ResponseEntity<Boolean> validateEmployer(
             @PathVariable String employerId) {
+			log.debug(">>> Entering validateEmployer()");
 
         boolean isValid = employerService.validateEmployer(employerId);
+		log.debug("validateEmployer(): isValid → {}", isValid);
+		log.debug("<<< Exiting validateEmployer()");
         return ResponseEntity.ok(isValid);
     }
 }
