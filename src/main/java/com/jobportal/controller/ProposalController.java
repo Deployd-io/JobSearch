@@ -102,6 +102,14 @@ log.debug("<<< Exiting findAll()");
 log.debug(">>> Entering createProposal()");
 log.debug(">>> Entering findAll()");
 log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
 
 log.debug("<<< Exiting createProposal()");
 log.debug("<<< Exiting updateProposal()");
