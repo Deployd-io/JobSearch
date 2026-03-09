@@ -15,47 +15,268 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.ProposalDTO;
 import com.jobportal.service.ProposalService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
+import lombok.extern.slf4j.Slf4j;
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
 
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
 @RestController
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting updateProposal()");
+@Slf4j
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
 @RequestMapping("/proposals")
+@Slf4j
+log.debug("<<< Exiting updateProposal()");
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
 @CrossOrigin("*")
+@Slf4j
+log.debug("<<< Exiting updateProposal()");
+log.debug("<<< Exiting createProposal()");
+log.debug("<<< Exiting findAll()");
+log.debug(">>> Entering createProposal()");
+log.debug(">>> Entering findAll()");
+log.debug(">>> Entering updateProposal()");
 public class ProposalController {
+	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	
+	log.debug("<<< Exiting findAll()");
+	log.debug(">>> Entering createProposal()");
+	log.debug(">>> Entering findAll()");
+	log.debug(">>> Entering updateProposal()");
 	@Autowired
+	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	ProposalService proposalService;
+	log.debug("<<< Exiting findAll()");
+	log.debug(">>> Entering createProposal()");
+	log.debug(">>> Entering findAll()");
+	log.debug(">>> Entering updateProposal()");
 	
+	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	@Autowired
+	log.debug("<<< Exiting findAll()");
+	log.debug(">>> Entering createProposal()");
+	log.debug(">>> Entering findAll()");
+	log.debug(">>> Entering updateProposal()");
 	SearchService searchService;
+	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	
+	log.debug("<<< Exiting findAll()");
+	log.debug(">>> Entering createProposal()");
+	log.debug(">>> Entering findAll()");
+	log.debug(">>> Entering updateProposal()");
 	
+	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	@GetMapping
+	log.debug("<<< Exiting findAll()");
+	log.debug(">>> Entering createProposal()");
+	log.debug(">>> Entering findAll()");
+	log.debug(">>> Entering updateProposal()");
 	public List<ProposalDTO> findAll()
 	{
+	log.debug("<<< Exiting updateProposal()");
+	log.debug("<<< Exiting createProposal()");
+		log.debug("<<< Exiting findAll()");
+		log.debug(">>> Entering createProposal()");
+		log.debug(">>> Entering findAll()");
+		log.debug(">>> Entering updateProposal()");
+		log.debug("<<< Exiting findAll()");
+		log.debug("<<< Exiting createProposal()");
+		log.debug("<<< Exiting updateProposal()");
 		return proposalService.findAll();
 	}
+	log.debug(">>> Entering createProposal()");
 	
+	log.debug(">>> Entering updateProposal()");
 	@GetMapping(value = "/{id}")
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
+	log.debug("<<< Exiting updateProposal()");
+	log.debug("<<< Exiting createProposal()");
+		log.debug(">>> Entering createProposal()");
 		return proposalService.findById(id);
 	}
+	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	
 	@GetMapping(value = "/jobs/{jobId}")
 	public List<ProposalDTO> findByJobId(@PathVariable( "jobId" ) String jobId)
 	{
+	log.debug(">>> Entering updateProposal()");
+	log.debug(">>> Entering createProposal()");
 		return proposalService.findByJobId(jobId);
 	}
+	log.debug(">>> Entering createProposal()");
 	
+	log.debug(">>> Entering updateProposal()");
 	@PostMapping
+	log.debug("<<< Exiting createProposal()");
+	log.debug("<<< Exiting updateProposal()");
 	public String createProposal(@RequestBody ProposalDTO proposalDTO)
 	{
+		log.debug(">>> Entering createProposal()");
+		log.debug("<<< Exiting createProposal()");
+		log.debug(">>> Entering updateProposal()");
 		return proposalService.createProposal(proposalDTO);
 	}
+	log.debug("<<< Exiting updateProposal()");
 	
 	@PutMapping
 	public void updateProposal(@RequestBody ProposalDTO proposalDTO)
 	{
+		log.debug(">>> Entering updateProposal()");
 		proposalService.updateProposal(proposalDTO);
+		log.debug("<<< Exiting updateProposal()");
 	}
  
 }
