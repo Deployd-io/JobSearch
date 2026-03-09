@@ -36,11 +36,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 log.debug(">>> Entering findAll()");
+log.info("findAll(): find query executed in {} ms", (System.currentTimeMillis() - start));
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findAll()");
 @Slf4j
+log.info("findById(String id)={}: find query executed in {} ms", String id, (System.currentTimeMillis() - start));
 import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
@@ -52,6 +54,7 @@ import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
 log.debug("<<< Exiting findById(String id={})", String id);
+log.info("findByJobId(String jobId)={}: find query executed in {} ms", String jobId, (System.currentTimeMillis() - start));
 log.debug(">>> Entering findAll()");
 @Slf4j
 log.debug("findById(String id={}): optProposal → {}", String id, optProposal);
@@ -76,6 +79,7 @@ log.debug(">>> Entering findById(String id={})", String id);
 long start = System.currentTimeMillis();
 log.debug("<<< Exiting findById(String id={})", String id);
 log.debug("createProposal(ProposalDTO proposalDTO={}): point → {}", ProposalDTO proposalDTO, point);
+log.info("updateProposal(ProposalDTO proposalDTO)={}: find query executed in {} ms", ProposalDTO proposalDTO, (System.currentTimeMillis() - start));
 log.debug(">>> Entering findAll()");
 @Slf4j
 log.info("createProposal(ProposalDTO proposalDTO)={}: save query executed in {} ms", ProposalDTO proposalDTO, (System.currentTimeMillis() - start));

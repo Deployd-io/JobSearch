@@ -38,11 +38,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 log.debug(">>> Entering findAll()");
+log.info("findAll(): find query executed in {} ms", (System.currentTimeMillis() - start));
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findAll()");
 @Slf4j
+log.info("findById(String id)={}: find query executed in {} ms", String id, (System.currentTimeMillis() - start));
 import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
@@ -55,6 +57,7 @@ long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
 log.debug("<<< Exiting findById(String id={})", String id);
 log.debug(">>> Entering findAll()");
+log.info("findByContactEmail(String contactEmail)={}: find query executed in {} ms", String contactEmail, (System.currentTimeMillis() - start));
 @Slf4j
 log.debug("findById(String id={}): optJob → {}", String id, optJob);
 long start = System.currentTimeMillis();
@@ -87,6 +90,7 @@ log.debug("createJob(JobDTO jobDTO={}): job → {}", JobDTO jobDTO, job);
 long start = System.currentTimeMillis();
 import lombok.extern.slf4j.Slf4j;
 log.debug("findByContactEmail(String contactEmail={}): job → {}", String contactEmail, job);
+log.info("updateJob(JobDTO jobDTO)={}: find query executed in {} ms", JobDTO jobDTO, (System.currentTimeMillis() - start));
 log.debug(">>> Entering findByContactEmail(String contactEmail={})", String contactEmail);
 log.debug("<<< Exiting findByContactEmail(String contactEmail={})", String contactEmail);
 log.debug("createJob(JobDTO jobDTO={}): point → {}", JobDTO jobDTO, point);

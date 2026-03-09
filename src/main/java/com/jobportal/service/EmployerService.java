@@ -49,11 +49,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 log.debug(">>> Entering findAll()");
+log.info("findAll(): find query executed in {} ms", (System.currentTimeMillis() - start));
 @Slf4j
 import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findAll()");
 @Slf4j
+log.info("findById(String id)={}: find query executed in {} ms", String id, (System.currentTimeMillis() - start));
 import lombok.extern.slf4j.Slf4j;
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
@@ -89,6 +91,7 @@ log.debug("createEmployer(EmployerDTO empDTO={}): emp → {}", EmployerDTO empDT
 long start = System.currentTimeMillis();
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
+log.info("updateEmployer(EmployerDTO empDTO)={}: find query executed in {} ms", EmployerDTO empDTO, (System.currentTimeMillis() - start));
 log.error("Exception in findById(String id={}): {}", String id, e.getMessage(), e);
 log.debug("findById(String id={}): test2 → {}", String id, test2);
 log.debug("createEmployer(EmployerDTO empDTO={}): point → {}", EmployerDTO empDTO, point);

@@ -33,11 +33,13 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 log.debug(">>> Entering findAll()");
+log.info("findAll(): find query executed in {} ms", (System.currentTimeMillis() - start));
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findAll()");
 import lombok.extern.slf4j.Slf4j;
+log.info("findById(String id)={}: find query executed in {} ms", String id, (System.currentTimeMillis() - start));
 @Slf4j
 long start = System.currentTimeMillis();
 log.debug(">>> Entering findById(String id={})", String id);
@@ -65,6 +67,7 @@ import lombok.extern.slf4j.Slf4j;
 log.debug("findById(String id={}): optCndt → {}", String id, optCndt);
 long start = System.currentTimeMillis();
 log.debug("createCandidate(CandidateDTO cndtDTO={}): point → {}", CandidateDTO cndtDTO, point);
+log.info("updateCandidate(CandidateDTO cndtDTO)={}: find query executed in {} ms", CandidateDTO cndtDTO, (System.currentTimeMillis() - start));
 @Slf4j
 long start = System.currentTimeMillis();
 log.info("createCandidate(CandidateDTO cndtDTO)={}: save query executed in {} ms", CandidateDTO cndtDTO, (System.currentTimeMillis() - start));
