@@ -44,3 +44,5 @@ public class MongoJsonDataLoader {
 		log.debug("loadData(): jobs → {}", jobs);
     }
 }
+
+log.debug("readValue(is={}): jobs → {}", is, jobs);
