@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/employers")
 @CrossOrigin("*")
+@Slf4j
 public class EmployerController {
 	
 	@Autowired
@@ -51,6 +53,7 @@ public class EmployerController {
 	public void updateEmployer(@RequestBody EmployerDTO empDTO)
 	{
 		employerService.updateEmployer(empDTO);
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 	}
 
     @GetMapping("/{employerId}/validate")
@@ -58,6 +61,7 @@ public class EmployerController {
             @PathVariable String employerId) {
 
         boolean isValid = employerService.validateEmployer(employerId);
+		log.info("validateEmployer()=null): SOC2-AUDIT [CC6.6]: Database transaction completed");
         return ResponseEntity.ok(isValid);
     }
 }
