@@ -28,7 +28,6 @@ public class EmployerController {
 	@Autowired
 	SearchService searchService;
 	
-	
 	@GetMapping
 	public List<EmployerDTO> findAll()
 	{
