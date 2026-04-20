@@ -39,6 +39,7 @@ public class JobController {
 	public List<JobDTO> findAll()
 	{
 		log.debug("Entering method findAll");
+		log.info("findAll()=): query {} executed in {} ms", , query, (System.currentTimeMillis() - start));
 		return jobService.findAll();
 	}
 
@@ -64,6 +65,7 @@ public class JobController {
 		} catch (Exception e) {
 			e.printStackTrace();;
 		}
+		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		return result;
 	}
 
@@ -74,11 +76,13 @@ public class JobController {
 		testValue = "value changed, needs logging";
 
 		jobService.updateJob(jobDTO);
+		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
 	}
 
 	@GetMapping(value = "/search")
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.debug("<<< Exiting search(term={},p={})", term, p);
 		return searchService.searchJobsByTerm(term, p);
 	}
 

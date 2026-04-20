@@ -15,9 +15,11 @@ import com.jobportal.dao.JobDAO;
 import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
+import lombok.extern.slf4j.Slf4j;
 import com.jobportal.model.Job;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired
@@ -35,6 +37,7 @@ public class JobService {
 	
 	public List<JobDTO> findAll()
 	{
+		log.info("findAll()=): query {} executed in {} ms", , query, (System.currentTimeMillis() - start));
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
@@ -46,6 +49,7 @@ public class JobService {
 		if (!optJob.isPresent())
 			return null;
 		
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
 	}
 	
@@ -61,6 +65,7 @@ public class JobService {
 			job.setProposals(proposalService.findByJobId(job.getJobId()));
 		});
 		
+		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
 		return jobs;
 	}
 	
@@ -78,6 +83,7 @@ public class JobService {
 		
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
+		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		return job.getJobId();
 	}
 	
@@ -100,6 +106,7 @@ public class JobService {
 		
 		dao.save(job);
 	}
+	log.info("updateJob(jobDTO)={}): query {} executed in {} ms", jobDTO, query, (System.currentTimeMillis() - start));
 	
 	@Transactional
 	public void updateLocation(String jobId, LocationDTO location)
@@ -116,4 +123,5 @@ public class JobService {
 		
 		dao.save(job);
 	}
+	log.info("updateLocation(jobId,location)={},{}): query {} executed in {} ms", jobId, location, query, (System.currentTimeMillis() - start));
 }
