@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.ProposalDAO;
 import com.jobportal.dto.ProposalDTO;
 import com.jobportal.model.Proposal;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProposalService {
 	
 	@Autowired
@@ -33,12 +35,14 @@ public class ProposalService {
 	
 	public List<ProposalDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
 		return dao.findAll().stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
 	
 	public ProposalDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
 		Optional<Proposal> optProposal = dao.findById(id);
 		
 		if (!optProposal.isPresent())
@@ -49,6 +53,7 @@ public class ProposalService {
 	
 	public List<ProposalDTO> findByJobId(String jobId)
 	{
+		log.debug(">>> Entering findByJobId(jobId={})", jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
@@ -56,6 +61,7 @@ public class ProposalService {
 	@Transactional
 	public String createProposal(ProposalDTO proposalDTO)
 	{
+		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
 		Proposal proposal = modelMapper.map(proposalDTO, Proposal.class);
 		proposal.setCreatedOn((new Date()).toString());
 		proposal.setUpdatedOn(proposal.getCreatedOn());
@@ -74,6 +80,7 @@ public class ProposalService {
 	@Transactional
 	public void updateProposal(ProposalDTO proposalDTO)
 	{
+		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
 		Optional<Proposal> optProposal = dao.findById(proposalDTO.getProposalId());
 		
 		if (!optProposal.isPresent())
