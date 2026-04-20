@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -108,6 +110,7 @@ public class EmployerService {
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
 		dao.save(emp);
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT: Change management operation performed", empDTO);
 	}
 
 	public boolean validateEmployer(String employerId)
@@ -118,6 +121,8 @@ public class EmployerService {
 			return true;
 		}
 
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT: System operation completed with status {}", employerId, response);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT: Database transaction completed with status {}", employerId, response);
 		return false;
 	}
 
