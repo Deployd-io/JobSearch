@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -46,14 +48,19 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
+		log.debug("<<< Exiting findAll()");
+		log.info("findAll(): find operation executed in {} ms", (System.currentTimeMillis() - start));
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
 	public EmployerDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
 		Optional<Employer> optEmp = dao.findById(id);
 		
+		log.info("findById(id={}): find operation executed in {} ms", id, (System.currentTimeMillis() - start));
 		if (!optEmp.isPresent())
 			return null;
 		
@@ -61,25 +68,33 @@ public class EmployerService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Exception in findById(id={}): {}", id, e.getMessage(), e);
 		}
 		test2 = "tesst 2";
+		log.debug("findById(id={}): test2 → {}", id, test2);
 		e.setEmail("a@yahoo.com");
+		log.debug("findById(id={}): test2 → {}", id, test2);
 		
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
 	
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
 		emp.setUpdatedOn(emp.getCreatedOn());
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
 		emp.setPoint(point);
+		log.debug("createEmployer(empDTO={}): point → {}", empDTO, point);
 		
 		dao.save(emp);
 		
+		log.info("createEmployer(empDTO={}): save operation executed in {} ms", empDTO, (System.currentTimeMillis() - start));
+		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return emp.getEmployerId();
 	}
 	
@@ -87,6 +102,7 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
 		if (!optEmp.isPresent())
@@ -98,26 +114,34 @@ public class EmployerService {
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Exception in updateEmployer(empDTO={}): {}", empDTO, e.getMessage(), e);
 		}
 		
 		test3 = 29;
+		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
 		emp.setPoint(point);
+		log.debug("updateEmployer(empDTO={}): point → {}", empDTO, point);
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
+		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 		dao.save(emp);
 	}
+	log.info("updateEmployer(empDTO={}): save operation executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 
 	public boolean validateEmployer(String employerId)
 	{
+		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
 		ResponseEntity<EmployerDTO> response = restTemplate
+				log.debug("validateEmployer(employerId={}): employerId → {}", employerId, employerId);
 				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return true;
 		}
 
+		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
 
