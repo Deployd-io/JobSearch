@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -46,12 +48,15 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
 		return dao.findAll().stream().map(cndt -> 
+		log.debug("<<< Exiting findAll()");
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
 	public EmployerDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
 		Optional<Employer> optEmp = dao.findById(id);
 		
 		if (!optEmp.isPresent())
@@ -61,16 +66,21 @@ public class EmployerService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Exception in findById(id={}): {}", id, e.getMessage(), e);
 		}
 		test2 = "tesst 2";
 		e.setEmail("a@yahoo.com");
 		
+		log.debug(">>> Entering findById(id={})", id);
+		log.error("Exception in findById(id={}): {}", id, e.getMessage(), e);
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
 	
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
 		emp.setUpdatedOn(emp.getCreatedOn());
@@ -80,6 +90,8 @@ public class EmployerService {
 		
 		dao.save(emp);
 		
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
+		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return emp.getEmployerId();
 	}
 	
@@ -87,6 +99,7 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
 		if (!optEmp.isPresent())
@@ -98,6 +111,7 @@ public class EmployerService {
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Exception in updateEmployer(empDTO={}): {}", empDTO, e.getMessage(), e);
 		}
 		
 		test3 = 29;
@@ -107,17 +121,21 @@ public class EmployerService {
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
+		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 		dao.save(emp);
 	}
 
 	public boolean validateEmployer(String employerId)
 	{
+		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
 		ResponseEntity<EmployerDTO> response = restTemplate
 				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return true;
 		}
 
+		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
+		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
 
