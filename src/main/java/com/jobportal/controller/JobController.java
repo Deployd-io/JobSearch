@@ -39,6 +39,7 @@ public class JobController {
 	public List<JobDTO> findAll()
 	{
 		log.debug("Entering method findAll");
+		log.debug("<<< Exiting findAll()");
 		return jobService.findAll();
 	}
 
@@ -58,27 +59,44 @@ public class JobController {
 	@PostMapping
 	public String createJob(@RequestBody JobDTO jobDTO)
 	{
+	log.debug(">>> Entering createJob()");
+		log.debug(">>> Entering createJob()");
 		String result = "";
+		log.debug("createJob(): result → {}", result);
 		try {
 			result = jobService.createJob(jobDTO);
+			log.error("Exception in createJob(): {}", e.getMessage(), e);
+			log.debug("createJob(): result → {}", result);
 		} catch (Exception e) {
+			log.debug("<<< Exiting createJob()");
 			e.printStackTrace();;
+			log.error("Exception in createJob(): {}", e.getMessage(), e);
 		}
+		log.debug("<<< Exiting createJob()");
 		return result;
 	}
 
 	@PutMapping
+	log.debug("updateJob(): testValue → {}", testValue);
+	log.debug("<<< Exiting updateJob()");
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
+		log.debug(">>> Entering updateJob()");
 		String testValue = "Testing my local changes";
 		testValue = "value changed, needs logging";
 
+		log.debug(">>> Entering search(Pageable p={})", Pageable p);
+		log.debug("updateJob(): testValue → {}", testValue);
+		log.debug("<<< Exiting updateJob()");
+		log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 		jobService.updateJob(jobDTO);
 	}
 
 	@GetMapping(value = "/search")
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.debug(">>> Entering search(Pageable p={})", Pageable p);
+		log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 		return searchService.searchJobsByTerm(term, p);
 	}
 

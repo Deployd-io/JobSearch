@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.service.CandidateService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/candidates")
+@Slf4j
 @CrossOrigin("*")
+@Slf4j
 public class CandidateController {
 	
 	@Autowired
@@ -31,8 +35,12 @@ public class CandidateController {
 	
 	
 	@GetMapping
+	log.debug(">>> Entering findAll()");
 	public List<CandidateDTO> findAll()
 	{
+		log.debug("<<< Exiting findAll()");
+		log.debug(">>> Entering findAll()");
+		log.debug("<<< Exiting findAll()");
 		return candidateService.findAll();
 	}
 	
@@ -41,22 +49,34 @@ public class CandidateController {
 	{
 		return candidateService.findById(id);
 	}
+	log.debug(">>> Entering createCandidate()");
 	
 	@PostMapping
+	log.debug("<<< Exiting createCandidate()");
 	public String createCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
+		log.debug(">>> Entering createCandidate()");
+		log.debug("<<< Exiting createCandidate()");
+		log.debug(">>> Entering updateCandidate()");
 		return candidateService.createCandidate(cndtDTO);
 	}
+	log.debug("<<< Exiting updateCandidate()");
 	
 	@PutMapping
 	public void updateCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
+		log.debug(">>> Entering search(Pageable p={})", Pageable p);
+		log.debug(">>> Entering updateCandidate()");
 		candidateService.updateCandidate(cndtDTO);
+		log.debug("<<< Exiting search(Pageable p={})", Pageable p);
+		log.debug("<<< Exiting updateCandidate()");
 	}
 	
 	@GetMapping(value = "/search")
 	public List<CandidateDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.debug(">>> Entering search(Pageable p={})", Pageable p);
+		log.debug("<<< Exiting search(Pageable p={})", Pageable p);
 		return searchService.searchCandidatesByTerm(term, p);
 	}
  
