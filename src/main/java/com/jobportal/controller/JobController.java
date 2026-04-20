@@ -70,6 +70,7 @@ public class JobController {
 	@PutMapping
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT: Change management operation performed by initiator {}", jobDTO, changeInitiator);
 		String testValue = "Testing my local changes";
 		testValue = "value changed, needs logging";
 
