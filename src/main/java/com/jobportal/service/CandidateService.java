@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.CandidateDAO;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.model.Candidate;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class CandidateService {
 
 	@Autowired
@@ -37,8 +39,10 @@ public class CandidateService {
 	public CandidateDTO findById(String id)
 	{
 		Optional<Candidate> optCndt = dao.findById(id);
+		long start = System.currentTimeMillis();
 		
 		if (!optCndt.isPresent())
+			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 			return null;
 		
 		return modelMapper.map(optCndt.get(), CandidateDTO.class);
@@ -51,10 +55,12 @@ public class CandidateService {
 		cndt.setCreatedOn((new Date()).toString());
 		cndt.setUpdatedOn(cndt.getCreatedOn());
 		
+		long start = System.currentTimeMillis();
 		Point point = new Point(cndtDTO.getLng(), cndtDTO.getLat());
 		cndt.setPoint(point);
 		
 		dao.save(cndt);
+		log.info("createCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 		
 		return cndt.getCandidateId();
 	}
@@ -64,9 +70,11 @@ public class CandidateService {
 	public void updateCandidate(CandidateDTO cndtDTO)
 	{
 		Optional<Candidate> optCndt = dao.findById(cndtDTO.getCandidateId());
+		long start = System.currentTimeMillis();
 		
 		if (!optCndt.isPresent())
 			return;
+			log.info("updateCandidate(cndtDTO)={}: find query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 		
 		Candidate cndt = optCndt.get();
 		cndt.setUpdatedOn((new Date()).toString());
@@ -77,6 +85,7 @@ public class CandidateService {
 		modelMapperService.getNonNullModelMapper().map(cndtDTO, cndt);
 		
 		dao.save(cndt);
+		log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 	}
 
 }

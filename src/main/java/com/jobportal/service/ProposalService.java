@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.ProposalDAO;
 import com.jobportal.dto.ProposalDTO;
 import com.jobportal.model.Proposal;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProposalService {
 	
 	@Autowired
@@ -40,8 +42,10 @@ public class ProposalService {
 	public ProposalDTO findById(String id)
 	{
 		Optional<Proposal> optProposal = dao.findById(id);
+		long start = System.currentTimeMillis();
 		
 		if (!optProposal.isPresent())
+			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 			return null;
 		
 		return modelMapper.map(optProposal.get(), ProposalDTO.class);
@@ -60,10 +64,12 @@ public class ProposalService {
 		proposal.setCreatedOn((new Date()).toString());
 		proposal.setUpdatedOn(proposal.getCreatedOn());
 		
+		long start = System.currentTimeMillis();
 		Point point = new Point(proposalDTO.getLng(), proposalDTO.getLat());
 		proposal.setPoint(point);
 		
 		dao.save(proposal);
+		log.info("createProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 		
 		//locationService.findByAddress(job.getProposalId(), jobDTO.getCompleteAddress());
 		
@@ -75,9 +81,11 @@ public class ProposalService {
 	public void updateProposal(ProposalDTO proposalDTO)
 	{
 		Optional<Proposal> optProposal = dao.findById(proposalDTO.getProposalId());
+		long start = System.currentTimeMillis();
 		
 		if (!optProposal.isPresent())
 			return;
+			log.info("updateProposal(proposalDTO)={}: find query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 		
 		Proposal proposal = optProposal.get();
 		proposal.setUpdatedOn((new Date()).toString());
@@ -88,5 +96,6 @@ public class ProposalService {
 		modelMapperService.getNonNullModelMapper().map(proposalDTO, proposal);
 		
 		dao.save(proposal);
+		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 	}
 }
