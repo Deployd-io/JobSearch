@@ -13,7 +13,9 @@ import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Repository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 
 @Slf4j
 @Repository
@@ -21,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 public class SearchDAO {
 	
 	@Autowired
+	log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
+	long start = System.currentTimeMillis();
 	MongoTemplate template;
 
 	log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
@@ -29,8 +33,10 @@ public class SearchDAO {
 	{
 		log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
 		long start = System.currentTimeMillis();
+		log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
 		TextCriteria criteria = TextCriteria.forDefaultLanguage()
 				.matchingAny(term.split("\\s+"));  // handles multiple words
+				log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
 
 		Query query = new Query()
 				.with(Sort.by(Sort.Direction.DESC, "updatedOn"))

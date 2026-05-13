@@ -15,6 +15,8 @@ import com.jobportal.model.Candidate;
 import com.jobportal.model.Job;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
@@ -25,14 +27,17 @@ public class SearchService {
 	SearchDAO dao;
 	
 	@Autowired
+	log.debug(">>> Entering searchJobsByTerm(term={},p={})", term, p);
 	ModelMapper modelMapper;
 	
 	log.debug(">>> Entering searchJobsByTerm(term={},p={})", term, p);
 	public List<JobDTO> searchJobsByTerm(String term, Pageable p)
 	{
 		log.debug("<<< Exiting searchJobsByTerm(term={},p={})", term, p);
+		log.debug(">>> Entering searchCandidatesByTerm(term={},p={})", term, p);
 		log.debug(">>> Entering searchJobsByTerm(term={},p={})", term, p);
 		log.debug("<<< Exiting searchJobsByTerm(term={},p={})", term, p);
+		log.debug("<<< Exiting searchCandidatesByTerm(term={},p={})", term, p);
 		return dao.searchByTerm(Job.class, term, p).stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 			log.debug(">>> Entering searchCandidatesByTerm(term={},p={})", term, p);

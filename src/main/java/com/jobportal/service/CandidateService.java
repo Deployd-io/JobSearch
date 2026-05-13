@@ -16,6 +16,8 @@ import com.jobportal.dto.CandidateDTO;
 import com.jobportal.model.Candidate;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
@@ -30,33 +32,46 @@ public class CandidateService {
 	
 	@Autowired
 	ModelMapperService modelMapperService;
+	log.debug(">>> Entering findAll()");
 	
 	
 	log.debug(">>> Entering findAll()");
 	public List<CandidateDTO> findAll()
 	{
 		log.debug("<<< Exiting findAll()");
+		log.debug(">>> Entering findById(id={})", id);
+		long start = System.currentTimeMillis();
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
+		log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
+		log.debug("findById(id={}): optCndt → {}", id, optCndt);
 			log.debug(">>> Entering findById(id={})", id);
 			long start = System.currentTimeMillis();
+			log.debug("<<< Exiting findById(id={})", id);
 	}
 	
 	public CandidateDTO findById(String id)
 	{
 	log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
+	log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 	log.debug("findById(id={}): optCndt → {}", id, optCndt);
 		log.debug(">>> Entering findById(id={})", id);
+		log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
+		long start = System.currentTimeMillis();
 		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findById(id={})", id);
 		Optional<Candidate> optCndt = dao.findById(id);
+		log.info("createCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 		
+		log.debug("createCandidate(cndtDTO={}): point → {}", cndtDTO, point);
 		if (!optCndt.isPresent())
+			log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 			log.debug("findById(id={}): optCndt → {}", id, optCndt);
 			log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
+			log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 			return null;
 		
 		log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
@@ -66,17 +81,22 @@ public class CandidateService {
 	}
 	log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 	log.info("createCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
+	log.debug("updateCandidate(cndtDTO={}): optCndt → {}", cndtDTO, optCndt);
 	
 	log.debug("createCandidate(cndtDTO={}): point → {}", cndtDTO, point);
 	@Transactional
 	public String createCandidate(CandidateDTO cndtDTO)
 	{
+	log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
+		log.debug("updateCandidate(cndtDTO={}): point → {}", cndtDTO, point);
 		Candidate cndt = modelMapper.map(cndtDTO, Candidate.class);
+		log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		cndt.setCreatedOn((new Date()).toString());
 		log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		long start = System.currentTimeMillis();
+		log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 		cndt.setUpdatedOn(cndt.getCreatedOn());
 		
 		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
@@ -93,6 +113,7 @@ public class CandidateService {
 		log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 		return cndt.getCandidateId();
+		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 	}
 	log.debug("updateCandidate(cndtDTO={}): point → {}", cndtDTO, point);
 	log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
