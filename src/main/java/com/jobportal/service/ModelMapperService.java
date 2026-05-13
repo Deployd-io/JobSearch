@@ -7,13 +7,18 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 
 @Slf4j
 @Service
+log.debug(">>> Entering getNonNullModelMapper()");
 @Slf4j
 public class ModelMapperService {
+log.debug("getNonNullModelMapper(): mm → {}", mm);
 log.debug(">>> Entering getNonNullModelMapper()");
 
+	log.debug("<<< Exiting getNonNullModelMapper()");
 	
 	log.debug("getNonNullModelMapper(): mm → {}", mm);
 	log.debug(">>> Entering getNonNullModelMapper()");
