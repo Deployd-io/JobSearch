@@ -40,9 +40,9 @@ public class MongoJsonDataLoader {
         }
 
         InputStream is = new ClassPathResource("jobs.json").getInputStream();
-		log.debug("loadData(): jobs → {}", jobs);
 		log.debug("loadData(): is → {}", is);
         List<Job> jobs = objectMapper.readValue(is, new TypeReference<List<Job>>() {});
+		log.debug("loadData(): jobs → {}", jobs);
         mongoTemplate.insert(jobs, Job.class);
 		log.debug("<<< Exiting loadData()");
     }

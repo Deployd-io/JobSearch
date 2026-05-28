@@ -49,11 +49,12 @@ public class JobService {
 		long start = System.currentTimeMillis();
 		Optional<Job> optJob = dao.findById(id);
 		
-		if (!optJob.isPresent())
+		if (!optJob.isPresent()) {
 			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 			log.debug("findById(id={}): optJob → {}", id, optJob);
 			return null;
-		
+		}
+
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
 	}
@@ -110,11 +111,12 @@ public class JobService {
 		long start = System.currentTimeMillis();
 		Optional<Job> optJob = dao.findById(jobDTO.getJobId());
 		
-		if (!optJob.isPresent())
+		if (!optJob.isPresent()) {
 			log.debug("updateJob(jobDTO={}): optJob → {}", jobDTO, optJob);
 			log.info("updateJob(jobDTO)={}: find query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 			return;
-		
+		}
+
 		Job job = optJob.get();
 		job.setUpdatedOn((new Date()).toString());
 		log.debug("updateJob(jobDTO={}): job → {}", jobDTO, job);
@@ -137,11 +139,12 @@ public class JobService {
 		long start = System.currentTimeMillis();
 		Optional<Job> optJob = dao.findById(jobId);
 		
-		if (!optJob.isPresent())
+		if (!optJob.isPresent()) {
 			log.debug("updateLocation(jobId={},location={}): optJob → {}", jobId, location, optJob);
 			log.info("updateLocation(jobId,location)={},{}: find query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
 			return;
-		
+		}
+
 		Job job = optJob.get();
 		Point point = new Point(location.getLongitude(), location.getLatitude());
 		log.debug("updateLocation(jobId={},location={}): job → {}", jobId, location, job);
@@ -152,5 +155,18 @@ public class JobService {
 		dao.save(job);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
+	}
+
+	// --- Error simulation: NumberFormatException ---
+	public String parseJobBudget(String rawBudget)
+	{
+		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
+		try {
+			int budget = Integer.parseInt(rawBudget);
+			return "budget=" + budget;
+		} catch (Exception e) {
+			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
+			return "parseJobBudget failed: " + e.getMessage();
+		}
 	}
 }

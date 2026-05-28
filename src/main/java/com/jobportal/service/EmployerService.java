@@ -60,11 +60,12 @@ public class EmployerService {
 		long start = System.currentTimeMillis();
 		Optional<Employer> optEmp = dao.findById(id);
 		
-		if (!optEmp.isPresent())
+		if (!optEmp.isPresent()) {
 			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 			log.debug("findById(id={}): optEmp → {}", id, optEmp);
 			return null;
-		
+		}
+
 		try {
 			
 		} catch (Exception e) {
@@ -109,10 +110,11 @@ public class EmployerService {
 		long start = System.currentTimeMillis();
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
-		if (!optEmp.isPresent())
+		if (!optEmp.isPresent()) {
 			log.debug("updateEmployer(empDTO={}): optEmp → {}", empDTO, optEmp);
 			log.info("updateEmployer(empDTO)={}: find query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 			return;
+		}
 
 		Employer emp = null;
 		try {
@@ -152,6 +154,19 @@ public class EmployerService {
 
 		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
+	}
+
+	// --- Error simulation: NullPointerException ---
+	public String rankTopEmployer()
+	{
+		log.debug(">>> Entering rankTopEmployer()");
+		try {
+			Employer top = null;
+			return "topEmployer=" + top.getEmployerId();
+		} catch (Exception e) {
+			log.error("rankTopEmployer(): null employer encountered while ranking top employers - {}", e.getMessage(), e);
+			return "rankTopEmployer failed: " + e.getMessage();
+		}
 	}
 
 }

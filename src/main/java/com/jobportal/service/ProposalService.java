@@ -47,11 +47,12 @@ public class ProposalService {
 		long start = System.currentTimeMillis();
 		Optional<Proposal> optProposal = dao.findById(id);
 		
-		if (!optProposal.isPresent())
+		if (!optProposal.isPresent()) {
 			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 			log.debug("findById(id={}): optProposal → {}", id, optProposal);
 			return null;
-		
+		}
+
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optProposal.get(), ProposalDTO.class);
 	}
@@ -95,11 +96,12 @@ public class ProposalService {
 		long start = System.currentTimeMillis();
 		Optional<Proposal> optProposal = dao.findById(proposalDTO.getProposalId());
 		
-		if (!optProposal.isPresent())
+		if (!optProposal.isPresent()) {
 			log.debug("updateProposal(proposalDTO={}): optProposal → {}", proposalDTO, optProposal);
 			log.info("updateProposal(proposalDTO)={}: find query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 			return;
-		
+		}
+
 		Proposal proposal = optProposal.get();
 		proposal.setUpdatedOn((new Date()).toString());
 		log.debug("updateProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
@@ -113,5 +115,19 @@ public class ProposalService {
 		dao.save(proposal);
 		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
+	}
+
+	// --- Error simulation: IndexOutOfBoundsException ---
+	public String selectProposalAt(int index)
+	{
+		log.debug(">>> Entering selectProposalAt(index={})", index);
+		try {
+			List<String> shortlist = java.util.Arrays.asList("proposal-1", "proposal-2", "proposal-3");
+			String chosen = shortlist.get(index);
+			return "selected=" + chosen;
+		} catch (Exception e) {
+			log.error("selectProposalAt(index={}): proposal index out of range while selecting shortlisted proposal - {}", index, e.getMessage(), e);
+			return "selectProposalAt failed: " + e.getMessage();
+		}
 	}
 }

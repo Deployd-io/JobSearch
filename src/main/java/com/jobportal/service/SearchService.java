@@ -37,8 +37,22 @@ public class SearchService {
 	{
 		log.debug(">>> Entering searchCandidatesByTerm(term={},p={})", term, p);
 		log.debug("<<< Exiting searchCandidatesByTerm(term={},p={})", term, p);
-		return dao.searchByTerm(Candidate.class, term, p).stream().map(cndt -> 
+		return dao.searchByTerm(Candidate.class, term, p).stream().map(cndt ->
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
+	}
+
+	// --- Error simulation: ClassCastException ---
+	public String applyDynamicFilter(String filterValue)
+	{
+		log.debug(">>> Entering applyDynamicFilter(filterValue={})", filterValue);
+		try {
+			Object raw = filterValue;
+			Integer cast = (Integer) raw;
+			return "filter=" + cast;
+		} catch (Exception e) {
+			log.error("applyDynamicFilter(filterValue={}): invalid filter type cast applied to search filter - {}", filterValue, e.getMessage(), e);
+			return "applyDynamicFilter failed: " + e.getMessage();
+		}
 	}
 
 }

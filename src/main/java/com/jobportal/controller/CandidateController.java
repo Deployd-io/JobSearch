@@ -69,5 +69,12 @@ public class CandidateController {
 		log.debug("<<< Exiting search(term={},p={})", term, p);
 		return searchService.searchCandidatesByTerm(term, p);
 	}
- 
+
+	@GetMapping(value = "/simulate-error")
+	public String simulateError()
+	{
+		log.debug(">>> Entering simulateError()");
+		return candidateService.scoreCandidateMatch(0);
+	}
+
 }

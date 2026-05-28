@@ -92,4 +92,18 @@ public class JobController {
 		return searchService.searchJobsByTerm(term, p);
 	}
 
+	@GetMapping(value = "/simulate-error")
+	public String simulateError()
+	{
+		log.debug(">>> Entering simulateError()");
+		return jobService.parseJobBudget("12k-USD");
+	}
+
+	@GetMapping(value = "/simulate-search-error")
+	public String simulateSearchError()
+	{
+		log.debug(">>> Entering simulateSearchError()");
+		return searchService.applyDynamicFilter("not-a-number");
+	}
+
 }

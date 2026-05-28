@@ -44,11 +44,12 @@ public class CandidateService {
 		long start = System.currentTimeMillis();
 		Optional<Candidate> optCndt = dao.findById(id);
 		
-		if (!optCndt.isPresent())
+		if (!optCndt.isPresent()) {
 			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 			log.debug("findById(id={}): optCndt → {}", id, optCndt);
 			return null;
-		
+		}
+
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optCndt.get(), CandidateDTO.class);
 	}
@@ -82,11 +83,12 @@ public class CandidateService {
 		long start = System.currentTimeMillis();
 		Optional<Candidate> optCndt = dao.findById(cndtDTO.getCandidateId());
 		
-		if (!optCndt.isPresent())
+		if (!optCndt.isPresent()) {
 			log.debug("updateCandidate(cndtDTO={}): optCndt → {}", cndtDTO, optCndt);
 			log.info("updateCandidate(cndtDTO)={}: find query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 			return;
-		
+		}
+
 		Candidate cndt = optCndt.get();
 		cndt.setUpdatedOn((new Date()).toString());
 		log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
@@ -100,6 +102,20 @@ public class CandidateService {
 		dao.save(cndt);
 		log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+	}
+
+	// --- Error simulation: ArithmeticException (divide by zero) ---
+	public String scoreCandidateMatch(int totalApplicants)
+	{
+		log.debug(">>> Entering scoreCandidateMatch(totalApplicants={})", totalApplicants);
+		try {
+			int matched = 5;
+			int percentage = (matched * 100) / totalApplicants;
+			return "match=" + percentage + "%";
+		} catch (Exception e) {
+			log.error("scoreCandidateMatch(totalApplicants={}): arithmetic error computing candidate match percentage - {}", totalApplicants, e.getMessage(), e);
+			return "scoreCandidateMatch failed: " + e.getMessage();
+		}
 	}
 
 }

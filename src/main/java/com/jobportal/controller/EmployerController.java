@@ -70,4 +70,11 @@ public class EmployerController {
 		log.debug("<<< Exiting validateEmployer()");
         return ResponseEntity.ok(isValid);
     }
+
+	@GetMapping(value = "/simulate-error")
+	public String simulateError()
+	{
+		log.debug(">>> Entering simulateError()");
+		return employerService.rankTopEmployer();
+	}
 }

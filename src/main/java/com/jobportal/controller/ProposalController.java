@@ -65,5 +65,12 @@ public class ProposalController {
 		proposalService.updateProposal(proposalDTO);
 		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	}
- 
+
+	@GetMapping(value = "/simulate-error")
+	public String simulateError()
+	{
+		log.debug(">>> Entering simulateError()");
+		return proposalService.selectProposalAt(7);
+	}
+
 }
