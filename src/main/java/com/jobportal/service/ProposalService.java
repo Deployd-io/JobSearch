@@ -36,6 +36,7 @@ public class ProposalService {
 	public List<ProposalDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
@@ -60,6 +61,7 @@ public class ProposalService {
 	public List<ProposalDTO> findByJobId(String jobId)
 	{
 		log.debug(">>> Entering findByJobId(jobId={})", jobId);
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
@@ -71,6 +73,7 @@ public class ProposalService {
 		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
 		Proposal proposal = modelMapper.map(proposalDTO, Proposal.class);
 		proposal.setCreatedOn((new Date()).toString());
+		log.debug("createProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		log.debug("createProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		long start = System.currentTimeMillis();
 		proposal.setUpdatedOn(proposal.getCreatedOn());
@@ -105,6 +108,7 @@ public class ProposalService {
 		Proposal proposal = optProposal.get();
 		proposal.setUpdatedOn((new Date()).toString());
 		log.debug("updateProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
+		log.debug("updateProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		
 		Point point = new Point(proposalDTO.getLng(), proposalDTO.getLat());
 		proposal.setPoint(point);
@@ -127,6 +131,7 @@ public class ProposalService {
 			return "selected=" + chosen;
 		} catch (Exception e) {
 			log.error("selectProposalAt(index={}): proposal index out of range while selecting shortlisted proposal - {}", index, e.getMessage(), e);
+			log.debug("<<< Exiting selectProposalAt(index={})", index);
 			return "selectProposalAt failed: " + e.getMessage();
 		}
 	}

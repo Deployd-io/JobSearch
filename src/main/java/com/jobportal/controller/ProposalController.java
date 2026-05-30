@@ -70,6 +70,7 @@ public class ProposalController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return proposalService.selectProposalAt(7);
 	}
 

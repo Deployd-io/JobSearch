@@ -38,6 +38,7 @@ public class JobService {
 	public List<JobDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
@@ -87,6 +88,7 @@ public class JobService {
 		Job job = modelMapper.map(jobDTO, Job.class);
 		job.setCreatedOn((new Date()).toString());
 		log.debug("createJob(jobDTO={}): job → {}", jobDTO, job);
+		log.debug("createJob(jobDTO={}): job → {}", jobDTO, job);
 		long start = System.currentTimeMillis();
 		job.setUpdatedOn(job.getCreatedOn());
 		
@@ -119,6 +121,7 @@ public class JobService {
 
 		Job job = optJob.get();
 		job.setUpdatedOn((new Date()).toString());
+		log.debug("updateJob(jobDTO={}): job → {}", jobDTO, job);
 		log.debug("updateJob(jobDTO={}): job → {}", jobDTO, job);
 		
 		Point point = new Point(jobDTO.getLng(), jobDTO.getLat());
@@ -166,6 +169,7 @@ public class JobService {
 			return "budget=" + budget;
 		} catch (Exception e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
+			log.debug("<<< Exiting parseJobBudget(rawBudget={})", rawBudget);
 			return "parseJobBudget failed: " + e.getMessage();
 		}
 	}
