@@ -11,9 +11,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Repository;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Repository
+@Slf4j
 public class SearchDAO {
 	
 	@Autowired
@@ -23,6 +25,7 @@ public class SearchDAO {
 	{
 		TextCriteria criteria = TextCriteria.forDefaultLanguage()
 				.matchingAny(term.split("\\s+"));  // handles multiple words
+				long start = System.currentTimeMillis();
 
 		Query query = new Query()
 				.with(Sort.by(Sort.Direction.DESC, "updatedOn"))
