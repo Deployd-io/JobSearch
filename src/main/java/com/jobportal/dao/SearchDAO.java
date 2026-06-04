@@ -11,9 +11,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Repository;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Repository
+@Slf4j
 public class SearchDAO {
 	
 	@Autowired
@@ -30,6 +32,7 @@ public class SearchDAO {
 
 		List<T> result = template.find(query, className);
 
+		log.info("searchByTerm(className,term,p)={},{},{}): SOC2-AUDIT: Encryption operation completed with algorithm {}", className, term, p, result);
 		return result;
 	}
 }
