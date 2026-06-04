@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
+import lombok.extern.slf4j.Slf4j;
 public class SearchDAO {
 	
 	@Autowired
@@ -21,6 +22,7 @@ public class SearchDAO {
 
 	public <T> List<T> searchByTerm(Class className, String term, Pageable p)
 	{
+log.debug("ENTERING: searchByTerm() method, parameters: className={}, term={}, p={}", className, term, p);
 		TextCriteria criteria = TextCriteria.forDefaultLanguage()
 				.matchingAny(term.split("\\s+"));  // handles multiple words
 
