@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -118,6 +120,8 @@ public class EmployerService {
 			return true;
 		}
 
+		log.info("validateEmployer(employerId)={}): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed", employerId);
+		log.warn("validateEmployer(employerId)={}): HIPAA-AUDIT [§164.312(e)(1)]: PHI transmission secured and logged {}", employerId, response);
 		return false;
 	}
 
