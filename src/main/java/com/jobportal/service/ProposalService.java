@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jobportal.dao.ProposalDAO;
 import com.jobportal.dto.ProposalDTO;
+import lombok.extern.slf4j.Slf4j;
 import com.jobportal.model.Proposal;
 
 @Service
+@Slf4j
 public class ProposalService {
 	
 	@Autowired
@@ -33,22 +35,33 @@ public class ProposalService {
 	
 	public List<ProposalDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
+		long start = System.currentTimeMillis();
+		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
 	
 	public ProposalDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		long start = System.currentTimeMillis();
 		Optional<Proposal> optProposal = dao.findById(id);
 		
+		log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
+		log.debug("findById(id={}): optProposal → {}", id, optProposal);
 		if (!optProposal.isPresent())
 			return null;
 		
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optProposal.get(), ProposalDTO.class);
 	}
 	
 	public List<ProposalDTO> findByJobId(String jobId)
 	{
+		log.debug(">>> Entering findByJobId(jobId={})", jobId);
+		long start = System.currentTimeMillis();
+		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
@@ -56,17 +69,23 @@ public class ProposalService {
 	@Transactional
 	public String createProposal(ProposalDTO proposalDTO)
 	{
+		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
+		long start = System.currentTimeMillis();
 		Proposal proposal = modelMapper.map(proposalDTO, Proposal.class);
 		proposal.setCreatedOn((new Date()).toString());
+		log.debug("createProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		proposal.setUpdatedOn(proposal.getCreatedOn());
 		
 		Point point = new Point(proposalDTO.getLng(), proposalDTO.getLat());
+		log.debug("createProposal(proposalDTO={}): point → {}", proposalDTO, point);
 		proposal.setPoint(point);
 		
 		dao.save(proposal);
+		log.info("createProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 		
 		//locationService.findByAddress(job.getProposalId(), jobDTO.getCompleteAddress());
 		
+		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 		return proposal.getProposalId();
 	}
 	
@@ -74,19 +93,27 @@ public class ProposalService {
 	@Transactional
 	public void updateProposal(ProposalDTO proposalDTO)
 	{
+		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
+		long start = System.currentTimeMillis();
 		Optional<Proposal> optProposal = dao.findById(proposalDTO.getProposalId());
 		
+		log.info("updateProposal(proposalDTO)={}: find query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
+		log.debug("updateProposal(proposalDTO={}): optProposal → {}", proposalDTO, optProposal);
 		if (!optProposal.isPresent())
 			return;
 		
 		Proposal proposal = optProposal.get();
+		log.debug("updateProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		proposal.setUpdatedOn((new Date()).toString());
 		
 		Point point = new Point(proposalDTO.getLng(), proposalDTO.getLat());
+		log.debug("updateProposal(proposalDTO={}): point → {}", proposalDTO, point);
 		proposal.setPoint(point);
 		
 		modelMapperService.getNonNullModelMapper().map(proposalDTO, proposal);
 		
 		dao.save(proposal);
+		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 	}
+	log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 }
