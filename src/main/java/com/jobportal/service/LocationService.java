@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.jobportal.client.LocationClient;
 import com.jobportal.dto.LocationDTO;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class LocationService {
 
 	@Autowired
@@ -19,6 +21,7 @@ public class LocationService {
 	@Async
 	public void findByAddress(String jobId, String address)
 	{
+		log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
 		LocationDTO location = locationClient.findByAddress(address);
 		
 		jobService.updateLocation(jobId, location);

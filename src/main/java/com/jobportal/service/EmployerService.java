@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -46,12 +48,14 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
 	public EmployerDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
 		Optional<Employer> optEmp = dao.findById(id);
 		
 		if (!optEmp.isPresent())
@@ -71,6 +75,7 @@ public class EmployerService {
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
 		emp.setUpdatedOn(emp.getCreatedOn());
@@ -87,6 +92,7 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
 		if (!optEmp.isPresent())
@@ -112,6 +118,7 @@ public class EmployerService {
 
 	public boolean validateEmployer(String employerId)
 	{
+		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
 		ResponseEntity<EmployerDTO> response = restTemplate
 				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
 		if (response.getStatusCode() == HttpStatus.OK) {
