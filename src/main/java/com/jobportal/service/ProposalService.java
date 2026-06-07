@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.ProposalDAO;
 import com.jobportal.dto.ProposalDTO;
 import com.jobportal.model.Proposal;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProposalService {
 	
 	@Autowired

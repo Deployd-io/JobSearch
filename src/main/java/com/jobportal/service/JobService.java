@@ -16,8 +16,10 @@ import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired

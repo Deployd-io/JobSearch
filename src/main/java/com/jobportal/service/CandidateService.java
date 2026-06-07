@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.CandidateDAO;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.model.Candidate;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class CandidateService {
 
 	@Autowired
