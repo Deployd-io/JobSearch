@@ -166,6 +166,7 @@ public class JobService {
 			return "budget=" + budget;
 		} catch (Exception e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
+			log.debug("<<< Exiting parseJobBudget(rawBudget={})", rawBudget);
 			return "parseJobBudget failed: " + e.getMessage();
 		}
 	}
