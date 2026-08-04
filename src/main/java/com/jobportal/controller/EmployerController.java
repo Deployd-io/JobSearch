@@ -41,6 +41,8 @@ public class EmployerController {
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		log.debug("<<< Exiting findById(id={})", id);
 		return employerService.findById(id);
 	}
 	
@@ -67,6 +69,7 @@ public class EmployerController {
 
         boolean isValid = employerService.validateEmployer(employerId);
 		log.debug("validateEmployer(): isValid → {}", isValid);
+		log.debug("validateEmployer(employerId={}): isValid → {}", employerId, isValid);
 		log.debug("<<< Exiting validateEmployer()");
         return ResponseEntity.ok(isValid);
     }
@@ -75,6 +78,7 @@ public class EmployerController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }
