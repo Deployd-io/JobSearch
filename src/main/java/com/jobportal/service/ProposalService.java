@@ -115,6 +115,7 @@ public class ProposalService {
 		dao.save(proposal);
 		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
+		log.info("updateProposal(proposalDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", proposalDTO);
 	}
 
 	// --- Error simulation: IndexOutOfBoundsException ---
@@ -127,6 +128,7 @@ public class ProposalService {
 			return "selected=" + chosen;
 		} catch (Exception e) {
 			log.error("selectProposalAt(index={}): proposal index out of range while selecting shortlisted proposal - {}", index, e.getMessage(), e);
+			log.debug("<<< Exiting selectProposalAt(index={})", index);
 			return "selectProposalAt failed: " + e.getMessage();
 		}
 	}

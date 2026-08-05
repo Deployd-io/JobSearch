@@ -62,6 +62,7 @@ public class JobService {
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
 	{
 		log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
+		// SUGGESTED FIX (review before applying): log.debug(">>> Entering ***(***={})", ***);
 		long start = System.currentTimeMillis();
 		List jobs1 = dao.findByContactEmail(contactEmail);
 		
@@ -77,6 +78,7 @@ public class JobService {
 		});
 		
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
+		// SUGGESTED FIX (review before applying): log.debug("<<< Exiting ***(***={})", ***);
 		return jobs;
 	}
 	
@@ -130,6 +132,7 @@ public class JobService {
 		dao.save(job);
 		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 	}
 	
 	@Transactional
@@ -155,6 +158,7 @@ public class JobService {
 		dao.save(job);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
+		log.info("updateLocation(jobId,location)={},{}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobId, location);
 	}
 
 	// --- Error simulation: NumberFormatException ---
@@ -166,6 +170,7 @@ public class JobService {
 			return "budget=" + budget;
 		} catch (Exception e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
+			log.debug("<<< Exiting parseJobBudget(rawBudget={})", rawBudget);
 			return "parseJobBudget failed: " + e.getMessage();
 		}
 	}
