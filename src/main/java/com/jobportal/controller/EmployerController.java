@@ -41,6 +41,8 @@ public class EmployerController {
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		log.debug("<<< Exiting findById(id={})", id);
 		return employerService.findById(id);
 	}
 	
@@ -57,6 +59,7 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		employerService.updateEmployer(empDTO);
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	}
 
@@ -66,6 +69,8 @@ public class EmployerController {
 			log.debug(">>> Entering validateEmployer()");
 
         boolean isValid = employerService.validateEmployer(employerId);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
+		log.debug("validateEmployer(employerId={}): isValid → {}", employerId, isValid);
 		log.debug("validateEmployer(): isValid → {}", isValid);
 		log.debug("<<< Exiting validateEmployer()");
         return ResponseEntity.ok(isValid);
@@ -75,6 +80,7 @@ public class EmployerController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }

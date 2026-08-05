@@ -43,6 +43,8 @@ public class CandidateController {
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		log.debug("<<< Exiting findById(id={})", id);
 		return candidateService.findById(id);
 	}
 	
@@ -59,6 +61,7 @@ public class CandidateController {
 	{
 		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 		candidateService.updateCandidate(cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", cndtDTO);
 		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 	}
 	
@@ -74,6 +77,7 @@ public class CandidateController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return candidateService.scoreCandidateMatch(0);
 	}
 
