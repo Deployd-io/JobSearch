@@ -64,12 +64,12 @@ public class ProposalController {
 		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
 		proposalService.updateProposal(proposalDTO);
 		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
+		log.info("updateProposal(proposalDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", proposalDTO);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return proposalService.selectProposalAt(7);
 	}
 
