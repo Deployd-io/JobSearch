@@ -1,0 +1,51 @@
+[
+  {
+    "name": "John Smith",
+    "email": "john.smith@acmecorp.com",
+    "companyName": "Acme Corp",
+    "personalIntro": "s3://bucket/employers/john_intro.mp4",
+    "additionalInfo": "Hiring backend Java engineers",
+
+    "point": {
+      "x": -74.0060,
+      "y": 40.7128
+    },
+
+    "reviews": [
+      { "comment": "Great employer", "rating": 5 },
+      { "comment": "Good work-life balance", "rating": 4 }
+    ],
+
+    "references": [
+      { "name": "Jane Doe", "role": "CTO", "email": "jane@acmecorp.com" }
+    ],
+
+    "messages": [
+      { "content": "Welcome to Acme!", "sender": "SYSTEM" }
+    ]
+  },
+  {
+    "name": "Emily Johnson",
+    "email": "emily@techstars.io",
+    "companyName": "TechStars",
+    "personalIntro": "s3://bucket/employers/emily_intro.mp3",
+    "additionalInfo": "Remote-first startup",
+
+    "point": {
+      "x": -122.4194,
+      "y": 37.7749
+    },
+
+    "reviews": [
+      { "comment": "Fast-growing company", "rating": 4 }
+    ],
+
+    "references": [
+      { "name": "Alex Kim", "role": "Founder", "email": "alex@techstars.io" }
+    ],
+
+    "messages": [
+      { "content": "Thanks for applying!", "sender": "SYSTEM" }
+    ]
+  }
+]
