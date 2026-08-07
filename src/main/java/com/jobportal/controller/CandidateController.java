@@ -43,6 +43,8 @@ public class CandidateController {
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		log.debug("<<< Exiting findById(id={})", id);
 		return candidateService.findById(id);
 	}
 	
@@ -66,14 +68,12 @@ public class CandidateController {
 	public List<CandidateDTO> search(@RequestParam String term, Pageable p)
 	{
 		log.debug(">>> Entering search(term={},p={})", term, p);
-		log.debug("<<< Exiting search(term={},p={})", term, p);
 		return searchService.searchCandidatesByTerm(term, p);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return candidateService.scoreCandidateMatch(0);
 	}
 
