@@ -162,9 +162,13 @@ public class JobService {
 	{
 		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
 		try {
+			if (rawBudget == null || rawBudget.isEmpty()) {
+				log.error("parseJobBudget(rawBudget={}): input is null or empty", rawBudget);
+				return "parseJobBudget failed: input is null or empty";
+			}
 			int budget = Integer.parseInt(rawBudget);
 			return "budget=" + budget;
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
 			return "parseJobBudget failed: " + e.getMessage();
 		}

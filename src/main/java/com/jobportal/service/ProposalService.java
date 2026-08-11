@@ -123,6 +123,10 @@ public class ProposalService {
 		log.debug(">>> Entering selectProposalAt(index={})", index);
 		try {
 			List<String> shortlist = java.util.Arrays.asList("proposal-1", "proposal-2", "proposal-3");
+			if (index < 0 || index >= shortlist.size()) {
+				log.error("selectProposalAt(index={}): proposal index out of range while selecting shortlisted proposal", index);
+				return "selectProposalAt failed: Index out of range";
+			}
 			String chosen = shortlist.get(index);
 			return "selected=" + chosen;
 		} catch (Exception e) {

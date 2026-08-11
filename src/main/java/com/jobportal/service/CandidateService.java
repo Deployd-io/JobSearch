@@ -109,6 +109,10 @@ public class CandidateService {
 	{
 		log.debug(">>> Entering scoreCandidateMatch(totalApplicants={})", totalApplicants);
 		try {
+			if (totalApplicants == 0) {
+				log.error("scoreCandidateMatch(totalApplicants={}): cannot compute percentage with zero total applicants", totalApplicants);
+				return "scoreCandidateMatch failed: cannot compute percentage with zero total applicants";
+			}
 			int matched = 5;
 			int percentage = (matched * 100) / totalApplicants;
 			return "match=" + percentage + "%";

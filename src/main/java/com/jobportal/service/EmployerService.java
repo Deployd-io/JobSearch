@@ -20,7 +20,11 @@ import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
-
+/**
+ * Service class for Employer related operations.
+ * 
+ * @author [Your Name]
+ */
 @Service
 @Slf4j
 public class EmployerService {
@@ -161,8 +165,12 @@ public class EmployerService {
 	{
 		log.debug(">>> Entering rankTopEmployer()");
 		try {
-			Employer top = null;
-			return "topEmployer=" + top.getEmployerId();
+			Employer top = dao.findById("topEmployerId").orElse(null);
+			if (top != null) {
+				return "topEmployer=" + top.getEmployerId();
+			} else {
+				return "No top employer found";
+			}
 		} catch (Exception e) {
 			log.error("rankTopEmployer(): null employer encountered while ranking top employers - {}", e.getMessage(), e);
 			return "rankTopEmployer failed: " + e.getMessage();
