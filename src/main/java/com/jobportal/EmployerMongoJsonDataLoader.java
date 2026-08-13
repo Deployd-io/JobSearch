@@ -36,7 +36,9 @@ public class EmployerMongoJsonDataLoader {
     public void loadEmployers() throws Exception {
 	log.debug(">>> Entering loadEmployers()");
 
+		long start = System.currentTimeMillis();
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
+			log.info("loadEmployers(): find query executed in {} ms", (System.currentTimeMillis() - start));
             return;
         }
 
@@ -48,7 +50,6 @@ public class EmployerMongoJsonDataLoader {
         mongoTemplate.insert(employers, Employer.class);
 
         log.info("Loaded {} employers into embedded MongoDB", employers.size());
-		log.debug("<<< Exiting loadEmployers()");
     }
 }
 
