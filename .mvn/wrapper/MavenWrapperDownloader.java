@@ -25,7 +25,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MavenWrapperDownloader {
 
     /**
@@ -102,13 +104,18 @@ public class MavenWrapperDownloader {
     }
 
     private static void downloadFileFromURL(String urlString, File destination) throws Exception {
+		log.debug(">>> Entering downloadFileFromURL(urlString={},destination={})", urlString, destination);
         URL website = new URL(urlString);
         ReadableByteChannel rbc;
+		log.debug("downloadFileFromURL(urlString={},destination={}): website → {}", urlString, destination, website);
         rbc = Channels.newChannel(website.openStream());
+		log.debug("downloadFileFromURL(urlString={},destination={}): rbc → {}", urlString, destination, rbc);
         FileOutputStream fos = new FileOutputStream(destination);
+		log.debug("downloadFileFromURL(urlString={},destination={}): fos → {}", urlString, destination, fos);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         fos.close();
         rbc.close();
+		log.debug("<<< Exiting downloadFileFromURL(urlString={},destination={})", urlString, destination);
     }
 
 }
