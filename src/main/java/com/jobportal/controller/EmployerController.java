@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/employers")
 @CrossOrigin("*")
+@Slf4j
 public class EmployerController {
 	
 	@Autowired
@@ -55,8 +57,11 @@ public class EmployerController {
     @GetMapping("/{employerId}/validate")
     public ResponseEntity<Boolean> validateEmployer(
             @PathVariable String employerId) {
+			log.debug(">>> Entering validateEmployer(employerId={})", employerId);
 
         boolean isValid = employerService.validateEmployer(employerId);
+		log.debug("validateEmployer(employerId={}): isValid → {}", employerId, isValid);
+		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
         return ResponseEntity.ok(isValid);
     }
 

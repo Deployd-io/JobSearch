@@ -1,7 +1,9 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
 function loadJobsTable() {
+logger.debug('>>> Entering loadJobsTable()');
 /*
     jobsDataTable = $('#jobsTable').DataTable(
         {
@@ -16,11 +18,15 @@ function loadJobsTable() {
                     'XSRF-TOKEN': $('input:hidden[name="__RequestVerificationToken"]').val(),
                 },
                 beforeSend: function (xhr) {
+				logger.debug(`>>> Entering beforeSend(xhr=${xhr})`);
                //     $("#pageloader").show();
+				logger.debug(`<<< Exiting beforeSend(xhr=${xhr})`);
                 },
                 complete: function (xhr) {
+					logger.debug(`>>> Entering complete(xhr=${xhr})`);
                     
                  //   $("#pageloader").hide();
+				logger.debug(`<<< Exiting complete(xhr=${xhr})`);
                 },
             },
             "paging": true,
@@ -79,6 +85,7 @@ function loadJobsTable() {
                 {
                     data: "proposalCount",
                     "render": function (data, type, row) {
+						logger.debug('<<< Exiting loadJobsTable()');
                         return '<a href="#" onclick="showProposals(\'' + row.jobId + '\');">' + data + '</a>';
                     }
                 }
