@@ -4,8 +4,10 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter @Setter
+@Slf4j
 public class CandidateDTO extends AuditableDTO {
 	
 	private String candidateId;
@@ -30,11 +32,15 @@ public class CandidateDTO extends AuditableDTO {
 	
 	public Integer getReviewCount()
 	{
+		log.debug(">>> Entering getReviewCount()");
+		log.debug("<<< Exiting getReviewCount()");
 		return (reviews == null ? 0 : reviews.size());
 	}
 
 	public Integer getMessageCount()
 	{
+		log.debug(">>> Entering getMessageCount()");
+		log.debug("<<< Exiting getMessageCount()");
 		return (messages == null ? 0 : messages.size());
 	}
 }
