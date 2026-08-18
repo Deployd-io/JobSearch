@@ -25,7 +25,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MavenWrapperDownloader {
 
     /**
@@ -53,19 +55,25 @@ public class MavenWrapperDownloader {
     private static final String PROPERTY_NAME_WRAPPER_URL = "wrapperUrl";
 
     public static void main(String args[]) {
+		log.debug(">>> Entering main(args={})", args);
         System.out.println("- Downloader started");
         File baseDirectory = new File(args[0]);
+		log.debug("main(args={}): baseDirectory → {}", args, baseDirectory);
         System.out.println("- Using base directory: " + baseDirectory.getAbsolutePath());
 
         // If the maven-wrapper.properties exists, read it and check if it contains a custom
         // wrapperUrl parameter.
         File mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
+		log.debug("main(args={}): mavenWrapperPropertyFile → {}", args, mavenWrapperPropertyFile);
         String url = DEFAULT_DOWNLOAD_URL;
+		log.debug("main(args={}): url → {}", args, url);
         if(mavenWrapperPropertyFile.exists()) {
             FileInputStream mavenWrapperPropertyFileInputStream = null;
+			log.debug("main(args={}): mavenWrapperPropertyFileInputStream → {}", args, mavenWrapperPropertyFileInputStream);
             try {
                 mavenWrapperPropertyFileInputStream = new FileInputStream(mavenWrapperPropertyFile);
                 Properties mavenWrapperProperties = new Properties();
+				log.debug("main(args={}): mavenWrapperProperties → {}", args, mavenWrapperProperties);
                 mavenWrapperProperties.load(mavenWrapperPropertyFileInputStream);
                 url = mavenWrapperProperties.getProperty(PROPERTY_NAME_WRAPPER_URL, url);
             } catch (IOException e) {
@@ -83,6 +91,7 @@ public class MavenWrapperDownloader {
         System.out.println("- Downloading from: : " + url);
 
         File outputFile = new File(baseDirectory.getAbsolutePath(), MAVEN_WRAPPER_JAR_PATH);
+		log.debug("main(args={}): outputFile → {}", args, outputFile);
         if(!outputFile.getParentFile().exists()) {
             if(!outputFile.getParentFile().mkdirs()) {
                 System.out.println(
@@ -99,16 +108,22 @@ public class MavenWrapperDownloader {
             e.printStackTrace();
             System.exit(1);
         }
+		log.debug("<<< Exiting main(args={})", args);
     }
 
     private static void downloadFileFromURL(String urlString, File destination) throws Exception {
+		log.debug(">>> Entering downloadFileFromURL(urlString={},destination={})", urlString, destination);
         URL website = new URL(urlString);
         ReadableByteChannel rbc;
+		log.debug("downloadFileFromURL(urlString={},destination={}): website → {}", urlString, destination, website);
         rbc = Channels.newChannel(website.openStream());
         FileOutputStream fos = new FileOutputStream(destination);
+		log.debug("downloadFileFromURL(urlString={},destination={}): fos → {}", urlString, destination, fos);
+		log.debug("downloadFileFromURL(urlString={},destination={}): rbc → {}", urlString, destination, rbc);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         fos.close();
         rbc.close();
+		log.debug("<<< Exiting downloadFileFromURL(urlString={},destination={})", urlString, destination);
     }
 
 }
