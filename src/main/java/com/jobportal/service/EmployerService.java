@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -46,16 +48,23 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		log.debug(">>> Entering findAll()");
+		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
 	public EmployerDTO findById(String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		long start = System.currentTimeMillis();
 		Optional<Employer> optEmp = dao.findById(id);
 		
-		if (!optEmp.isPresent())
+			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
+			log.debug("findById(id={}): optEmp → {}", id, optEmp);
+		if (!optEmp.isPresent()) {
 			return null;
+		}
 		
 		try {
 			
@@ -64,22 +73,30 @@ public class EmployerService {
 		}
 		test2 = "tesst 2";
 		e.setEmail("a@yahoo.com");
+		log.debug("findById(id={}): test2 → {}", id, test2);
 		
+		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
 	
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
+		log.debug("createEmployer(empDTO={}): emp → {}", empDTO, emp);
 		emp.setUpdatedOn(emp.getCreatedOn());
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
+		log.debug("createEmployer(empDTO={}): point → {}", empDTO, point);
 		emp.setPoint(point);
 		
+		long start = System.currentTimeMillis();
+		log.info("createEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		dao.save(emp);
 		
+		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return emp.getEmployerId();
 	}
 	
@@ -87,34 +104,48 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
+		long start = System.currentTimeMillis();
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
-		if (!optEmp.isPresent())
+			log.debug("updateEmployer(empDTO={}): optEmp → {}", empDTO, optEmp);
+			log.info("updateEmployer(empDTO)={}: find query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
+		if (!optEmp.isPresent()) {
 			return;
+		}
 
 		Employer emp = null;
 		try {
 			emp = optEmp.get();
 			emp.setUpdatedOn((new Date()).toString());
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		test3 = 29;
+		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
+		log.debug("updateEmployer(empDTO={}): point → {}", empDTO, point);
 		emp.setPoint(point);
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
+		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		dao.save(emp);
+		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	}
 
 	public boolean validateEmployer(String employerId)
 	{
+		log.debug(">>> Entering validateEmployer(employerId={})", employerId);
+		long start = System.currentTimeMillis();
 		ResponseEntity<EmployerDTO> response = restTemplate
 				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
 		if (response.getStatusCode() == HttpStatus.OK) {
+			log.info("validateEmployer(employerId)={}: external service call took {} ms", employerId, (System.currentTimeMillis() - start));
+		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 			return true;
 		}
 
@@ -124,10 +155,13 @@ public class EmployerService {
 	// --- Error simulation: NullPointerException ---
 	public String rankTopEmployer()
 	{
+		log.debug(">>> Entering rankTopEmployer()");
 		try {
 			Employer top = null;
 			return "topEmployer=" + top.getEmployerId();
 		} catch (Exception e) {
+			log.error("Exception in rankTopEmployer(): {}", e.getMessage(), e);
+			log.debug("<<< Exiting rankTopEmployer()");
 			return "rankTopEmployer failed: " + e.getMessage();
 		}
 	}
