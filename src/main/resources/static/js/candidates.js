@@ -1,8 +1,10 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
 
 function loadCndtsTable() {
+logger.debug('>>> Entering loadCndtsTable()');
 
 
 /*
@@ -19,11 +21,15 @@ function loadCndtsTable() {
                     'XSRF-TOKEN': $('input:hidden[name="__RequestVerificationToken"]').val(),
                 },
                 beforeSend: function (xhr) {
+				logger.debug(`>>> Entering beforeSend(xhr=${xhr})`);
                //     $("#pageloader").show();
+				logger.debug(`<<< Exiting beforeSend(xhr=${xhr})`);
                 },
                 complete: function (xhr) {
+					logger.debug(`>>> Entering complete(xhr=${xhr})`);
                     
                  //   $("#pageloader").hide();
+				logger.debug(`<<< Exiting complete(xhr=${xhr})`);
                 },
             },
             "paging": true,
@@ -89,6 +95,7 @@ function loadCndtsTable() {
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.debug('<<< Exiting loadCndtsTable()');
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
