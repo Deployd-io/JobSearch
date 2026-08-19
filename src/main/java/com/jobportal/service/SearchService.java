@@ -13,8 +13,10 @@ import com.jobportal.dto.CandidateDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.model.Candidate;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class SearchService {
 	
 	@Autowired
@@ -25,12 +27,16 @@ public class SearchService {
 	
 	public List<JobDTO> searchJobsByTerm(String term, Pageable p)
 	{
+		log.debug(">>> Entering searchJobsByTerm(term={},p={})", term, p);
+		log.debug("<<< Exiting searchJobsByTerm(term={},p={})", term, p);
 		return dao.searchByTerm(Job.class, term, p).stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	
 	public List<CandidateDTO> searchCandidatesByTerm(String term, Pageable p)
 	{
+		log.debug(">>> Entering searchCandidatesByTerm(term={},p={})", term, p);
+		log.debug("<<< Exiting searchCandidatesByTerm(term={},p={})", term, p);
 		return dao.searchByTerm(Candidate.class, term, p).stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
 	}
@@ -38,11 +44,15 @@ public class SearchService {
 	// --- Error simulation: ClassCastException ---
 	public String applyDynamicFilter(String filterValue)
 	{
+		log.debug(">>> Entering applyDynamicFilter(filterValue={})", filterValue);
 		try {
 			Object raw = filterValue;
 			Integer cast = (Integer) raw;
+			log.debug("applyDynamicFilter(filterValue={}): cast → {}", filterValue, cast);
 			return "filter=" + cast;
 		} catch (Exception e) {
+			log.error("Exception in applyDynamicFilter(filterValue={}): {}", filterValue, e.getMessage(), e);
+			log.debug("<<< Exiting applyDynamicFilter(filterValue={})", filterValue);
 			return "applyDynamicFilter failed: " + e.getMessage();
 		}
 	}
