@@ -1,7 +1,9 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
 function loadJobsTable() {
+logger.debug('>>> Entering loadJobsTable()');
 /*
     jobsDataTable = $('#jobsTable').DataTable(
         {
@@ -16,11 +18,15 @@ function loadJobsTable() {
                     'XSRF-TOKEN': $('input:hidden[name="__RequestVerificationToken"]').val(),
                 },
                 beforeSend: function (xhr) {
+				logger.debug(`>>> Entering beforeSend(xhr=${xhr})`);
                //     $("#pageloader").show();
+				logger.debug(`<<< Exiting beforeSend(xhr=${xhr})`);
                 },
                 complete: function (xhr) {
+					logger.debug(`>>> Entering complete(xhr=${xhr})`);
                     
                  //   $("#pageloader").hide();
+				logger.debug(`<<< Exiting complete(xhr=${xhr})`);
                 },
             },
             "paging": true,
@@ -79,6 +85,8 @@ function loadJobsTable() {
                 {
                     data: "proposalCount",
                     "render": function (data, type, row) {
+						logger.debug(`>>> Entering function(data=${data},type=${type},row=${row})`);
+						logger.debug(`<<< Exiting function(data=${data},type=${type},row=${row})`);
                         return '<a href="#" onclick="showProposals(\'' + row.jobId + '\');">' + data + '</a>';
                     }
                 }
@@ -86,10 +94,12 @@ function loadJobsTable() {
 	    })
 	})
 
+logger.debug('<<< Exiting loadJobsTable()');
 }
 
 function showProposals(jobId)
 {
+	logger.debug(`>>> Entering showProposals(jobId=${jobId})`);
     $('#proposalsTable').dataTable( {
     	"processing": true, // for show progress bar
     	"paging": true,
@@ -106,4 +116,5 @@ function showProposals(jobId)
     
     $("#proposalsModal").show();//.modal('show');
 	
+	logger.debug(`<<< Exiting showProposals(jobId=${jobId})`);
 }
