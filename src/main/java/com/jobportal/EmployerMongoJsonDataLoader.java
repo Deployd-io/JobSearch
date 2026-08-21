@@ -22,14 +22,20 @@ public class EmployerMongoJsonDataLoader {
     private final ObjectMapper objectMapper;
 
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
         this.mongoTemplate = mongoTemplate;
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.mongoTemplate → {}", mongoTemplate, objectMapper, this.mongoTemplate);
         this.objectMapper = objectMapper;
+		log.debug("<<< Exiting EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
     }
 
     @PostConstruct
     public void loadEmployers() throws Exception {
+	log.debug(">>> Entering loadEmployers()");
+	long start = System.currentTimeMillis();
 
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
+			log.info("loadEmployers(): find query executed in {} ms", (System.currentTimeMillis() - start));
             return;
         }
 

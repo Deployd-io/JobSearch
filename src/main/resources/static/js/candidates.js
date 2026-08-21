@@ -1,8 +1,10 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
 
 function loadCndtsTable() {
+logger.debug('>>> Entering loadCndtsTable()');
 
 
 /*
@@ -19,11 +21,15 @@ function loadCndtsTable() {
                     'XSRF-TOKEN': $('input:hidden[name="__RequestVerificationToken"]').val(),
                 },
                 beforeSend: function (xhr) {
+				logger.debug(`>>> Entering beforeSend(xhr=${xhr})`);
                //     $("#pageloader").show();
+				logger.debug(`<<< Exiting beforeSend(xhr=${xhr})`);
                 },
                 complete: function (xhr) {
+					logger.debug(`>>> Entering complete(xhr=${xhr})`);
                     
                  //   $("#pageloader").hide();
+				logger.debug(`<<< Exiting complete(xhr=${xhr})`);
                 },
             },
             "paging": true,
@@ -83,6 +89,8 @@ function loadCndtsTable() {
                 {
                     data: "reviewCount",
                     "render": function (data, type, row) {
+						logger.debug(`>>> Entering function(data=${data},type=${type},row=${row})`);
+						logger.debug(`<<< Exiting function(data=${data},type=${type},row=${row})`);
                         return '<a href="#" onclick="showReviews(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 },
@@ -96,10 +104,12 @@ function loadCndtsTable() {
 	    })
 	})
 
+logger.debug('<<< Exiting loadCndtsTable()');
 }
 
 function initRater(stars)
 {
+	logger.debug(`>>> Entering initRater(stars=${stars})`);
 	$(".rating").rate();
 
 	//or for example
@@ -109,6 +119,7 @@ function initRater(stars)
 	    initial_value: stars
 	}
 	$(".rating").rate(options);
+	logger.debug(`<<< Exiting initRater(stars=${stars})`);
 }
 
 function showReviews(cndtId)
@@ -126,9 +137,11 @@ function showReviews(cndtId)
 	$(".modal-body").append(overallDiv);
 	
 	reviews.forEach(r => {
+		logger.debug(`>>> Entering showReviews(cndtId=${cndtId})`);
 		
 		var div = '<p><div class="rating" data-rate-value='+r.stars+'></div><div class="form-group"><textarea class="form-control" id="exampleFormControlTextarea1" rows="3">' + r.comments + '</textarea><p align="right">' + r.reviewFrom + '</p></div></p>';
 		$(".modal-body").append(div);
+		logger.debug(`<<< Exiting showReviews(cndtId=${cndtId})`);
 		initRater(r.stars);
 	});
 	
@@ -143,8 +156,10 @@ function showMessages(cndtId)
 	
 	
 	messages.forEach(m => {
+		logger.debug(`>>> Entering showMessages(cndtId=${cndtId})`);
 		
 		var div = '<div class="form-group"><textarea class="form-control" id="exampleFormControlTextarea1" rows="3">' + m.message + '</textarea><p align="right">' + m.postedBy + '</p></div>';
+		logger.debug(`<<< Exiting showMessages(cndtId=${cndtId})`);
 		$(".modal-body").append(div);
 	});
 	
@@ -158,8 +173,11 @@ function showMessages(cndtId)
 function bindEvents()
 {
 	$(document).on("click", "#sendMsg", function() {
+		logger.debug(`>>> Entering on(document=${document})`);
 		//append code here
+		logger.debug('>>> Entering bindEvents()');
 		alert("click");
+		logger.debug('<<< Exiting bindEvents()');
 		});
 	
 }

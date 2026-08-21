@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.ProposalDTO;
 import com.jobportal.service.ProposalService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/proposals")
 @CrossOrigin("*")
+@Slf4j
 public class ProposalController {
 	
 	@Autowired

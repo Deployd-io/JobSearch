@@ -38,6 +38,7 @@ public class JobController {
 	@GetMapping
 	public List<JobDTO> findAll()
 	{
+		log.info("findAll(): find query executing");
 		log.debug("Entering method findAll");
 		return jobService.findAll();
 	}
