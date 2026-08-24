@@ -74,6 +74,7 @@ public class JobController {
 		testValue = "value changed, needs logging";
 
 		jobService.updateJob(jobDTO);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 	}
 
 	@GetMapping(value = "/search")
