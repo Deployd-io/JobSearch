@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -91,6 +93,7 @@ public class EmployerService {
 		
 		if (!optEmp.isPresent())
 			return;
+			log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 
 		Employer emp = null;
 		try {
@@ -118,6 +121,8 @@ public class EmployerService {
 			return true;
 		}
 
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC7.1]: System operation completed", employerId);
 		return false;
 	}
 
