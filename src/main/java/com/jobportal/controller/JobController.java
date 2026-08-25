@@ -45,6 +45,7 @@ public class JobController {
 	@GetMapping(value = "/{id}")
 	public JobDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.log_integrity("ENTERING: findById() method");
 		classLevel = "changing";
 		return jobService.findById(id);
 	}
@@ -52,12 +53,14 @@ public class JobController {
 	@GetMapping(value = "/contacts/{contactEmail}")
 	public List<JobContactViewDTO> findByContactEmail(@PathVariable( "contactEmail" ) String contactEmail)
 	{
+		log.log_integrity("ENTERING: findByContactEmail() method");
 		return jobService.findByContactEmail(contactEmail);
 	}
 
 	@PostMapping
 	public String createJob(@RequestBody JobDTO jobDTO)
 	{
+		log.log_integrity("ENTERING: createJob() method");
 		String result = "";
 		try {
 			result = jobService.createJob(jobDTO);
@@ -70,27 +73,32 @@ public class JobController {
 	@PutMapping
 	public void updateJob(@RequestBody JobDTO jobDTO)
 	{
+		log.log_integrity("ENTERING: updateJob() method");
 		String testValue = "Testing my local changes";
 		testValue = "value changed, needs logging";
 
 		jobService.updateJob(jobDTO);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 	}
 
 	@GetMapping(value = "/search")
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
+		log.log_integrity("ENTERING: search() method");
 		return searchService.searchJobsByTerm(term, p);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
+		log.log_integrity("ENTERING: simulateError() method");
 		return jobService.parseJobBudget("12k-USD");
 	}
 
 	@GetMapping(value = "/simulate-search-error")
 	public String simulateSearchError()
 	{
+		log.log_integrity("ENTERING: simulateSearchError() method");
 		return searchService.applyDynamicFilter("not-a-number");
 	}
 
