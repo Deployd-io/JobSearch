@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/employers")
 @CrossOrigin("*")
+@Slf4j
 public class EmployerController {
 	
 	@Autowired
