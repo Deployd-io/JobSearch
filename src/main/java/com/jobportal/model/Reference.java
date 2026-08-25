@@ -5,8 +5,10 @@ import org.springframework.data.annotation.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter @Setter @NoArgsConstructor
+@Slf4j
 public class Reference extends Auditable {
 
 	@Id

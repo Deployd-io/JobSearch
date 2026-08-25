@@ -9,9 +9,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Document
 @Getter @Setter @NoArgsConstructor
+@Slf4j
 public class Job extends Auditable {
 	
 	@Id
