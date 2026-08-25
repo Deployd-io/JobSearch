@@ -16,8 +16,10 @@ import com.jobportal.dto.JobContactViewDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.LocationDTO;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class JobService {
 	
 	@Autowired
@@ -35,12 +37,14 @@ public class JobService {
 	
 	public List<JobDTO> findAll()
 	{
+		logger.log_integrity("ENTERING: findAll() method");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	
 	public JobDTO findById(String id)
 	{
+		logger.log_integrity("ENTERING: findById() method");
 		Optional<Job> optJob = dao.findById(id);
 		
 		if (!optJob.isPresent())
@@ -51,6 +55,7 @@ public class JobService {
 	
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
 	{
+		logger.log_integrity("ENTERING: findByContactEmail() method");
 		List jobs1 = dao.findByContactEmail(contactEmail);
 		
 		List<JobContactViewDTO> jobs = dao.findByContactEmail(contactEmail).stream().map(job -> 
@@ -67,6 +72,7 @@ public class JobService {
 	@Transactional
 	public String createJob(JobDTO jobDTO)
 	{
+		logger.log_integrity("ENTERING: createJob() method");
 		Job job = modelMapper.map(jobDTO, Job.class);
 		job.setCreatedOn((new Date()).toString());
 		job.setUpdatedOn(job.getCreatedOn());
@@ -85,6 +91,7 @@ public class JobService {
 	@Transactional
 	public void updateJob(JobDTO jobDTO)
 	{
+		logger.log_integrity("ENTERING: updateJob() method");
 		Optional<Job> optJob = dao.findById(jobDTO.getJobId());
 		
 		if (!optJob.isPresent())
@@ -99,11 +106,13 @@ public class JobService {
 		modelMapperService.getNonNullModelMapper().map(jobDTO, job);
 		
 		dao.save(job);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 	}
 	
 	@Transactional
 	public void updateLocation(String jobId, LocationDTO location)
 	{
+		logger.log_integrity("ENTERING: updateLocation() method");
 		Optional<Job> optJob = dao.findById(jobId);
 		
 		if (!optJob.isPresent())
@@ -115,12 +124,14 @@ public class JobService {
 		job.setPoint(point);
 
 		dao.save(job);
+		log.info("updateLocation(jobId,location)={},{}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobId, location);
 	}
 
 	// --- Error simulation: NumberFormatException ---
 	public String parseJobBudget(String rawBudget)
 	{
 		try {
+			logger.audit_coverage("ENTERING: parseJobBudget() method");
 			int budget = Integer.parseInt(rawBudget);
 			return "budget=" + budget;
 		} catch (Exception e) {

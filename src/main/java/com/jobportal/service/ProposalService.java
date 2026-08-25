@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.ProposalDAO;
 import com.jobportal.dto.ProposalDTO;
 import com.jobportal.model.Proposal;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProposalService {
 	
 	@Autowired
@@ -33,12 +35,14 @@ public class ProposalService {
 	
 	public List<ProposalDTO> findAll()
 	{
+		logger.log_integrity("ENTERING: findAll() method");
 		return dao.findAll().stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
 	
 	public ProposalDTO findById(String id)
 	{
+		logger.log_integrity("ENTERING: findById() method");
 		Optional<Proposal> optProposal = dao.findById(id);
 		
 		if (!optProposal.isPresent())
@@ -49,6 +53,7 @@ public class ProposalService {
 	
 	public List<ProposalDTO> findByJobId(String jobId)
 	{
+		logger.log_integrity("ENTERING: findByJobId() method");
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
@@ -56,6 +61,7 @@ public class ProposalService {
 	@Transactional
 	public String createProposal(ProposalDTO proposalDTO)
 	{
+		logger.log_integrity("ENTERING: createProposal() method");
 		Proposal proposal = modelMapper.map(proposalDTO, Proposal.class);
 		proposal.setCreatedOn((new Date()).toString());
 		proposal.setUpdatedOn(proposal.getCreatedOn());
@@ -74,6 +80,7 @@ public class ProposalService {
 	@Transactional
 	public void updateProposal(ProposalDTO proposalDTO)
 	{
+		logger.log_integrity("ENTERING: updateProposal() method");
 		Optional<Proposal> optProposal = dao.findById(proposalDTO.getProposalId());
 		
 		if (!optProposal.isPresent())
@@ -88,11 +95,13 @@ public class ProposalService {
 		modelMapperService.getNonNullModelMapper().map(proposalDTO, proposal);
 		
 		dao.save(proposal);
+		log.info("updateProposal(proposalDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", proposalDTO);
 	}
 
 	// --- Error simulation: IndexOutOfBoundsException ---
 	public String selectProposalAt(int index)
 	{
+		logger.log_integrity("ENTERING: selectProposalAt() method");
 		try {
 			List<String> shortlist = java.util.Arrays.asList("proposal-1", "proposal-2", "proposal-3");
 			String chosen = shortlist.get(index);

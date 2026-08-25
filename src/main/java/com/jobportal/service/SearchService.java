@@ -13,8 +13,10 @@ import com.jobportal.dto.CandidateDTO;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.model.Candidate;
 import com.jobportal.model.Job;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class SearchService {
 	
 	@Autowired
@@ -25,12 +27,14 @@ public class SearchService {
 	
 	public List<JobDTO> searchJobsByTerm(String term, Pageable p)
 	{
+		logger.log_integrity("ENTERING: searchJobsByTerm() method");
 		return dao.searchByTerm(Job.class, term, p).stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
 	
 	public List<CandidateDTO> searchCandidatesByTerm(String term, Pageable p)
 	{
+		logger.log_integrity("ENTERING: searchCandidatesByTerm() method");
 		return dao.searchByTerm(Candidate.class, term, p).stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
 	}
@@ -38,6 +42,7 @@ public class SearchService {
 	// --- Error simulation: ClassCastException ---
 	public String applyDynamicFilter(String filterValue)
 	{
+		logger.log_integrity("ENTERING: applyDynamicFilter() method");
 		try {
 			Object raw = filterValue;
 			Integer cast = (Integer) raw;

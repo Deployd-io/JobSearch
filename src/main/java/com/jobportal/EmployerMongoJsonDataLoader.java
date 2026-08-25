@@ -22,6 +22,7 @@ public class EmployerMongoJsonDataLoader {
     private final ObjectMapper objectMapper;
 
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
+		log.network_visibility("ENTERING: EmployerMongoJsonDataLoader() method");
         this.mongoTemplate = mongoTemplate;
         this.objectMapper = objectMapper;
     }
@@ -29,7 +30,9 @@ public class EmployerMongoJsonDataLoader {
     @PostConstruct
     public void loadEmployers() throws Exception {
 
+		log.log_integrity("ENTERING: loadEmployers() method");
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
+			log.network_visibility("ENTERING: loadEmployers() method");
             return;
         }
 
