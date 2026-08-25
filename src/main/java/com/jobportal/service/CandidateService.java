@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jobportal.dao.CandidateDAO;
 import com.jobportal.dto.CandidateDTO;
 import com.jobportal.model.Candidate;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class CandidateService {
 
 	@Autowired
@@ -30,12 +32,14 @@ public class CandidateService {
 	
 	public List<CandidateDTO> findAll()
 	{
+		logger.log_integrity("ENTERING: findAll() method");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
 	}
 	
 	public CandidateDTO findById(String id)
 	{
+		logger.log_integrity("ENTERING: findById() method");
 		Optional<Candidate> optCndt = dao.findById(id);
 		
 		if (!optCndt.isPresent())
@@ -47,6 +51,7 @@ public class CandidateService {
 	@Transactional
 	public String createCandidate(CandidateDTO cndtDTO)
 	{
+		logger.log_integrity("ENTERING: createCandidate() method");
 		Candidate cndt = modelMapper.map(cndtDTO, Candidate.class);
 		cndt.setCreatedOn((new Date()).toString());
 		cndt.setUpdatedOn(cndt.getCreatedOn());
@@ -63,6 +68,7 @@ public class CandidateService {
 	@Transactional
 	public void updateCandidate(CandidateDTO cndtDTO)
 	{
+		logger.log_integrity("ENTERING: updateCandidate() method");
 		Optional<Candidate> optCndt = dao.findById(cndtDTO.getCandidateId());
 		
 		if (!optCndt.isPresent())
@@ -77,11 +83,13 @@ public class CandidateService {
 		modelMapperService.getNonNullModelMapper().map(cndtDTO, cndt);
 		
 		dao.save(cndt);
+		log.info("updateCandidate(cndtDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", cndtDTO);
 	}
 
 	// --- Error simulation: ArithmeticException (divide by zero) ---
 	public String scoreCandidateMatch(int totalApplicants)
 	{
+		logger.log_integrity("ENTERING: scoreCandidateMatch() method");
 		try {
 			int matched = 5;
 			int percentage = (matched * 100) / totalApplicants;

@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.service.EmployerService;
 import com.jobportal.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/employers")
 @CrossOrigin("*")
+@Slf4j
 public class EmployerController {
 	
 	@Autowired
@@ -31,38 +33,45 @@ public class EmployerController {
 	@GetMapping
 	public List<EmployerDTO> findAll()
 	{
+		logger.log_integrity("ENTERING: findAll() method");
 		return employerService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+		logger.log_integrity("ENTERING: findById() method");
 		return employerService.findById(id);
 	}
 	
 	@PostMapping
 	public String createEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		logger.log_integrity("ENTERING: createEmployer() method");
 		return employerService.createEmployer(empDTO);
 	}
 	
 	@PutMapping
 	public void updateEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		logger.log_integrity("ENTERING: updateEmployer() method");
 		employerService.updateEmployer(empDTO);
 	}
 
     @GetMapping("/{employerId}/validate")
     public ResponseEntity<Boolean> validateEmployer(
             @PathVariable String employerId) {
+			logger.log_integrity("ENTERING: validateEmployer() method");
 
         boolean isValid = employerService.validateEmployer(employerId);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
         return ResponseEntity.ok(isValid);
     }
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
+		logger.log_integrity("ENTERING: simulateError() method");
 		return employerService.rankTopEmployer();
 	}
 }
