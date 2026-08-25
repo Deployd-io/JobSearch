@@ -18,9 +18,11 @@ import com.jobportal.dao.EmployerDAO;
 import com.jobportal.dto.EmployerDTO;
 import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class EmployerService {
 
 	@Autowired
@@ -46,12 +48,14 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		logger.log_integrity("ENTERING: findAll() method");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
 	public EmployerDTO findById(String id)
 	{
+		logger.log_integrity("ENTERING: findById() method");
 		Optional<Employer> optEmp = dao.findById(id);
 		
 		if (!optEmp.isPresent())
@@ -71,6 +75,7 @@ public class EmployerService {
 	@Transactional
 	public String createEmployer(EmployerDTO empDTO)
 	{
+		logger.log_integrity("ENTERING: createEmployer() method");
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
 		emp.setUpdatedOn(emp.getCreatedOn());
@@ -87,6 +92,7 @@ public class EmployerService {
 	@Transactional
 	public void updateEmployer(EmployerDTO empDTO)
 	{
+		logger.log_integrity("ENTERING: updateEmployer() method");
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
 		
 		if (!optEmp.isPresent())
@@ -103,6 +109,7 @@ public class EmployerService {
 		test3 = 29;
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 		emp.setPoint(point);
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
@@ -112,18 +119,22 @@ public class EmployerService {
 
 	public boolean validateEmployer(String employerId)
 	{
+		logger.log_integrity("ENTERING: validateEmployer() method");
 		ResponseEntity<EmployerDTO> response = restTemplate
 				.getForEntity(kycValidatorUrl, EmployerDTO.class, employerId);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return true;
 		}
 
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC7.1]: System operation completed", employerId);
 		return false;
 	}
 
 	// --- Error simulation: NullPointerException ---
 	public String rankTopEmployer()
 	{
+		logger.log_integrity("ENTERING: rankTopEmployer() method");
 		try {
 			Employer top = null;
 			return "topEmployer=" + top.getEmployerId();
