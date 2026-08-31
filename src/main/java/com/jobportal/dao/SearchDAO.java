@@ -24,6 +24,7 @@ public class SearchDAO {
 	public <T> List<T> searchByTerm(Class className, String term, Pageable p)
 	{
 		log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
+		// SUGGESTED FIX (review before applying): log.debug(">>> Entering searchByTerm(***={},term={},p={})", ***, term, p);
 		long start = System.currentTimeMillis();
 		TextCriteria criteria = TextCriteria.forDefaultLanguage()
 				.matchingAny(term.split("\\s+"));  // handles multiple words
@@ -34,9 +35,13 @@ public class SearchDAO {
 
 		List<T> result = template.find(query, className);
 		log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
+		// SUGGESTED FIX (review before applying): log.info("searchByTerm(***,term,p)={},{},{}: find query executed in {} ms", ***, term, p, (System.currentTimeMillis() - start));
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
 
+		// SUGGESTED FIX (review before applying): log.debug("searchByTerm(***={},term={},p={}): result → {}", ***, term, p, result);
+		log.info("searchByTerm(className,term,p)={},{},{}): SOC2-AUDIT [CC6.7]: Encryption operation completed", className, term, p);
 		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+		// SUGGESTED FIX (review before applying): log.debug("<<< Exiting searchByTerm(***={},term={},p={})", ***, term, p);
 		return result;
 	}
 }

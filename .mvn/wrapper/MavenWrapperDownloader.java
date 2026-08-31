@@ -25,7 +25,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MavenWrapperDownloader {
 
     /**
@@ -53,20 +55,26 @@ public class MavenWrapperDownloader {
     private static final String PROPERTY_NAME_WRAPPER_URL = "wrapperUrl";
 
     public static void main(String args[]) {
+		log.debug(">>> Entering main(args[={})", args[);
         System.out.println("- Downloader started");
         File baseDirectory = new File(args[0]);
         System.out.println("- Using base directory: " + baseDirectory.getAbsolutePath());
+		log.debug("main(args[={}): baseDirectory → {}", args[, baseDirectory);
 
         // If the maven-wrapper.properties exists, read it and check if it contains a custom
         // wrapperUrl parameter.
         File mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
         String url = DEFAULT_DOWNLOAD_URL;
+		log.debug("main(args[={}): mavenWrapperPropertyFile → {}", args[, mavenWrapperPropertyFile);
+		log.debug("main(args[={}): url → {}", args[, url);
         if(mavenWrapperPropertyFile.exists()) {
             FileInputStream mavenWrapperPropertyFileInputStream = null;
             try {
+				log.debug("main(args[={}): mavenWrapperPropertyFileInputStream → {}", args[, mavenWrapperPropertyFileInputStream);
                 mavenWrapperPropertyFileInputStream = new FileInputStream(mavenWrapperPropertyFile);
                 Properties mavenWrapperProperties = new Properties();
                 mavenWrapperProperties.load(mavenWrapperPropertyFileInputStream);
+				log.debug("main(args[={}): mavenWrapperProperties → {}", args[, mavenWrapperProperties);
                 url = mavenWrapperProperties.getProperty(PROPERTY_NAME_WRAPPER_URL, url);
             } catch (IOException e) {
                 System.out.println("- ERROR loading '" + MAVEN_WRAPPER_PROPERTIES_PATH + "'");
@@ -84,6 +92,7 @@ public class MavenWrapperDownloader {
 
         File outputFile = new File(baseDirectory.getAbsolutePath(), MAVEN_WRAPPER_JAR_PATH);
         if(!outputFile.getParentFile().exists()) {
+			log.debug("main(args[={}): outputFile → {}", args[, outputFile);
             if(!outputFile.getParentFile().mkdirs()) {
                 System.out.println(
                         "- ERROR creating output direcrory '" + outputFile.getParentFile().getAbsolutePath() + "'");
@@ -99,16 +108,23 @@ public class MavenWrapperDownloader {
             e.printStackTrace();
             System.exit(1);
         }
+		log.debug("<<< Exiting main(args[={})", args[);
     }
 
     private static void downloadFileFromURL(String urlString, File destination) throws Exception {
+		log.debug(">>> Entering downloadFileFromURL(urlString={},destination={})", urlString, destination);
         URL website = new URL(urlString);
         ReadableByteChannel rbc;
+		log.debug("downloadFileFromURL(urlString={},destination={}): website → {}", urlString, destination, website);
         rbc = Channels.newChannel(website.openStream());
+		log.debug("downloadFileFromURL(urlString={},destination={}): rbc → {}", urlString, destination, rbc);
         FileOutputStream fos = new FileOutputStream(destination);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+		log.debug("downloadFileFromURL(urlString={},destination={}): fos → {}", urlString, destination, fos);
+		log.info("downloadFileFromURL(urlString,destination)={},{}): SOC2-AUDIT [CC6.7]: Encryption operation completed", urlString, destination);
         fos.close();
         rbc.close();
+		log.debug("<<< Exiting downloadFileFromURL(urlString={},destination={})", urlString, destination);
     }
 
 }

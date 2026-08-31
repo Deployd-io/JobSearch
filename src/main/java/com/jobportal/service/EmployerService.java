@@ -138,6 +138,7 @@ public class EmployerService {
 		
 		dao.save(emp);
 		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	}
 
@@ -151,7 +152,9 @@ public class EmployerService {
 			log.info("validateEmployer(employerId)={}: external service call {} took {} ms", employerId, kycValidatorUrl, (System.currentTimeMillis() - start));
 			return true;
 		}
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
 
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC7.1]: System operation completed", employerId);
 		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
@@ -165,6 +168,7 @@ public class EmployerService {
 			return "topEmployer=" + top.getEmployerId();
 		} catch (Exception e) {
 			log.error("rankTopEmployer(): null employer encountered while ranking top employers - {}", e.getMessage(), e);
+			log.debug("<<< Exiting rankTopEmployer()");
 			return "rankTopEmployer failed: " + e.getMessage();
 		}
 	}

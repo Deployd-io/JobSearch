@@ -17,6 +17,7 @@ public class ModelMapperService {
 		
 		log.debug("getNonNullModelMapper(): mm → {}", mm);
 		mm.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+		log.info("getNonNullModelMapper()=null): SOC2-AUDIT [CC8.1]: Change management operation performed");
 		log.debug("<<< Exiting getNonNullModelMapper()");
 		return mm;
 	}

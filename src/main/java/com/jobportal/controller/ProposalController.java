@@ -41,12 +41,16 @@ public class ProposalController {
 	@GetMapping(value = "/{id}")
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		log.debug("<<< Exiting findById(id={})", id);
 		return proposalService.findById(id);
 	}
 	
 	@GetMapping(value = "/jobs/{jobId}")
 	public List<ProposalDTO> findByJobId(@PathVariable( "jobId" ) String jobId)
 	{
+		log.debug(">>> Entering findByJobId(jobId={})", jobId);
+		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
 		return proposalService.findByJobId(jobId);
 	}
 	
@@ -63,6 +67,7 @@ public class ProposalController {
 	{
 		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
 		proposalService.updateProposal(proposalDTO);
+		log.info("updateProposal(proposalDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", proposalDTO);
 		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	}
 
@@ -70,6 +75,7 @@ public class ProposalController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return proposalService.selectProposalAt(7);
 	}
 
