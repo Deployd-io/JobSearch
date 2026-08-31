@@ -33,6 +33,7 @@ public class CandidateService {
 	public List<CandidateDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
@@ -60,6 +61,7 @@ public class CandidateService {
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		Candidate cndt = modelMapper.map(cndtDTO, Candidate.class);
 		cndt.setCreatedOn((new Date()).toString());
+		log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		long start = System.currentTimeMillis();
 		cndt.setUpdatedOn(cndt.getCreatedOn());
@@ -92,6 +94,7 @@ public class CandidateService {
 		Candidate cndt = optCndt.get();
 		cndt.setUpdatedOn((new Date()).toString());
 		log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
+		log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		
 		Point point = new Point(cndtDTO.getLng(), cndtDTO.getLat());
 		cndt.setPoint(point);
@@ -114,6 +117,7 @@ public class CandidateService {
 			return "match=" + percentage + "%";
 		} catch (Exception e) {
 			log.error("scoreCandidateMatch(totalApplicants={}): arithmetic error computing candidate match percentage - {}", totalApplicants, e.getMessage(), e);
+			log.debug("<<< Exiting scoreCandidateMatch(totalApplicants={})", totalApplicants);
 			return "scoreCandidateMatch failed: " + e.getMessage();
 		}
 	}

@@ -49,6 +49,7 @@ public class EmployerService {
 	public List<EmployerDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
@@ -74,7 +75,9 @@ public class EmployerService {
 		}
 		test2 = "tesst 2";
 		log.debug("findById(id={}): test2 → {}", id, test2);
+		log.debug("findById(id={}): test2 → {}", id, test2);
 		e.setEmail("a@yahoo.com");
+		log.debug("findById(id={}): e → {}", id, e);
 		
 		log.debug("findById(id={}): e → {}", id, e);
 		log.debug("<<< Exiting findById(id={})", id);
@@ -87,6 +90,7 @@ public class EmployerService {
 		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
+		log.debug("createEmployer(empDTO={}): emp → {}", empDTO, emp);
 		log.debug("createEmployer(empDTO={}): emp → {}", empDTO, emp);
 		long start = System.currentTimeMillis();
 		emp.setUpdatedOn(emp.getCreatedOn());
@@ -128,9 +132,11 @@ public class EmployerService {
 		
 		test3 = 29;
 		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
+		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
 		emp.setPoint(point);
+		log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 		log.debug("updateEmployer(empDTO={}): point → {}", empDTO, point);
 		log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 		
@@ -165,6 +171,7 @@ public class EmployerService {
 			return "topEmployer=" + top.getEmployerId();
 		} catch (Exception e) {
 			log.error("rankTopEmployer(): null employer encountered while ranking top employers - {}", e.getMessage(), e);
+			log.debug("<<< Exiting rankTopEmployer()");
 			return "rankTopEmployer failed: " + e.getMessage();
 		}
 	}

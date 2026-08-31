@@ -75,6 +75,7 @@ public class EmployerController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }

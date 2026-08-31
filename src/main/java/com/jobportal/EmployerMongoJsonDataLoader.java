@@ -24,8 +24,12 @@ public class EmployerMongoJsonDataLoader {
     public EmployerMongoJsonDataLoader(MongoTemplate mongoTemplate, ObjectMapper objectMapper) {
 		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
         this.mongoTemplate = mongoTemplate;
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.mongoTemplate → {}", mongoTemplate, objectMapper, this.mongoTemplate);
         this.objectMapper = objectMapper;
 		log.debug("<<< Exiting EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
+		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.objectMapper → {}", mongoTemplate, objectMapper, this.objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.mongoTemplate → {}", mongoTemplate, objectMapper, this.mongoTemplate);
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.objectMapper → {}", mongoTemplate, objectMapper, this.objectMapper);
@@ -43,6 +47,7 @@ public class EmployerMongoJsonDataLoader {
         InputStream is = new ClassPathResource("employers.json").getInputStream();
         List<Employer> employers =
                 objectMapper.readValue(is, new TypeReference<List<Employer>>() {});
+				log.debug("loadEmployers(): is → {}", is);
 				log.debug("loadEmployers(): is → {}", is);
 
         mongoTemplate.insert(employers, Employer.class);
