@@ -33,6 +33,7 @@ public class CandidateService {
 	public List<CandidateDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		long start = System.currentTimeMillis();
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
@@ -114,6 +115,7 @@ public class CandidateService {
 			return "match=" + percentage + "%";
 		} catch (Exception e) {
 			log.error("scoreCandidateMatch(totalApplicants={}): arithmetic error computing candidate match percentage - {}", totalApplicants, e.getMessage(), e);
+			log.debug("<<< Exiting scoreCandidateMatch(totalApplicants={})", totalApplicants);
 			return "scoreCandidateMatch failed: " + e.getMessage();
 		}
 	}

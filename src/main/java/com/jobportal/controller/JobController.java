@@ -96,6 +96,7 @@ public class JobController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return jobService.parseJobBudget("12k-USD");
 	}
 
@@ -103,6 +104,7 @@ public class JobController {
 	public String simulateSearchError()
 	{
 		log.debug(">>> Entering simulateSearchError()");
+		log.debug("<<< Exiting simulateSearchError()");
 		return searchService.applyDynamicFilter("not-a-number");
 	}
 
