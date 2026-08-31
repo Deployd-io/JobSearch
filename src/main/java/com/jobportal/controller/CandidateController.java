@@ -74,6 +74,7 @@ public class CandidateController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
+		log.debug("<<< Exiting simulateError()");
 		return candidateService.scoreCandidateMatch(0);
 	}
 
