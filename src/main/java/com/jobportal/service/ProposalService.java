@@ -127,6 +127,7 @@ public class ProposalService {
 			return "selected=" + chosen;
 		} catch (Exception e) {
 			log.error("selectProposalAt(index={}): proposal index out of range while selecting shortlisted proposal - {}", index, e.getMessage(), e);
+			log.debug("<<< Exiting selectProposalAt(index={})", index);
 			return "selectProposalAt failed: " + e.getMessage();
 		}
 	}
