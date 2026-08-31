@@ -51,6 +51,7 @@ public class SearchService {
 			return "filter=" + cast;
 		} catch (Exception e) {
 			log.error("applyDynamicFilter(filterValue={}): invalid filter type cast applied to search filter - {}", filterValue, e.getMessage(), e);
+			log.debug("<<< Exiting applyDynamicFilter(filterValue={})", filterValue);
 			return "applyDynamicFilter failed: " + e.getMessage();
 		}
 	}

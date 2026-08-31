@@ -102,6 +102,7 @@ public class CandidateService {
 		dao.save(cndt);
 		log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", cndtDTO);
 	}
 
 	// --- Error simulation: ArithmeticException (divide by zero) ---
@@ -114,6 +115,7 @@ public class CandidateService {
 			return "match=" + percentage + "%";
 		} catch (Exception e) {
 			log.error("scoreCandidateMatch(totalApplicants={}): arithmetic error computing candidate match percentage - {}", totalApplicants, e.getMessage(), e);
+			log.debug("<<< Exiting scoreCandidateMatch(totalApplicants={})", totalApplicants);
 			return "scoreCandidateMatch failed: " + e.getMessage();
 		}
 	}
