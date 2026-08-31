@@ -114,6 +114,7 @@ public class CandidateService {
 			return "match=" + percentage + "%";
 		} catch (Exception e) {
 			log.error("scoreCandidateMatch(totalApplicants={}): arithmetic error computing candidate match percentage - {}", totalApplicants, e.getMessage(), e);
+			log.debug("<<< Exiting scoreCandidateMatch(totalApplicants={})", totalApplicants);
 			return "scoreCandidateMatch failed: " + e.getMessage();
 		}
 	}
