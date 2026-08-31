@@ -47,6 +47,7 @@ public class JobController {
 	public JobDTO findById(@PathVariable( "id" ) String id)
 	{
 		classLevel = "changing";
+		log.info("findById(id)={}): SOC2-AUDIT [CC6.7]: Encryption operation completed", id);
 		return jobService.findById(id);
 	}
 
@@ -82,6 +83,7 @@ public class JobController {
 
 		jobService.updateJob(jobDTO);
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 	}
 
 	@GetMapping(value = "/search")
@@ -95,14 +97,12 @@ public class JobController {
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return jobService.parseJobBudget("12k-USD");
 	}
 
 	@GetMapping(value = "/simulate-search-error")
 	public String simulateSearchError()
 	{
-		log.debug(">>> Entering simulateSearchError()");
 		return searchService.applyDynamicFilter("not-a-number");
 	}
 

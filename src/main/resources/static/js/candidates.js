@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -55,6 +56,7 @@ function loadCndtsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.info(`loadCndtsTable()=null): SOC2-AUDIT [CC6.6]: Database transaction completed`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
