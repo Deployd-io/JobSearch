@@ -20,10 +20,12 @@ import com.jobportal.model.Employer;
 import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class EmployerService {
+@Slf4j
 
 	@Autowired
 	EmployerDAO dao;
@@ -51,6 +53,7 @@ public class EmployerService {
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
+log.debug("ENTERING: findAll() method, parameters: no parameters");
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
 	
@@ -59,6 +62,7 @@ public class EmployerService {
 		log.debug(">>> Entering findById(id={})", id);
 		long start = System.currentTimeMillis();
 		Optional<Employer> optEmp = dao.findById(id);
+log.debug("ENTERING: findById() method, parameters: id={}", id);
 		
 		if (!optEmp.isPresent()) {
 			log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
@@ -86,6 +90,7 @@ public class EmployerService {
 	{
 		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
+log.debug("ENTERING: createEmployer() method, parameters: empDTO={}", empDTO);
 		emp.setCreatedOn((new Date()).toString());
 		log.debug("createEmployer(empDTO={}): emp → {}", empDTO, emp);
 		long start = System.currentTimeMillis();
@@ -109,6 +114,7 @@ public class EmployerService {
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		long start = System.currentTimeMillis();
 		Optional<Employer> optEmp = dao.findById(empDTO.getEmployerId());
+log.debug("ENTERING: updateEmployer() method, parameters: empDTO={}", empDTO);
 		
 		if (!optEmp.isPresent()) {
 			log.debug("updateEmployer(empDTO={}): optEmp → {}", empDTO, optEmp);

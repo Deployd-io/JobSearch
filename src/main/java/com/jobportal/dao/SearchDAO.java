@@ -13,10 +13,12 @@ import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Repository;
 import lombok.extern.slf4j.Slf4j;
 
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @Slf4j
 public class SearchDAO {
+@Slf4j
 	
 	@Autowired
 	MongoTemplate template;
@@ -26,6 +28,7 @@ public class SearchDAO {
 		log.debug(">>> Entering searchByTerm(className={},term={},p={})", className, term, p);
 		long start = System.currentTimeMillis();
 		TextCriteria criteria = TextCriteria.forDefaultLanguage()
+log.debug("ENTERING: searchByTerm() method, parameters: className={}, term={}, p={}", className, term, p);
 				.matchingAny(term.split("\\s+"));  // handles multiple words
 
 		Query query = new Query()

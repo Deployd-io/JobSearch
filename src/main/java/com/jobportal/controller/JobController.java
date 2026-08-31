@@ -61,6 +61,7 @@ public class JobController {
 	{
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		String result = "";
+log.debug("ENTERING: createJob() method, parameters: jobDTO={}", jobDTO);
 		try {
 			log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
 			result = jobService.createJob(jobDTO);
@@ -77,6 +78,7 @@ public class JobController {
 	{
 		log.debug(">>> Entering updateJob(jobDTO={})", jobDTO);
 		String testValue = "Testing my local changes";
+log.debug("ENTERING: updateJob() method, parameters: jobDTO={}", jobDTO);
 		testValue = "value changed, needs logging";
 		log.debug("updateJob(jobDTO={}): testValue → {}", jobDTO, testValue);
 
@@ -90,6 +92,7 @@ public class JobController {
 		log.debug(">>> Entering search(term={},p={})", term, p);
 		log.debug("<<< Exiting search(term={},p={})", term, p);
 		return searchService.searchJobsByTerm(term, p);
+log.debug("ENTERING: search() method, parameters: term={}, p={}", term, p);
 	}
 
 	@GetMapping(value = "/simulate-error")
