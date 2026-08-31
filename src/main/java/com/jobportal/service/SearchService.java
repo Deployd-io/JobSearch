@@ -46,12 +46,20 @@ public class SearchService {
 	{
 		log.debug(">>> Entering applyDynamicFilter(filterValue={})", filterValue);
 		try {
-			Object raw = filterValue;
-			Integer cast = (Integer) raw;
-			return "filter=" + cast;
+			if (filterValue == null || filterValue.isEmpty()) {
+				log.error("applyDynamicFilter(filterValue={}): invalid filter value - empty or null", filterValue);
+				return "applyDynamicFilter failed: invalid filter value";
+			}
+			try {
+				Integer cast = Integer.parseInt(filterValue);
+				return "filter=" + cast;
+			} catch (NumberFormatException e) {
+				log.error("applyDynamicFilter(filterValue={}): invalid filter type - not an integer", filterValue, e.getMessage(), e);
+				return "applyDynamicFilter failed: invalid filter type";
+			}
 		} catch (Exception e) {
-			log.error("applyDynamicFilter(filterValue={}): invalid filter type cast applied to search filter - {}", filterValue, e.getMessage(), e);
-			return "applyDynamicFilter failed: " + e.getMessage();
+			log.error("applyDynamicFilter(filterValue={}): unexpected error - {}", filterValue, e.getMessage(), e);
+			return "applyDynamicFilter failed: unexpected error";
 		}
 	}
 
