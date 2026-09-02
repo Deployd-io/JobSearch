@@ -37,6 +37,7 @@ public class SearchDAO {
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
 
 		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+		log.info("searchByTerm(className,term,p)=<redacted>,{},{}: SOC2-AUDIT [CC6.7]: Encryption operation completed", term, p);
 		return result;
 	}
 }

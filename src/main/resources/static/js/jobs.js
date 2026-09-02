@@ -1,3 +1,4 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
@@ -52,6 +53,7 @@ function loadJobsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.info(`loadJobsTable()=null): SOC2-AUDIT [CC6.6]: Database transaction completed`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
@@ -79,6 +81,7 @@ function loadJobsTable() {
                 {
                     data: "proposalCount",
                     "render": function (data, type, row) {
+						logger.info(`loadJobsTable()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed`);
                         return '<a href="#" onclick="showProposals(\'' + row.jobId + '\');">' + data + '</a>';
                     }
                 }

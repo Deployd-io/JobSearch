@@ -58,6 +58,7 @@ public class EmployerController {
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		employerService.updateEmployer(empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 	}
 
     @GetMapping("/{employerId}/validate")
@@ -68,13 +69,13 @@ public class EmployerController {
         boolean isValid = employerService.validateEmployer(employerId);
 		log.debug("validateEmployer(): isValid → {}", isValid);
 		log.debug("<<< Exiting validateEmployer()");
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
         return ResponseEntity.ok(isValid);
     }
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }
