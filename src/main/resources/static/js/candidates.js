@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -55,6 +56,7 @@ function loadCndtsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.info(`loadCndtsTable()=null): SOC2-AUDIT [CC6.6]: Database transaction completed`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
@@ -89,6 +91,7 @@ function loadCndtsTable() {
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.info(`loadCndtsTable()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed`);
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
@@ -157,6 +160,7 @@ function showMessages(cndtId)
 
 function bindEvents()
 {
+	logger.warn(`bindEvents()=null): SOC2-AUDIT [CC7.2]: Security incident detected`);
 	$(document).on("click", "#sendMsg", function() {
 		//append code here
 		alert("click");
