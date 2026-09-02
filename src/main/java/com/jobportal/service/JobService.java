@@ -39,6 +39,7 @@ public class JobService {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): HIPAA-AUDIT: Record access recorded for the audit trail");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
@@ -56,6 +57,7 @@ public class JobService {
 		}
 
 		log.debug("<<< Exiting findById(id={})", id);
+		log.warn("findById(id)={}): HIPAA-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
 	}
 	
@@ -77,6 +79,7 @@ public class JobService {
 		});
 		
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
+		log.warn("findByContactEmail(contactEmail)={}): HIPAA-AUDIT: Record access recorded for the audit trail", contactEmail);
 		return jobs;
 	}
 	
@@ -100,6 +103,7 @@ public class JobService {
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
+		log.warn("createJob(jobDTO)={}): HIPAA-AUDIT: State change recorded for the audit trail", jobDTO);
 		return job.getJobId();
 	}
 	
@@ -130,6 +134,7 @@ public class JobService {
 		dao.save(job);
 		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+		log.warn("updateJob(jobDTO)={}): HIPAA-AUDIT: State change recorded for the audit trail", jobDTO);
 	}
 	
 	@Transactional
@@ -148,24 +153,23 @@ public class JobService {
 		Job job = optJob.get();
 		Point point = new Point(location.getLongitude(), location.getLatitude());
 		log.debug("updateLocation(jobId={},location={}): job → {}", jobId, location, job);
-		log.debug("updateLocation(jobId={},location={}): point → {}", jobId, location, point);
 		
 		job.setPoint(point);
 		
 		dao.save(job);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
+		log.warn("updateLocation(jobId,location)={},{}: HIPAA-AUDIT: State change recorded for the audit trail {}", jobId, location, jobId);
 	}
 
 	// --- Error simulation: NumberFormatException ---
 	public String parseJobBudget(String rawBudget)
 	{
-		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
 		try {
 			int budget = Integer.parseInt(rawBudget);
 			return "budget=" + budget;
 		} catch (Exception e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
+			log.warn("parseJobBudget(rawBudget)={}): HIPAA-AUDIT: Record access recorded for the audit trail", rawBudget);
 			return "parseJobBudget failed: " + e.getMessage();
 		}
 	}
