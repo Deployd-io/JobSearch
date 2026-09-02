@@ -22,10 +22,14 @@ public class LocationService {
 	public void findByAddress(String jobId, String address)
 	{
 		log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
+		// SUGGESTED FIX (review before applying): log.debug(">>> Entering ***(jobId={},***={})", jobId, ***);
+		// SUGGESTED FIX (review before applying): log.debug("<<< Exiting ***(jobId={},***={})", jobId, ***);
 		LocationDTO location = locationClient.findByAddress(address);
 		
 		log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
+		// SUGGESTED FIX (review before applying): log.debug("***(jobId={},***={}): location → {}", jobId, ***, location);
+		log.warn("findByAddress(jobId,address)={},{}: GDPR-AUDIT: State change recorded for the audit trail {}", jobId, address, jobId);
+		log.info("findByAddress(jobId,address)={},{}: GDPR-AUDIT [Art.30]: Personal data processing activity completed", jobId, address);
 		jobService.updateLocation(jobId, location);
-		log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
 	}
 }
