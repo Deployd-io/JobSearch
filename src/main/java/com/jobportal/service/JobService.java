@@ -130,6 +130,7 @@ public class JobService {
 		dao.save(job);
 		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 	}
 	
 	@Transactional
@@ -155,12 +156,12 @@ public class JobService {
 		dao.save(job);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
+		log.info("updateLocation(jobId,location)={},{}: SOC2-AUDIT [CC8.1]: Change management operation performed", jobId, location);
 	}
 
 	// --- Error simulation: NumberFormatException ---
 	public String parseJobBudget(String rawBudget)
 	{
-		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
 		try {
 			int budget = Integer.parseInt(rawBudget);
 			return "budget=" + budget;
