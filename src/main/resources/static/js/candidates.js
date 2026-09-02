@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): HIPAA-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -89,6 +91,7 @@ function loadCndtsTable() {
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.warn(`loadCndtsTable()=null): HIPAA-AUDIT: Record access recorded for the audit trail`);
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
@@ -135,6 +138,7 @@ function showReviews(cndtId)
     
     $("#reviewsModal").show();//.modal('show');
 	
+	logger.warn(`showReviews(cndtId)=${cndtId}): HIPAA-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 }
 
 function showMessages(cndtId)
@@ -162,4 +166,5 @@ function bindEvents()
 		alert("click");
 		});
 	
+	logger.error(`bindEvents()=null): HIPAA-AUDIT [§164.308(a)(6)]: Security incident response initiated`);
 }
