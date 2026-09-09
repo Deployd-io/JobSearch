@@ -25,7 +25,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MavenWrapperDownloader {
 
     /**
@@ -106,6 +108,7 @@ public class MavenWrapperDownloader {
         ReadableByteChannel rbc;
         rbc = Channels.newChannel(website.openStream());
         FileOutputStream fos = new FileOutputStream(destination);
+		log.warn("downloadFileFromURL(urlString,destination)={},{}: EUAIACT-AUDIT: Record access recorded for the audit trail", urlString, destination);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         fos.close();
         rbc.close();

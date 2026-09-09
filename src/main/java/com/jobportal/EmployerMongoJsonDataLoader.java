@@ -36,6 +36,7 @@ public class EmployerMongoJsonDataLoader {
     public void loadEmployers() throws Exception {
 	log.debug(">>> Entering loadEmployers()");
 
+		log.warn("loadEmployers()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
             return;
         }
@@ -48,7 +49,6 @@ public class EmployerMongoJsonDataLoader {
         mongoTemplate.insert(employers, Employer.class);
 
         log.info("Loaded {} employers into embedded MongoDB", employers.size());
-		log.debug("<<< Exiting loadEmployers()");
     }
 }
 

@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): EUAIACT-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -55,6 +57,7 @@ function loadCndtsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.warn(`loadCndtsTable()=null): EUAIACT-AUDIT: Record access recorded for the audit trail`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
@@ -132,6 +135,7 @@ function showReviews(cndtId)
 		initRater(r.stars);
 	});
 	
+	logger.warn(`showReviews(cndtId)=${cndtId}): EUAIACT-AUDIT: Record access recorded for the audit trail ${cndtId}`);
     
     $("#reviewsModal").show();//.modal('show');
 	
