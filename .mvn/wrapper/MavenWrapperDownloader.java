@@ -25,7 +25,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MavenWrapperDownloader {
 
     /**
@@ -108,6 +110,7 @@ public class MavenWrapperDownloader {
         FileOutputStream fos = new FileOutputStream(destination);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         fos.close();
+		log.warn("downloadFileFromURL(urlString,destination)={},{}: COPPA-AUDIT: Record access recorded for the audit trail", urlString, destination);
         rbc.close();
     }
 
