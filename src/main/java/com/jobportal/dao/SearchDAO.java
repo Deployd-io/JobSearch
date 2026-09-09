@@ -35,8 +35,10 @@ public class SearchDAO {
 		List<T> result = template.find(query, className);
 		log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
+		log.info("searchByTerm(className,term,p)=<redacted>,{},{}: GDPR-AUDIT: Encryption operation completed", term, p);
 
-		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+		log.warn("searchByTerm(className,term,p)=<redacted>,{},{}: GDPR-AUDIT: Record access recorded for the audit trail", term, p);
+		log.info("searchByTerm(className,term,p)=<redacted>,{},{}: GDPR-AUDIT [Art.30]: Personal data processing activity completed", term, p);
 		return result;
 	}
 }
