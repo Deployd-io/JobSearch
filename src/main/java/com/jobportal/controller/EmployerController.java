@@ -35,12 +35,14 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): FERPA-AUDIT: Record access recorded for the audit trail");
 		return employerService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): FERPA-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return employerService.findById(id);
 	}
 	
@@ -49,6 +51,7 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
+		log.warn("createEmployer(empDTO)={}): FERPA-AUDIT: State change recorded for the audit trail", empDTO);
 		return employerService.createEmployer(empDTO);
 	}
 	
@@ -57,6 +60,7 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		employerService.updateEmployer(empDTO);
+		log.warn("updateEmployer(empDTO)={}): FERPA-AUDIT: State change recorded for the audit trail", empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	}
 
@@ -66,15 +70,13 @@ public class EmployerController {
 			log.debug(">>> Entering validateEmployer()");
 
         boolean isValid = employerService.validateEmployer(employerId);
-		log.debug("validateEmployer(): isValid → {}", isValid);
-		log.debug("<<< Exiting validateEmployer()");
+		log.info("validateEmployer(employerId)={}): FERPA-AUDIT: Database transaction completed", employerId);
         return ResponseEntity.ok(isValid);
     }
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }
