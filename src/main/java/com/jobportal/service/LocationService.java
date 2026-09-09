@@ -27,5 +27,6 @@ public class LocationService {
 		log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 		jobService.updateLocation(jobId, location);
 		log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
+		log.warn("findByAddress(jobId,address)={},{}: HIPAA-AUDIT: State change recorded for the audit trail {}", jobId, address, jobId);
 	}
 }

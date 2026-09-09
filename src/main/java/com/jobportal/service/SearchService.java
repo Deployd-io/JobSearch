@@ -29,6 +29,7 @@ public class SearchService {
 	{
 		log.debug(">>> Entering searchJobsByTerm(term={},p={})", term, p);
 		log.debug("<<< Exiting searchJobsByTerm(term={},p={})", term, p);
+		log.warn("searchJobsByTerm(term,p)={},{}: HIPAA-AUDIT: Record access recorded for the audit trail", term, p);
 		return dao.searchByTerm(Job.class, term, p).stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
@@ -37,6 +38,7 @@ public class SearchService {
 	{
 		log.debug(">>> Entering searchCandidatesByTerm(term={},p={})", term, p);
 		log.debug("<<< Exiting searchCandidatesByTerm(term={},p={})", term, p);
+		log.warn("searchCandidatesByTerm(term,p)={},{}: HIPAA-AUDIT: Record access recorded for the audit trail", term, p);
 		return dao.searchByTerm(Candidate.class, term, p).stream().map(cndt ->
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
 	}
@@ -44,7 +46,7 @@ public class SearchService {
 	// --- Error simulation: ClassCastException ---
 	public String applyDynamicFilter(String filterValue)
 	{
-		log.debug(">>> Entering applyDynamicFilter(filterValue={})", filterValue);
+		log.warn("applyDynamicFilter(filterValue)={}): HIPAA-AUDIT: State change recorded for the audit trail", filterValue);
 		try {
 			Object raw = filterValue;
 			Integer cast = (Integer) raw;
