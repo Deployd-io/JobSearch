@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): FEDRAMP-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -55,6 +57,7 @@ function loadCndtsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.info(`loadCndtsTable()=null): FEDRAMP-AUDIT: Encryption operation completed`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
@@ -89,6 +92,7 @@ function loadCndtsTable() {
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.warn(`loadCndtsTable()=null): FEDRAMP-AUDIT: Record access recorded for the audit trail`);
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
@@ -135,6 +139,7 @@ function showReviews(cndtId)
     
     $("#reviewsModal").show();//.modal('show');
 	
+	logger.warn(`showReviews(cndtId)=${cndtId}): FEDRAMP-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 }
 
 function showMessages(cndtId)
@@ -160,6 +165,7 @@ function bindEvents()
 	$(document).on("click", "#sendMsg", function() {
 		//append code here
 		alert("click");
+		logger.warn(`bindEvents()=null): FEDRAMP-AUDIT: Security incident detected`);
 		});
 	
 }

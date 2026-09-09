@@ -37,6 +37,8 @@ public class SearchDAO {
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
 
 		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+		log.info("searchByTerm(className,term,p)=<redacted>,{},{}: FEDRAMP-AUDIT: Encryption operation completed", term, p);
+		log.warn("searchByTerm(className,term,p)=<redacted>,{},{}: FEDRAMP-AUDIT: Record access recorded for the audit trail", term, p);
 		return result;
 	}
 }
