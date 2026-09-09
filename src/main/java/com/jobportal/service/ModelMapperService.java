@@ -18,6 +18,8 @@ public class ModelMapperService {
 		log.debug("getNonNullModelMapper(): mm → {}", mm);
 		mm.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 		log.debug("<<< Exiting getNonNullModelMapper()");
+		log.info("getNonNullModelMapper()=null): DORA-AUDIT: Change management operation performed");
+		log.warn("getNonNullModelMapper()=null): DORA-AUDIT: Record access recorded for the audit trail");
 		return mm;
 	}
 }
