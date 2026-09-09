@@ -58,6 +58,7 @@ public class EmployerController {
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		employerService.updateEmployer(empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.info("updateEmployer(empDTO)={}): NERCCIP-AUDIT: Change management operation performed", empDTO);
 	}
 
     @GetMapping("/{employerId}/validate")
@@ -74,7 +75,6 @@ public class EmployerController {
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }

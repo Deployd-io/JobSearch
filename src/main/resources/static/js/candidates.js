@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -157,9 +158,11 @@ function showMessages(cndtId)
 
 function bindEvents()
 {
+	logger.warn(`bindEvents()=null): NERCCIP-AUDIT: Security incident detected`);
 	$(document).on("click", "#sendMsg", function() {
 		//append code here
 		alert("click");
+		logger.error(`bindEvents()=null): NERCCIP-AUDIT: Security incident response initiated`);
 		});
 	
 }

@@ -102,6 +102,7 @@ public class CandidateService {
 		dao.save(cndt);
 		log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): NERCCIP-AUDIT: Change management operation performed", cndtDTO);
 	}
 
 	// --- Error simulation: ArithmeticException (divide by zero) ---

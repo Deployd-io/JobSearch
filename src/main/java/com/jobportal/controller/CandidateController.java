@@ -60,6 +60,7 @@ public class CandidateController {
 		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 		candidateService.updateCandidate(cndtDTO);
 		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): NERCCIP-AUDIT: Change management operation performed", cndtDTO);
 	}
 	
 	@GetMapping(value = "/search")
@@ -73,7 +74,6 @@ public class CandidateController {
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return candidateService.scoreCandidateMatch(0);
 	}
 

@@ -118,8 +118,8 @@ public class EmployerService {
 
 		Employer emp = null;
 		try {
-			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,6 +139,7 @@ public class EmployerService {
 		dao.save(emp);
 		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.info("updateEmployer(empDTO)={}): NERCCIP-AUDIT: Change management operation performed", empDTO);
 	}
 
 	public boolean validateEmployer(String employerId)
