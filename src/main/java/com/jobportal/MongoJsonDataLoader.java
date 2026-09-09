@@ -44,7 +44,7 @@ public class MongoJsonDataLoader {
         List<Job> jobs = objectMapper.readValue(is, new TypeReference<List<Job>>() {});
 		log.debug("loadData(): jobs → {}", jobs);
         mongoTemplate.insert(jobs, Job.class);
-		log.debug("<<< Exiting loadData()");
+		log.warn("loadData()=null): M2614-AUDIT: State change recorded for the audit trail");
     }
 }
 

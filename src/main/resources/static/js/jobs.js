@@ -1,3 +1,4 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
@@ -54,6 +55,7 @@ function loadJobsTable() {
 		
 		//console.log(data);
 		data.forEach(d => {
+			logger.info(`loadJobsTable()=null): M2614-AUDIT: Database transaction completed`);
 			console.log(d);
 			jobProposalMap[d.jobId] = d.proposals;
 			d.proposals.forEach(p => {

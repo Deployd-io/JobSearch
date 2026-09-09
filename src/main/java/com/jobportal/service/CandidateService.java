@@ -34,6 +34,7 @@ public class CandidateService {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): M2614-AUDIT: Record access recorded for the audit trail");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
 	}
@@ -51,6 +52,7 @@ public class CandidateService {
 		}
 
 		log.debug("<<< Exiting findById(id={})", id);
+		log.warn("findById(id)={}): M2614-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return modelMapper.map(optCndt.get(), CandidateDTO.class);
 	}
 	
@@ -72,6 +74,7 @@ public class CandidateService {
 		dao.save(cndt);
 		
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
+		log.warn("createCandidate(cndtDTO)={}): M2614-AUDIT: State change recorded for the audit trail", cndtDTO);
 		return cndt.getCandidateId();
 	}
 	
@@ -99,15 +102,16 @@ public class CandidateService {
 		
 		modelMapperService.getNonNullModelMapper().map(cndtDTO, cndt);
 		
+		log.info("updateCandidate(cndtDTO)={}): M2614-AUDIT: Change management operation performed", cndtDTO);
 		dao.save(cndt);
+		log.warn("updateCandidate(cndtDTO)={}): M2614-AUDIT: State change recorded for the audit trail", cndtDTO);
 		log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", cndtDTO);
 	}
 
 	// --- Error simulation: ArithmeticException (divide by zero) ---
 	public String scoreCandidateMatch(int totalApplicants)
 	{
-		log.debug(">>> Entering scoreCandidateMatch(totalApplicants={})", totalApplicants);
 		try {
 			int matched = 5;
 			int percentage = (matched * 100) / totalApplicants;

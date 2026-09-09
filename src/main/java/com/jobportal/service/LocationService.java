@@ -22,10 +22,12 @@ public class LocationService {
 	public void findByAddress(String jobId, String address)
 	{
 		log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
+		// SUGGESTED FIX (review before applying): log.debug(">>> Entering ***(jobId={},***={})", jobId, ***);
 		LocationDTO location = locationClient.findByAddress(address);
 		
+		log.warn("findByAddress(jobId,address)={},{}: M2614-AUDIT: State change recorded for the audit trail {}", jobId, address, jobId);
+		// SUGGESTED FIX (review before applying): log.debug("***(jobId={},***={}): location → {}", jobId, ***, location);
 		log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 		jobService.updateLocation(jobId, location);
-		log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
 	}
 }

@@ -50,6 +50,7 @@ public class EmployerService {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): M2614-AUDIT: Record access recorded for the audit trail");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
@@ -78,6 +79,7 @@ public class EmployerService {
 		
 		log.debug("findById(id={}): e → {}", id, e);
 		log.debug("<<< Exiting findById(id={})", id);
+		log.warn("findById(id)={}): M2614-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
 	
@@ -99,6 +101,7 @@ public class EmployerService {
 		dao.save(emp);
 		
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
+		log.warn("createEmployer(empDTO)={}): M2614-AUDIT: State change recorded for the audit trail", empDTO);
 		return emp.getEmployerId();
 	}
 	
@@ -118,8 +121,8 @@ public class EmployerService {
 
 		Employer emp = null;
 		try {
-			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,8 +139,11 @@ public class EmployerService {
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
+		log.info("updateEmployer(empDTO)={}): M2614-AUDIT: Change management operation performed", empDTO);
 		dao.save(emp);
+		log.warn("updateEmployer(empDTO)={}): M2614-AUDIT: State change recorded for the audit trail", empDTO);
 		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	}
 
@@ -151,15 +157,17 @@ public class EmployerService {
 			log.info("validateEmployer(employerId)={}: external service call {} took {} ms", employerId, kycValidatorUrl, (System.currentTimeMillis() - start));
 			return true;
 		}
+		log.info("validateEmployer(employerId)={}): M2614-AUDIT: Database transaction completed", employerId);
 
-		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
+		log.info("validateEmployer(employerId)={}): M2614-AUDIT: Data integrity check performed", employerId);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC7.1]: System operation completed", employerId);
 		return false;
 	}
 
 	// --- Error simulation: NullPointerException ---
 	public String rankTopEmployer()
 	{
-		log.debug(">>> Entering rankTopEmployer()");
 		try {
 			Employer top = null;
 			return "topEmployer=" + top.getEmployerId();
