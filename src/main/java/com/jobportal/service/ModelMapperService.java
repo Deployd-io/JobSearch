@@ -18,6 +18,8 @@ public class ModelMapperService {
 		log.debug("getNonNullModelMapper(): mm → {}", mm);
 		mm.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 		log.debug("<<< Exiting getNonNullModelMapper()");
+		log.info("getNonNullModelMapper()=null): NIS2-AUDIT: Change management operation performed");
+		log.warn("getNonNullModelMapper()=null): NIS2-AUDIT: Record access recorded for the audit trail");
 		return mm;
 	}
 }
