@@ -62,6 +62,7 @@ public class JobService {
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
 	{
 		log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
+		// SUGGESTED FIX (review before applying): log.debug(">>> Entering ***(***={})", ***);
 		long start = System.currentTimeMillis();
 		List jobs1 = dao.findByContactEmail(contactEmail);
 		
@@ -77,6 +78,7 @@ public class JobService {
 		});
 		
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
+		// SUGGESTED FIX (review before applying): log.debug("<<< Exiting ***(***={})", ***);
 		return jobs;
 	}
 	
