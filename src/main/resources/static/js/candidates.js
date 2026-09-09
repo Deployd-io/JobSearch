@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): FERPA-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -57,6 +59,7 @@ function loadCndtsTable() {
 		
 		//console.log(data);
 		data.forEach(d => {
+			logger.info(`loadCndtsTable()=null): FERPA-AUDIT: Database transaction completed`);
 			console.log(d);
 			cndtReviewMap[d.candidateId] = d.reviews;
 			cndtMsgMap[d.candidateId] = d.messages;
@@ -134,6 +137,7 @@ function showReviews(cndtId)
 	
     
     $("#reviewsModal").show();//.modal('show');
+	logger.warn(`showReviews(cndtId)=${cndtId}): FERPA-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 	
 }
 

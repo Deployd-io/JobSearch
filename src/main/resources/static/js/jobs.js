@@ -1,3 +1,4 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
@@ -17,6 +18,7 @@ function loadJobsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): FERPA-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -54,6 +56,7 @@ function loadJobsTable() {
 		
 		//console.log(data);
 		data.forEach(d => {
+			logger.info(`loadJobsTable()=null): FERPA-AUDIT: Database transaction completed`);
 			console.log(d);
 			jobProposalMap[d.jobId] = d.proposals;
 			d.proposals.forEach(p => {

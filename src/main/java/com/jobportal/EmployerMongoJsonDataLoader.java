@@ -40,6 +40,7 @@ public class EmployerMongoJsonDataLoader {
             return;
         }
 
+		log.warn("loadEmployers()=null): FERPA-AUDIT: Record access recorded for the audit trail");
         InputStream is = new ClassPathResource("employers.json").getInputStream();
         List<Employer> employers =
                 objectMapper.readValue(is, new TypeReference<List<Employer>>() {});
@@ -48,7 +49,6 @@ public class EmployerMongoJsonDataLoader {
         mongoTemplate.insert(employers, Employer.class);
 
         log.info("Loaded {} employers into embedded MongoDB", employers.size());
-		log.debug("<<< Exiting loadEmployers()");
     }
 }
 
