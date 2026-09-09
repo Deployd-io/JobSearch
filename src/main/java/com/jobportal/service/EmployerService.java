@@ -50,6 +50,7 @@ public class EmployerService {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): NISTAIRMF-AUDIT: Record access recorded for the audit trail");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
 	}
@@ -78,6 +79,7 @@ public class EmployerService {
 		
 		log.debug("findById(id={}): e → {}", id, e);
 		log.debug("<<< Exiting findById(id={})", id);
+		log.warn("findById(id)={}): NISTAIRMF-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
 	}
 	
@@ -99,6 +101,7 @@ public class EmployerService {
 		dao.save(emp);
 		
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
+		log.warn("createEmployer(empDTO)={}): NISTAIRMF-AUDIT: State change recorded for the audit trail", empDTO);
 		return emp.getEmployerId();
 	}
 	
@@ -118,8 +121,8 @@ public class EmployerService {
 
 		Employer emp = null;
 		try {
-			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,6 +141,7 @@ public class EmployerService {
 		
 		dao.save(emp);
 		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
+		log.warn("updateEmployer(empDTO)={}): NISTAIRMF-AUDIT: State change recorded for the audit trail", empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
 	}
 
@@ -152,14 +156,12 @@ public class EmployerService {
 			return true;
 		}
 
-		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
 
 	// --- Error simulation: NullPointerException ---
 	public String rankTopEmployer()
 	{
-		log.debug(">>> Entering rankTopEmployer()");
 		try {
 			Employer top = null;
 			return "topEmployer=" + top.getEmployerId();

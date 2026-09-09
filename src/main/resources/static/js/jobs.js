@@ -1,3 +1,4 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
@@ -17,6 +18,7 @@ function loadJobsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): NISTAIRMF-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -55,6 +57,7 @@ function loadJobsTable() {
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
+			logger.warn(`loadJobsTable()=null): NISTAIRMF-AUDIT: Record access recorded for the audit trail`);
 			jobProposalMap[d.jobId] = d.proposals;
 			d.proposals.forEach(p => {
 				console.log(p);
