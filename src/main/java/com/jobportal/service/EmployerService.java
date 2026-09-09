@@ -118,8 +118,8 @@ public class EmployerService {
 
 		Employer emp = null;
 		try {
-			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,6 +139,7 @@ public class EmployerService {
 		dao.save(emp);
 		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.info("updateEmployer(empDTO)={}): SOX-AUDIT: Change management operation performed", empDTO);
 	}
 
 	public boolean validateEmployer(String employerId)
@@ -153,13 +154,14 @@ public class EmployerService {
 		}
 
 		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
+		log.info("validateEmployer(employerId)={}): SOX-AUDIT: Database transaction completed", employerId);
+		log.info("validateEmployer(employerId)={}): SOX-AUDIT: Data integrity check performed", employerId);
 		return false;
 	}
 
 	// --- Error simulation: NullPointerException ---
 	public String rankTopEmployer()
 	{
-		log.debug(">>> Entering rankTopEmployer()");
 		try {
 			Employer top = null;
 			return "topEmployer=" + top.getEmployerId();

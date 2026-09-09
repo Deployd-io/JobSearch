@@ -115,6 +115,7 @@ public class ProposalService {
 		dao.save(proposal);
 		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
+		log.info("updateProposal(proposalDTO)={}): SOX-AUDIT: Change management operation performed", proposalDTO);
 	}
 
 	// --- Error simulation: IndexOutOfBoundsException ---
