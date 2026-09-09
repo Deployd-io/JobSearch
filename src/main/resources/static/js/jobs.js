@@ -1,3 +1,4 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
@@ -17,6 +18,7 @@ function loadJobsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): FEDRAMP-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -52,6 +54,7 @@ function loadJobsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.info(`loadJobsTable()=null): FEDRAMP-AUDIT: Encryption operation completed`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
@@ -79,6 +82,7 @@ function loadJobsTable() {
                 {
                     data: "proposalCount",
                     "render": function (data, type, row) {
+						logger.warn(`loadJobsTable()=null): FEDRAMP-AUDIT: Record access recorded for the audit trail`);
                         return '<a href="#" onclick="showProposals(\'' + row.jobId + '\');">' + data + '</a>';
                     }
                 }
