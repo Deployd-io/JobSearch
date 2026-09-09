@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): CCPA-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -58,6 +60,7 @@ function loadCndtsTable() {
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
+			logger.info(`loadCndtsTable()=null): CCPA-AUDIT: Database transaction completed`);
 			cndtReviewMap[d.candidateId] = d.reviews;
 			cndtMsgMap[d.candidateId] = d.messages;
 			d.reviews.forEach(p => {
@@ -89,6 +92,7 @@ function loadCndtsTable() {
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.warn(`loadCndtsTable()=null): CCPA-AUDIT: Record access recorded for the audit trail`);
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
@@ -135,6 +139,7 @@ function showReviews(cndtId)
     
     $("#reviewsModal").show();//.modal('show');
 	
+	logger.warn(`showReviews(cndtId)=${cndtId}): CCPA-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 }
 
 function showMessages(cndtId)

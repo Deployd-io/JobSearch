@@ -1,3 +1,4 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
@@ -17,6 +18,7 @@ function loadJobsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): CCPA-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -55,6 +57,7 @@ function loadJobsTable() {
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
+			logger.info(`loadJobsTable()=null): CCPA-AUDIT: Database transaction completed`);
 			jobProposalMap[d.jobId] = d.proposals;
 			d.proposals.forEach(p => {
 				console.log(p);
@@ -79,6 +82,7 @@ function loadJobsTable() {
                 {
                     data: "proposalCount",
                     "render": function (data, type, row) {
+						logger.warn(`loadJobsTable()=null): CCPA-AUDIT: Record access recorded for the audit trail`);
                         return '<a href="#" onclick="showProposals(\'' + row.jobId + '\');">' + data + '</a>';
                     }
                 }
