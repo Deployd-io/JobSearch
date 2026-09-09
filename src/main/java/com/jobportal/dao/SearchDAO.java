@@ -37,6 +37,7 @@ public class SearchDAO {
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
 
 		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+		log.warn("searchByTerm(className,term,p)=<redacted>,{},{}: NYCLL144-AUDIT: Record access recorded for the audit trail", term, p);
 		return result;
 	}
 }

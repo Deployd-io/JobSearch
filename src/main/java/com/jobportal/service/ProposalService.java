@@ -37,6 +37,7 @@ public class ProposalService {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): NYCLL144-AUDIT: Record access recorded for the audit trail");
 		return dao.findAll().stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
@@ -54,6 +55,7 @@ public class ProposalService {
 		}
 
 		log.debug("<<< Exiting findById(id={})", id);
+		log.warn("findById(id)={}): NYCLL144-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return modelMapper.map(optProposal.get(), ProposalDTO.class);
 	}
 	
@@ -61,6 +63,7 @@ public class ProposalService {
 	{
 		log.debug(">>> Entering findByJobId(jobId={})", jobId);
 		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
+		log.warn("findByJobId(jobId)={}): NYCLL144-AUDIT: Record access recorded for the audit trail {}", jobId, jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
@@ -85,6 +88,7 @@ public class ProposalService {
 		//locationService.findByAddress(job.getProposalId(), jobDTO.getCompleteAddress());
 		
 		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
+		log.warn("createProposal(proposalDTO)={}): NYCLL144-AUDIT: State change recorded for the audit trail", proposalDTO);
 		return proposal.getProposalId();
 	}
 	
@@ -114,13 +118,12 @@ public class ProposalService {
 		
 		dao.save(proposal);
 		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
+		log.warn("updateProposal(proposalDTO)={}): NYCLL144-AUDIT: State change recorded for the audit trail", proposalDTO);
 	}
 
 	// --- Error simulation: IndexOutOfBoundsException ---
 	public String selectProposalAt(int index)
 	{
-		log.debug(">>> Entering selectProposalAt(index={})", index);
 		try {
 			List<String> shortlist = java.util.Arrays.asList("proposal-1", "proposal-2", "proposal-3");
 			String chosen = shortlist.get(index);
