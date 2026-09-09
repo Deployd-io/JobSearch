@@ -37,12 +37,14 @@ public class CandidateController {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): PCI-AUDIT: Record access recorded for the audit trail");
 		return candidateService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): PCI-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return candidateService.findById(id);
 	}
 	
@@ -51,6 +53,7 @@ public class CandidateController {
 	{
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
+		log.warn("createCandidate(cndtDTO)={}): PCI-AUDIT: State change recorded for the audit trail", cndtDTO);
 		return candidateService.createCandidate(cndtDTO);
 	}
 	
@@ -59,21 +62,20 @@ public class CandidateController {
 	{
 		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 		candidateService.updateCandidate(cndtDTO);
-		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): PCI-AUDIT: Change management operation performed", cndtDTO);
+		log.warn("updateCandidate(cndtDTO)={}): PCI-AUDIT: State change recorded for the audit trail", cndtDTO);
 	}
 	
 	@GetMapping(value = "/search")
 	public List<CandidateDTO> search(@RequestParam String term, Pageable p)
 	{
-		log.debug(">>> Entering search(term={},p={})", term, p);
-		log.debug("<<< Exiting search(term={},p={})", term, p);
+		log.warn("search(term,p)={},{}: PCI-AUDIT: Record access recorded for the audit trail", term, p);
 		return searchService.searchCandidatesByTerm(term, p);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return candidateService.scoreCandidateMatch(0);
 	}
 
