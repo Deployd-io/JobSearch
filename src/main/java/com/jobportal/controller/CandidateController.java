@@ -37,12 +37,14 @@ public class CandidateController {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): ISO42001-AUDIT: Record access recorded for the audit trail");
 		return candidateService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): ISO42001-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return candidateService.findById(id);
 	}
 	
@@ -51,6 +53,7 @@ public class CandidateController {
 	{
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
+		log.warn("createCandidate(cndtDTO)={}): ISO42001-AUDIT: State change recorded for the audit trail", cndtDTO);
 		return candidateService.createCandidate(cndtDTO);
 	}
 	
@@ -58,22 +61,21 @@ public class CandidateController {
 	public void updateCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
 		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
+		log.info("updateCandidate(cndtDTO)={}): ISO42001-AUDIT: Change management operation performed", cndtDTO);
 		candidateService.updateCandidate(cndtDTO);
-		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
+		log.warn("updateCandidate(cndtDTO)={}): ISO42001-AUDIT: State change recorded for the audit trail", cndtDTO);
 	}
 	
 	@GetMapping(value = "/search")
 	public List<CandidateDTO> search(@RequestParam String term, Pageable p)
 	{
-		log.debug(">>> Entering search(term={},p={})", term, p);
-		log.debug("<<< Exiting search(term={},p={})", term, p);
+		log.warn("search(term,p)={},{}: ISO42001-AUDIT: Record access recorded for the audit trail", term, p);
 		return searchService.searchCandidatesByTerm(term, p);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return candidateService.scoreCandidateMatch(0);
 	}
 
