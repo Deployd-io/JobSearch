@@ -45,6 +45,7 @@ public class MongoJsonDataLoader {
 		log.debug("loadData(): jobs → {}", jobs);
         mongoTemplate.insert(jobs, Job.class);
 		log.debug("<<< Exiting loadData()");
+		log.warn("loadData()=null): GLBA-AUDIT: State change recorded for the audit trail");
     }
 }
 
