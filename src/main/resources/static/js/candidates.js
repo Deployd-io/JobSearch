@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): USSTATE-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -55,6 +57,7 @@ function loadCndtsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.warn(`loadCndtsTable()=null): USSTATE-AUDIT: Record access recorded for the audit trail`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
@@ -89,6 +92,7 @@ function loadCndtsTable() {
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.info(`loadCndtsTable()=null): USSTATE-AUDIT: Database transaction completed`);
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
@@ -134,6 +138,7 @@ function showReviews(cndtId)
 	
     
     $("#reviewsModal").show();//.modal('show');
+	logger.warn(`showReviews(cndtId)=${cndtId}): USSTATE-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 	
 }
 
