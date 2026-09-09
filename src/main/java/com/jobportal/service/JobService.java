@@ -39,6 +39,7 @@ public class JobService {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): ISO27001-AUDIT: Record access recorded for the audit trail");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
@@ -56,6 +57,7 @@ public class JobService {
 		}
 
 		log.debug("<<< Exiting findById(id={})", id);
+		log.warn("findById(id)={}): ISO27001-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
 	}
 	
@@ -77,6 +79,7 @@ public class JobService {
 		});
 		
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
+		log.warn("findByContactEmail(contactEmail)={}): ISO27001-AUDIT: Record access recorded for the audit trail", contactEmail);
 		return jobs;
 	}
 	
@@ -100,6 +103,7 @@ public class JobService {
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
+		log.warn("createJob(jobDTO)={}): ISO27001-AUDIT: State change recorded for the audit trail", jobDTO);
 		return job.getJobId();
 	}
 	
@@ -129,7 +133,9 @@ public class JobService {
 		
 		dao.save(job);
 		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
+		log.info("updateJob(jobDTO)={}): ISO27001-AUDIT: Change management operation performed", jobDTO);
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+		log.warn("updateJob(jobDTO)={}): ISO27001-AUDIT: State change recorded for the audit trail", jobDTO);
 	}
 	
 	@Transactional
@@ -147,20 +153,19 @@ public class JobService {
 
 		Job job = optJob.get();
 		Point point = new Point(location.getLongitude(), location.getLatitude());
-		log.debug("updateLocation(jobId={},location={}): job → {}", jobId, location, job);
-		log.debug("updateLocation(jobId={},location={}): point → {}", jobId, location, point);
 		
 		job.setPoint(point);
 		
 		dao.save(job);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
+		log.info("updateLocation(jobId,location)={},{}: ISO27001-AUDIT: Change management operation performed", jobId, location);
+		log.warn("updateLocation(jobId,location)={},{}: ISO27001-AUDIT: State change recorded for the audit trail {}", jobId, location, jobId);
 	}
 
 	// --- Error simulation: NumberFormatException ---
 	public String parseJobBudget(String rawBudget)
 	{
-		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
+		log.warn("parseJobBudget(rawBudget)={}): ISO27001-AUDIT: Record access recorded for the audit trail", rawBudget);
 		try {
 			int budget = Integer.parseInt(rawBudget);
 			return "budget=" + budget;
