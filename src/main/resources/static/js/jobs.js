@@ -1,3 +1,4 @@
+const logger = console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
@@ -17,6 +18,7 @@ function loadJobsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): ISO27701-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -52,6 +54,7 @@ function loadJobsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.warn(`loadJobsTable()=null): ISO27701-AUDIT: Record access recorded for the audit trail`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);

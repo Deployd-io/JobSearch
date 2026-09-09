@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): ISO27701-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -55,6 +57,7 @@ function loadCndtsTable() {
 	    'contentType': 'application/json'
 	}).done( function(data) {
 		
+		logger.warn(`loadCndtsTable()=null): ISO27701-AUDIT: Record access recorded for the audit trail`);
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
@@ -134,6 +137,7 @@ function showReviews(cndtId)
 	
     
     $("#reviewsModal").show();//.modal('show');
+	logger.warn(`showReviews(cndtId)=${cndtId}): ISO27701-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 	
 }
 
