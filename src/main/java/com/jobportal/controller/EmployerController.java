@@ -35,12 +35,14 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): DORA-AUDIT: Record access recorded for the audit trail");
 		return employerService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): DORA-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return employerService.findById(id);
 	}
 	
@@ -49,6 +51,7 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
+		log.warn("createEmployer(empDTO)={}): DORA-AUDIT: State change recorded for the audit trail", empDTO);
 		return employerService.createEmployer(empDTO);
 	}
 	
@@ -57,24 +60,22 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
 		employerService.updateEmployer(empDTO);
+		log.info("updateEmployer(empDTO)={}): DORA-AUDIT: Change management operation performed", empDTO);
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.warn("updateEmployer(empDTO)={}): DORA-AUDIT: State change recorded for the audit trail", empDTO);
 	}
 
     @GetMapping("/{employerId}/validate")
     public ResponseEntity<Boolean> validateEmployer(
             @PathVariable String employerId) {
-			log.debug(">>> Entering validateEmployer()");
 
         boolean isValid = employerService.validateEmployer(employerId);
-		log.debug("validateEmployer(): isValid → {}", isValid);
-		log.debug("<<< Exiting validateEmployer()");
         return ResponseEntity.ok(isValid);
     }
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }
