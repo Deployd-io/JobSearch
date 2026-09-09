@@ -35,6 +35,7 @@ public class CandidateController {
 	@GetMapping
 	public List<CandidateDTO> findAll()
 	{
+		log.warn("findAll()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return candidateService.findAll();
@@ -43,12 +44,14 @@ public class CandidateController {
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return candidateService.findById(id);
 	}
 	
 	@PostMapping
 	public String createCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
+		log.warn("createCandidate(cndtDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", cndtDTO);
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 		return candidateService.createCandidate(cndtDTO);
@@ -57,23 +60,21 @@ public class CandidateController {
 	@PutMapping
 	public void updateCandidate(@RequestBody CandidateDTO cndtDTO)
 	{
+		log.warn("updateCandidate(cndtDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", cndtDTO);
 		log.debug(">>> Entering updateCandidate(cndtDTO={})", cndtDTO);
 		candidateService.updateCandidate(cndtDTO);
-		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 	}
 	
 	@GetMapping(value = "/search")
 	public List<CandidateDTO> search(@RequestParam String term, Pageable p)
 	{
-		log.debug(">>> Entering search(term={},p={})", term, p);
-		log.debug("<<< Exiting search(term={},p={})", term, p);
+		log.warn("search(term,p)={},{}: EUAIACT-AUDIT: Record access recorded for the audit trail", term, p);
 		return searchService.searchCandidatesByTerm(term, p);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return candidateService.scoreCandidateMatch(0);
 	}
 

@@ -35,8 +35,8 @@ public class SearchDAO {
 		List<T> result = template.find(query, className);
 		log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
+		log.warn("searchByTerm(className,term,p)=<redacted>,{},{}: EUAIACT-AUDIT: Record access recorded for the audit trail", term, p);
 
-		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
 		return result;
 	}
 }

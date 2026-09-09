@@ -27,6 +27,7 @@ public class SearchService {
 	
 	public List<JobDTO> searchJobsByTerm(String term, Pageable p)
 	{
+		log.warn("searchJobsByTerm(term,p)={},{}: EUAIACT-AUDIT: Record access recorded for the audit trail", term, p);
 		log.debug(">>> Entering searchJobsByTerm(term={},p={})", term, p);
 		log.debug("<<< Exiting searchJobsByTerm(term={},p={})", term, p);
 		return dao.searchByTerm(Job.class, term, p).stream().map(job -> 
@@ -35,6 +36,7 @@ public class SearchService {
 	
 	public List<CandidateDTO> searchCandidatesByTerm(String term, Pageable p)
 	{
+		log.warn("searchCandidatesByTerm(term,p)={},{}: EUAIACT-AUDIT: Record access recorded for the audit trail", term, p);
 		log.debug(">>> Entering searchCandidatesByTerm(term={},p={})", term, p);
 		log.debug("<<< Exiting searchCandidatesByTerm(term={},p={})", term, p);
 		return dao.searchByTerm(Candidate.class, term, p).stream().map(cndt ->
@@ -44,9 +46,9 @@ public class SearchService {
 	// --- Error simulation: ClassCastException ---
 	public String applyDynamicFilter(String filterValue)
 	{
-		log.debug(">>> Entering applyDynamicFilter(filterValue={})", filterValue);
 		try {
 			Object raw = filterValue;
+			log.warn("applyDynamicFilter(filterValue)={}): EUAIACT-AUDIT: State change recorded for the audit trail", filterValue);
 			Integer cast = (Integer) raw;
 			return "filter=" + cast;
 		} catch (Exception e) {

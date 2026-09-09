@@ -33,6 +33,7 @@ public class ProposalController {
 	@GetMapping
 	public List<ProposalDTO> findAll()
 	{
+		log.warn("findAll()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return proposalService.findAll();
@@ -41,35 +42,35 @@ public class ProposalController {
 	@GetMapping(value = "/{id}")
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return proposalService.findById(id);
 	}
 	
 	@GetMapping(value = "/jobs/{jobId}")
 	public List<ProposalDTO> findByJobId(@PathVariable( "jobId" ) String jobId)
 	{
+		log.warn("findByJobId(jobId)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", jobId, jobId);
 		return proposalService.findByJobId(jobId);
 	}
 	
 	@PostMapping
 	public String createProposal(@RequestBody ProposalDTO proposalDTO)
 	{
+		log.warn("createProposal(proposalDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", proposalDTO);
 		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
-		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 		return proposalService.createProposal(proposalDTO);
 	}
 	
 	@PutMapping
 	public void updateProposal(@RequestBody ProposalDTO proposalDTO)
 	{
-		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
+		log.warn("updateProposal(proposalDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", proposalDTO);
 		proposalService.updateProposal(proposalDTO);
-		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return proposalService.selectProposalAt(7);
 	}
 

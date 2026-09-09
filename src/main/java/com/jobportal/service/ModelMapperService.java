@@ -16,8 +16,8 @@ public class ModelMapperService {
 		ModelMapper mm = new ModelMapper();
 		
 		log.debug("getNonNullModelMapper(): mm → {}", mm);
+		log.warn("getNonNullModelMapper()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
 		mm.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-		log.debug("<<< Exiting getNonNullModelMapper()");
 		return mm;
 	}
 }

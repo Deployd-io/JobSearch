@@ -32,6 +32,7 @@ public class CandidateService {
 	
 	public List<CandidateDTO> findAll()
 	{
+		log.warn("findAll()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
@@ -49,6 +50,7 @@ public class CandidateService {
 			log.debug("findById(id={}): optCndt → {}", id, optCndt);
 			return null;
 		}
+		log.warn("findById(id)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", id, id);
 
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optCndt.get(), CandidateDTO.class);
@@ -70,6 +72,7 @@ public class CandidateService {
 		cndt.setPoint(point);
 		
 		dao.save(cndt);
+		log.warn("createCandidate(cndtDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", cndtDTO);
 		
 		log.debug("<<< Exiting createCandidate(cndtDTO={})", cndtDTO);
 		return cndt.getCandidateId();
@@ -99,15 +102,14 @@ public class CandidateService {
 		
 		modelMapperService.getNonNullModelMapper().map(cndtDTO, cndt);
 		
+		log.warn("updateCandidate(cndtDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", cndtDTO);
 		dao.save(cndt);
 		log.info("updateCandidate(cndtDTO)={}: save query executed in {} ms", cndtDTO, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateCandidate(cndtDTO={})", cndtDTO);
 	}
 
 	// --- Error simulation: ArithmeticException (divide by zero) ---
 	public String scoreCandidateMatch(int totalApplicants)
 	{
-		log.debug(">>> Entering scoreCandidateMatch(totalApplicants={})", totalApplicants);
 		try {
 			int matched = 5;
 			int percentage = (matched * 100) / totalApplicants;

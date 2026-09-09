@@ -42,9 +42,9 @@ public class MongoJsonDataLoader {
         InputStream is = new ClassPathResource("jobs.json").getInputStream();
 		log.debug("loadData(): is → {}", is);
         List<Job> jobs = objectMapper.readValue(is, new TypeReference<List<Job>>() {});
+		log.warn("loadData()=null): EUAIACT-AUDIT: State change recorded for the audit trail");
 		log.debug("loadData(): jobs → {}", jobs);
         mongoTemplate.insert(jobs, Job.class);
-		log.debug("<<< Exiting loadData()");
     }
 }
 
