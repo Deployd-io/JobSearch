@@ -36,7 +36,8 @@ public class SearchDAO {
 		log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
 
-		log.debug("<<< Exiting searchByTerm(className={},term={},p={})", className, term, p);
+		log.info("searchByTerm(className,term,p)=<redacted>,{},{}: CMMC-AUDIT: Encryption operation completed", term, p);
+		log.warn("searchByTerm(className,term,p)=<redacted>,{},{}: CMMC-AUDIT: Record access recorded for the audit trail", term, p);
 		return result;
 	}
 }
