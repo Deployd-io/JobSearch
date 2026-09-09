@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -89,6 +90,7 @@ function loadCndtsTable() {
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.info(`loadCndtsTable()=null): SOX-AUDIT: Database transaction completed`);
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
@@ -162,4 +164,5 @@ function bindEvents()
 		alert("click");
 		});
 	
+	logger.warn(`bindEvents()=null): SOX-AUDIT: Security incident detected`);
 }

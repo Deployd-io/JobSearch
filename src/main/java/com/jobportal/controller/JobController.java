@@ -62,8 +62,8 @@ public class JobController {
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		String result = "";
 		try {
-			log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
 			result = jobService.createJob(jobDTO);
+			log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
 		} catch (Exception e) {
 			e.printStackTrace();;
 			log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
@@ -82,6 +82,7 @@ public class JobController {
 
 		jobService.updateJob(jobDTO);
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+		log.info("updateJob(jobDTO)={}): SOX-AUDIT: Change management operation performed", jobDTO);
 	}
 
 	@GetMapping(value = "/search")
@@ -102,7 +103,6 @@ public class JobController {
 	@GetMapping(value = "/simulate-search-error")
 	public String simulateSearchError()
 	{
-		log.debug(">>> Entering simulateSearchError()");
 		return searchService.applyDynamicFilter("not-a-number");
 	}
 
