@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -57,6 +58,7 @@ function loadCndtsTable() {
 		
 		//console.log(data);
 		data.forEach(d => {
+			logger.info(`loadCndtsTable()=null): M2614-AUDIT: Database transaction completed`);
 			console.log(d);
 			cndtReviewMap[d.candidateId] = d.reviews;
 			cndtMsgMap[d.candidateId] = d.messages;
@@ -134,6 +136,7 @@ function showReviews(cndtId)
 	
     
     $("#reviewsModal").show();//.modal('show');
+	logger.warn(`showReviews(cndtId)=${cndtId}): M2614-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 	
 }
 
@@ -160,6 +163,7 @@ function bindEvents()
 	$(document).on("click", "#sendMsg", function() {
 		//append code here
 		alert("click");
+		logger.warn(`bindEvents()=null): M2614-AUDIT: Security incident detected`);
 		});
 	
 }

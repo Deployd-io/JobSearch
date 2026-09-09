@@ -40,6 +40,7 @@ public class JobController {
 	{
 		log.debug("Entering method findAll");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): M2614-AUDIT: Record access recorded for the audit trail");
 		return jobService.findAll();
 	}
 
@@ -47,12 +48,14 @@ public class JobController {
 	public JobDTO findById(@PathVariable( "id" ) String id)
 	{
 		classLevel = "changing";
+		log.warn("findById(id)={}): M2614-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return jobService.findById(id);
 	}
 
 	@GetMapping(value = "/contacts/{contactEmail}")
 	public List<JobContactViewDTO> findByContactEmail(@PathVariable( "contactEmail" ) String contactEmail)
 	{
+		log.warn("findByContactEmail(contactEmail)={}): M2614-AUDIT: Record access recorded for the audit trail", contactEmail);
 		return jobService.findByContactEmail(contactEmail);
 	}
 
@@ -62,8 +65,8 @@ public class JobController {
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		String result = "";
 		try {
-			log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
 			result = jobService.createJob(jobDTO);
+			log.debug("createJob(jobDTO={}): result → {}", jobDTO, result);
 		} catch (Exception e) {
 			e.printStackTrace();;
 			log.error("Exception in createJob(jobDTO={}): {}", jobDTO, e.getMessage(), e);
@@ -79,30 +82,30 @@ public class JobController {
 		String testValue = "Testing my local changes";
 		testValue = "value changed, needs logging";
 		log.debug("updateJob(jobDTO={}): testValue → {}", jobDTO, testValue);
+		log.info("updateJob(jobDTO)={}): M2614-AUDIT: Change management operation performed", jobDTO);
 
+		log.warn("updateJob(jobDTO)={}): M2614-AUDIT: State change recorded for the audit trail", jobDTO);
 		jobService.updateJob(jobDTO);
-		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 	}
 
 	@GetMapping(value = "/search")
 	public List<JobDTO> search(@RequestParam String term, Pageable p)
 	{
-		log.debug(">>> Entering search(term={},p={})", term, p);
-		log.debug("<<< Exiting search(term={},p={})", term, p);
+		log.warn("search(term,p)={},{}: M2614-AUDIT: Record access recorded for the audit trail", term, p);
 		return searchService.searchJobsByTerm(term, p);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return jobService.parseJobBudget("12k-USD");
 	}
 
 	@GetMapping(value = "/simulate-search-error")
 	public String simulateSearchError()
 	{
-		log.debug(">>> Entering simulateSearchError()");
+		log.warn("simulateSearchError()=null): M2614-AUDIT: Record access recorded for the audit trail");
 		return searchService.applyDynamicFilter("not-a-number");
 	}
 

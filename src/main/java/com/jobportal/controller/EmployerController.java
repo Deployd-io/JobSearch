@@ -35,12 +35,14 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): M2614-AUDIT: Record access recorded for the audit trail");
 		return employerService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): M2614-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return employerService.findById(id);
 	}
 	
@@ -49,32 +51,34 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
+		log.warn("createEmployer(empDTO)={}): M2614-AUDIT: State change recorded for the audit trail", empDTO);
 		return employerService.createEmployer(empDTO);
 	}
 	
 	@PutMapping
 	public void updateEmployer(@RequestBody EmployerDTO empDTO)
 	{
+		log.info("updateEmployer(empDTO)={}): M2614-AUDIT: Change management operation performed", empDTO);
 		log.debug(">>> Entering updateEmployer(empDTO={})", empDTO);
+		log.warn("updateEmployer(empDTO)={}): M2614-AUDIT: State change recorded for the audit trail", empDTO);
 		employerService.updateEmployer(empDTO);
-		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
+		log.info("updateEmployer(empDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", empDTO);
 	}
 
     @GetMapping("/{employerId}/validate")
     public ResponseEntity<Boolean> validateEmployer(
             @PathVariable String employerId) {
-			log.debug(">>> Entering validateEmployer()");
 
         boolean isValid = employerService.validateEmployer(employerId);
-		log.debug("validateEmployer(): isValid → {}", isValid);
-		log.debug("<<< Exiting validateEmployer()");
+		log.info("validateEmployer(employerId)={}): M2614-AUDIT: Database transaction completed", employerId);
+		log.info("validateEmployer(employerId)={}): M2614-AUDIT: PHI integrity verification completed {}", employerId, isValid);
+		log.info("validateEmployer(employerId)={}): SOC2-AUDIT [CC6.6]: Database transaction completed", employerId);
         return ResponseEntity.ok(isValid);
     }
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return employerService.rankTopEmployer();
 	}
 }

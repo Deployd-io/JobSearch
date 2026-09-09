@@ -39,6 +39,7 @@ public class JobService {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): M2614-AUDIT: Record access recorded for the audit trail");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
 	}
@@ -56,17 +57,20 @@ public class JobService {
 		}
 
 		log.debug("<<< Exiting findById(id={})", id);
+		log.warn("findById(id)={}): M2614-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
 	}
 	
 	public List<JobContactViewDTO> findByContactEmail(String contactEmail)
 	{
 		log.debug(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
+		// SUGGESTED FIX (review before applying): log.debug(">>> Entering ***(***={})", ***);
 		long start = System.currentTimeMillis();
 		List jobs1 = dao.findByContactEmail(contactEmail);
 		
 		List<JobContactViewDTO> jobs = dao.findByContactEmail(contactEmail).stream().map(job -> 
 			modelMapper.map(job, JobContactViewDTO.class)).collect(Collectors.toList());
+			log.warn("findByContactEmail(contactEmail)={}): M2614-AUDIT: Record access recorded for the audit trail", contactEmail);
 			log.info("findByContactEmail(contactEmail)={}: find query executed in {} ms", contactEmail, (System.currentTimeMillis() - start));
 			log.debug("findByContactEmail(contactEmail={}): jobs1 → {}", contactEmail, jobs1);
 		
@@ -77,6 +81,7 @@ public class JobService {
 		});
 		
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
+		// SUGGESTED FIX (review before applying): log.debug("<<< Exiting ***(***={})", ***);
 		return jobs;
 	}
 	
@@ -100,6 +105,7 @@ public class JobService {
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
 		
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
+		log.warn("createJob(jobDTO)={}): M2614-AUDIT: State change recorded for the audit trail", jobDTO);
 		return job.getJobId();
 	}
 	
@@ -127,8 +133,11 @@ public class JobService {
 		
 		modelMapperService.getNonNullModelMapper().map(jobDTO, job);
 		
+		log.info("updateJob(jobDTO)={}): M2614-AUDIT: Change management operation performed", jobDTO);
 		dao.save(job);
+		log.warn("updateJob(jobDTO)={}): M2614-AUDIT: State change recorded for the audit trail", jobDTO);
 		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
+		log.info("updateJob(jobDTO)={}): SOC2-AUDIT [CC8.1]: Change management operation performed", jobDTO);
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
 	}
 	
@@ -147,20 +156,20 @@ public class JobService {
 
 		Job job = optJob.get();
 		Point point = new Point(location.getLongitude(), location.getLatitude());
-		log.debug("updateLocation(jobId={},location={}): job → {}", jobId, location, job);
-		log.debug("updateLocation(jobId={},location={}): point → {}", jobId, location, point);
 		
 		job.setPoint(point);
 		
+		log.info("updateLocation(jobId,location)={},{}: M2614-AUDIT: Change management operation performed", jobId, location);
 		dao.save(job);
+		log.warn("updateLocation(jobId,location)={},{}: M2614-AUDIT: State change recorded for the audit trail {}", jobId, location, jobId);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
+		log.info("updateLocation(jobId,location)={},{}: SOC2-AUDIT [CC8.1]: Change management operation performed", jobId, location);
 	}
 
 	// --- Error simulation: NumberFormatException ---
 	public String parseJobBudget(String rawBudget)
 	{
-		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
+		log.warn("parseJobBudget(rawBudget)={}): M2614-AUDIT: Record access recorded for the audit trail", rawBudget);
 		try {
 			int budget = Integer.parseInt(rawBudget);
 			return "budget=" + budget;
