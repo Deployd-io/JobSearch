@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.info(`ENTERING: beforeSend() method`);
                 },
                 complete: function (xhr) {
                     
@@ -57,6 +59,7 @@ function loadCndtsTable() {
 		
 		//console.log(data);
 		data.forEach(d => {
+			logger.info(`loadCndtsTable()=null): GDPR-AUDIT: Encryption operation completed`);
 			console.log(d);
 			cndtReviewMap[d.candidateId] = d.reviews;
 			cndtMsgMap[d.candidateId] = d.messages;
@@ -83,12 +86,14 @@ function loadCndtsTable() {
                 {
                     data: "reviewCount",
                     "render": function (data, type, row) {
+						logger.info(`ENTERING: function() method`);
                         return '<a href="#" onclick="showReviews(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 },
                 {
                     data: "messageCount",
                     "render": function (data, type, row) {
+						logger.warn(`ENTERING: function() method`);
                         return '<a href="#" onclick="showMessages(\'' + row.candidateId + '\');">' + data + '</a>';
                     }
                 }               
@@ -102,6 +107,7 @@ function initRater(stars)
 {
 	$(".rating").rate();
 
+	logger.info(`ENTERING: initRater() method`);
 	//or for example
 	var options = {
 	    max_value: 5,
@@ -109,12 +115,15 @@ function initRater(stars)
 	    initial_value: stars
 	}
 	$(".rating").rate(options);
+	logger.warn(`ENTERING: initRater() method`);
 }
 
 function showReviews(cndtId)
 {
+	logger.info(`ENTERING: showReviews() method`);
 	var reviews = cndtReviewMap[cndtId];
 	var overallRating = 0;
+	logger.warn(`ENTERING: showReviews() method`);
 	
 	for (i = 0; i < reviews.length; i++)
 	{
@@ -135,12 +144,15 @@ function showReviews(cndtId)
     
     $("#reviewsModal").show();//.modal('show');
 	
+	logger.warn(`showReviews(cndtId)=${cndtId}): GDPR-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 }
 
 function showMessages(cndtId)
 {
+	logger.info(`ENTERING: showMessages() method`);
 	var messages = cndtMsgMap[cndtId];
 	
+	logger.warn(`ENTERING: showMessages() method`);
 	
 	messages.forEach(m => {
 		
@@ -157,6 +169,8 @@ function showMessages(cndtId)
 
 function bindEvents()
 {
+	logger.info(`ENTERING: bindEvents() method`);
+	logger.warn(`ENTERING: bindEvents() method`);
 	$(document).on("click", "#sendMsg", function() {
 		//append code here
 		alert("click");
