@@ -41,6 +41,7 @@ public class EmployerMongoJsonDataLoader {
         }
 
         InputStream is = new ClassPathResource("employers.json").getInputStream();
+		log.warn("loadEmployers()=null): NIS2-AUDIT: Record access recorded for the audit trail");
         List<Employer> employers =
                 objectMapper.readValue(is, new TypeReference<List<Employer>>() {});
 				log.debug("loadEmployers(): is → {}", is);
@@ -48,7 +49,6 @@ public class EmployerMongoJsonDataLoader {
         mongoTemplate.insert(employers, Employer.class);
 
         log.info("Loaded {} employers into embedded MongoDB", employers.size());
-		log.debug("<<< Exiting loadEmployers()");
     }
 }
 

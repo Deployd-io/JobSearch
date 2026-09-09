@@ -35,18 +35,21 @@ public class ProposalController {
 	{
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
+		log.warn("findAll()=null): NIS2-AUDIT: Record access recorded for the audit trail");
 		return proposalService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.warn("findById(id)={}): NIS2-AUDIT: Record access recorded for the audit trail {}", id, id);
 		return proposalService.findById(id);
 	}
 	
 	@GetMapping(value = "/jobs/{jobId}")
 	public List<ProposalDTO> findByJobId(@PathVariable( "jobId" ) String jobId)
 	{
+		log.warn("findByJobId(jobId)={}): NIS2-AUDIT: Record access recorded for the audit trail {}", jobId, jobId);
 		return proposalService.findByJobId(jobId);
 	}
 	
@@ -55,21 +58,21 @@ public class ProposalController {
 	{
 		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
 		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
+		log.warn("createProposal(proposalDTO)={}): NIS2-AUDIT: State change recorded for the audit trail", proposalDTO);
 		return proposalService.createProposal(proposalDTO);
 	}
 	
 	@PutMapping
 	public void updateProposal(@RequestBody ProposalDTO proposalDTO)
 	{
-		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
 		proposalService.updateProposal(proposalDTO);
-		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
+		log.info("updateProposal(proposalDTO)={}): NIS2-AUDIT: Change management operation performed", proposalDTO);
+		log.warn("updateProposal(proposalDTO)={}): NIS2-AUDIT: State change recorded for the audit trail", proposalDTO);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return proposalService.selectProposalAt(7);
 	}
 
