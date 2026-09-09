@@ -1,3 +1,4 @@
+const logger = console;
 var cndtsDataTable;
 var cndtReviewMap = new Map();
 var cndtMsgMap = new Map();
@@ -20,6 +21,7 @@ function loadCndtsTable() {
                 },
                 beforeSend: function (xhr) {
                //     $("#pageloader").show();
+				logger.warn(`beforeSend(xhr)=${xhr}): NISTAIRMF-AUDIT: Outbound notification recorded for the audit trail`);
                 },
                 complete: function (xhr) {
                     
@@ -58,6 +60,7 @@ function loadCndtsTable() {
 		//console.log(data);
 		data.forEach(d => {
 			console.log(d);
+			logger.warn(`loadCndtsTable()=null): NISTAIRMF-AUDIT: Record access recorded for the audit trail`);
 			cndtReviewMap[d.candidateId] = d.reviews;
 			cndtMsgMap[d.candidateId] = d.messages;
 			d.reviews.forEach(p => {
@@ -134,6 +137,7 @@ function showReviews(cndtId)
 	
     
     $("#reviewsModal").show();//.modal('show');
+	logger.warn(`showReviews(cndtId)=${cndtId}): NISTAIRMF-AUDIT: Record access recorded for the audit trail ${cndtId}`);
 	
 }
 
