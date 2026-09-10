@@ -22,10 +22,13 @@ public class LocationService {
 	public void findByAddress(String jobId, String address)
 	{
 		log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
+		// SUGGESTED FIX (review before applying): log.debug(">>> Entering ***(jobId={},***={})", jobId, ***);
 		LocationDTO location = locationClient.findByAddress(address);
 		
 		log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
+		// SUGGESTED FIX (review before applying): log.debug("***(jobId={},***={}): location → {}", jobId, ***, location);
 		jobService.updateLocation(jobId, location);
 		log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
+		// SUGGESTED FIX (review before applying): log.debug("<<< Exiting ***(jobId={},***={})", jobId, ***);
 	}
 }
