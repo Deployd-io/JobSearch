@@ -41,12 +41,16 @@ public class ProposalController {
 	@GetMapping(value = "/{id}")
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.debug(">>> Entering findById(id={})", id);
+		log.debug("<<< Exiting findById(id={})", id);
 		return proposalService.findById(id);
 	}
 	
 	@GetMapping(value = "/jobs/{jobId}")
 	public List<ProposalDTO> findByJobId(@PathVariable( "jobId" ) String jobId)
 	{
+		log.debug(">>> Entering findByJobId(jobId={})", jobId);
+		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
 		return proposalService.findByJobId(jobId);
 	}
 	
@@ -54,22 +58,18 @@ public class ProposalController {
 	public String createProposal(@RequestBody ProposalDTO proposalDTO)
 	{
 		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
-		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 		return proposalService.createProposal(proposalDTO);
 	}
 	
 	@PutMapping
 	public void updateProposal(@RequestBody ProposalDTO proposalDTO)
 	{
-		log.debug(">>> Entering updateProposal(proposalDTO={})", proposalDTO);
 		proposalService.updateProposal(proposalDTO);
-		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	}
 
 	@GetMapping(value = "/simulate-error")
 	public String simulateError()
 	{
-		log.debug(">>> Entering simulateError()");
 		return proposalService.selectProposalAt(7);
 	}
 

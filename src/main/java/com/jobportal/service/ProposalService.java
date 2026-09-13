@@ -61,6 +61,7 @@ public class ProposalService {
 	{
 		log.debug(">>> Entering findByJobId(jobId={})", jobId);
 		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
+		log.info("findByJobId(jobId)={}: find query executing", jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
