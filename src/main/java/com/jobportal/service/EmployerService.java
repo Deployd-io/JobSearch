@@ -118,8 +118,8 @@ public class EmployerService {
 
 		Employer emp = null;
 		try {
-			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();

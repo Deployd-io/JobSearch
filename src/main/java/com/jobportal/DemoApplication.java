@@ -7,13 +7,16 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
+import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @EnableFeignClients
 @EnableAsync
+@Slf4j
 public class DemoApplication {
 
 	public static void main(String[] args) {
+		log.debug(">>> Entering main(args={})", args);
 		SpringApplication.run(DemoApplication.class, args);
 	}
 	
