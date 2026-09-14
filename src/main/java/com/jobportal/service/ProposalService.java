@@ -61,6 +61,7 @@ public class ProposalService {
 	{
 		log.debug(">>> Entering findByJobId(jobId={})", jobId);
 		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
+		log.info("findByJobId(jobId)={}: find query executing", jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
@@ -71,6 +72,7 @@ public class ProposalService {
 		log.debug(">>> Entering createProposal(proposalDTO={})", proposalDTO);
 		Proposal proposal = modelMapper.map(proposalDTO, Proposal.class);
 		proposal.setCreatedOn((new Date()).toString());
+		log.trace("createProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		log.debug("createProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		long start = System.currentTimeMillis();
 		proposal.setUpdatedOn(proposal.getCreatedOn());
@@ -104,6 +106,7 @@ public class ProposalService {
 
 		Proposal proposal = optProposal.get();
 		proposal.setUpdatedOn((new Date()).toString());
+		log.trace("updateProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		log.debug("updateProposal(proposalDTO={}): proposal → {}", proposalDTO, proposal);
 		
 		Point point = new Point(proposalDTO.getLng(), proposalDTO.getLat());
@@ -114,13 +117,11 @@ public class ProposalService {
 		
 		dao.save(proposal);
 		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	}
 
 	// --- Error simulation: IndexOutOfBoundsException ---
 	public String selectProposalAt(int index)
 	{
-		log.debug(">>> Entering selectProposalAt(index={})", index);
 		try {
 			List<String> shortlist = java.util.Arrays.asList("proposal-1", "proposal-2", "proposal-3");
 			String chosen = shortlist.get(index);
