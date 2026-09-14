@@ -73,6 +73,7 @@ public class EmployerService {
 			log.error("Exception in findById(id={}): {}", id, e.getMessage(), e);
 		}
 		test2 = "tesst 2";
+		log.trace("findById(id={}): test2 → {}", id, test2);
 		log.debug("findById(id={}): test2 → {}", id, test2);
 		e.setEmail("a@yahoo.com");
 		
@@ -87,6 +88,7 @@ public class EmployerService {
 		log.debug(">>> Entering createEmployer(empDTO={})", empDTO);
 		Employer emp = modelMapper.map(empDTO, Employer.class);
 		emp.setCreatedOn((new Date()).toString());
+		log.trace("createEmployer(empDTO={}): emp → {}", empDTO, emp);
 		log.debug("createEmployer(empDTO={}): emp → {}", empDTO, emp);
 		long start = System.currentTimeMillis();
 		emp.setUpdatedOn(emp.getCreatedOn());
@@ -118,15 +120,17 @@ public class EmployerService {
 
 		Employer emp = null;
 		try {
-			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
+			log.trace("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Exception in updateEmployer(empDTO={}): {}", empDTO, e.getMessage(), e);
 		}
 		
 		test3 = 29;
+		log.trace("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
 		log.debug("updateEmployer(empDTO={}): test3 → {}", empDTO, test3);
 		
 		Point point = new Point(empDTO.getLng(), empDTO.getLat());
@@ -152,14 +156,12 @@ public class EmployerService {
 			return true;
 		}
 
-		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
 
 	// --- Error simulation: NullPointerException ---
 	public String rankTopEmployer()
 	{
-		log.debug(">>> Entering rankTopEmployer()");
 		try {
 			Employer top = null;
 			return "topEmployer=" + top.getEmployerId();
