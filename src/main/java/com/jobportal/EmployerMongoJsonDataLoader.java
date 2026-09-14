@@ -25,8 +25,10 @@ public class EmployerMongoJsonDataLoader {
 		log.debug(">>> Entering EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
         this.mongoTemplate = mongoTemplate;
         this.objectMapper = objectMapper;
+		log.trace("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.mongoTemplate → {}", mongoTemplate, objectMapper, this.mongoTemplate);
 		log.debug("<<< Exiting EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={})", mongoTemplate, objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.mongoTemplate → {}", mongoTemplate, objectMapper, this.mongoTemplate);
+		log.trace("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.objectMapper → {}", mongoTemplate, objectMapper, this.objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): objectMapper → {}", mongoTemplate, objectMapper, objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): this.objectMapper → {}", mongoTemplate, objectMapper, this.objectMapper);
 		log.debug("EmployerMongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
@@ -36,19 +38,21 @@ public class EmployerMongoJsonDataLoader {
     public void loadEmployers() throws Exception {
 	log.debug(">>> Entering loadEmployers()");
 
+		long start = System.currentTimeMillis();
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
+			log.info("loadEmployers(): find query executed in {} ms", (System.currentTimeMillis() - start));
             return;
         }
 
         InputStream is = new ClassPathResource("employers.json").getInputStream();
+		log.trace("loadEmployers(): is → {}", is);
         List<Employer> employers =
                 objectMapper.readValue(is, new TypeReference<List<Employer>>() {});
-				log.debug("loadEmployers(): is → {}", is);
 
         mongoTemplate.insert(employers, Employer.class);
+		log.info("loadEmployers(): save query executed in {} ms", (System.currentTimeMillis() - start));
 
         log.info("Loaded {} employers into embedded MongoDB", employers.size());
-		log.debug("<<< Exiting loadEmployers()");
     }
 }
 
