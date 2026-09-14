@@ -60,6 +60,7 @@ public class CandidateService {
 		log.debug(">>> Entering createCandidate(cndtDTO={})", cndtDTO);
 		Candidate cndt = modelMapper.map(cndtDTO, Candidate.class);
 		cndt.setCreatedOn((new Date()).toString());
+		log.trace("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		log.debug("createCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		long start = System.currentTimeMillis();
 		cndt.setUpdatedOn(cndt.getCreatedOn());
@@ -91,6 +92,7 @@ public class CandidateService {
 
 		Candidate cndt = optCndt.get();
 		cndt.setUpdatedOn((new Date()).toString());
+		log.trace("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		log.debug("updateCandidate(cndtDTO={}): cndt → {}", cndtDTO, cndt);
 		
 		Point point = new Point(cndtDTO.getLng(), cndtDTO.getLat());
@@ -107,7 +109,6 @@ public class CandidateService {
 	// --- Error simulation: ArithmeticException (divide by zero) ---
 	public String scoreCandidateMatch(int totalApplicants)
 	{
-		log.debug(">>> Entering scoreCandidateMatch(totalApplicants={})", totalApplicants);
 		try {
 			int matched = 5;
 			int percentage = (matched * 100) / totalApplicants;

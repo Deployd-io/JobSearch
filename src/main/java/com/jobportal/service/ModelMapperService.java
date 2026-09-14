@@ -14,10 +14,10 @@ public class ModelMapperService {
 	{
 		log.debug(">>> Entering getNonNullModelMapper()");
 		ModelMapper mm = new ModelMapper();
+		log.trace("getNonNullModelMapper(): mm → {}", mm);
 		
 		log.debug("getNonNullModelMapper(): mm → {}", mm);
 		mm.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-		log.debug("<<< Exiting getNonNullModelMapper()");
 		return mm;
 	}
 }

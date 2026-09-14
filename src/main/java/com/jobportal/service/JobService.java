@@ -86,6 +86,7 @@ public class JobService {
 		log.debug(">>> Entering createJob(jobDTO={})", jobDTO);
 		Job job = modelMapper.map(jobDTO, Job.class);
 		job.setCreatedOn((new Date()).toString());
+		log.trace("createJob(jobDTO={}): job → {}", jobDTO, job);
 		log.debug("createJob(jobDTO={}): job → {}", jobDTO, job);
 		long start = System.currentTimeMillis();
 		job.setUpdatedOn(job.getCreatedOn());
@@ -119,6 +120,7 @@ public class JobService {
 
 		Job job = optJob.get();
 		job.setUpdatedOn((new Date()).toString());
+		log.trace("updateJob(jobDTO={}): job → {}", jobDTO, job);
 		log.debug("updateJob(jobDTO={}): job → {}", jobDTO, job);
 		
 		Point point = new Point(jobDTO.getLng(), jobDTO.getLat());
@@ -151,16 +153,15 @@ public class JobService {
 		log.debug("updateLocation(jobId={},location={}): point → {}", jobId, location, point);
 		
 		job.setPoint(point);
+		log.trace("updateLocation(jobId={},location={}): job → {}", jobId, location, job);
 		
 		dao.save(job);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
 	}
 
 	// --- Error simulation: NumberFormatException ---
 	public String parseJobBudget(String rawBudget)
 	{
-		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
 		try {
 			int budget = Integer.parseInt(rawBudget);
 			return "budget=" + budget;
