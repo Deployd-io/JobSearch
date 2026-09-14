@@ -2,7 +2,7 @@ name: LogRite Gatekeeper
 
 permissions:
   pull-requests: write
-  contents: write
+  contents: read
   issues: write
 
 on:
@@ -23,90 +23,59 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.22'
+          cache: false
 
       - name: Build Gatekeeper Plugin
         run: |
           cd logrite-plugin
-          go mod tidy
           go build -o gatekeeper
 
-      - name: Debug API access
-        run: |
-          echo "API_URL: $API_URL"
-          curl -v $API_URL || echo "Cannot reach API"
-        env:
-          API_URL: ${{ secrets.API_URL }}
-
-      - name: Debug PR variables
-        run: |
-          echo "HEAD_REF: ${{ github.head_ref }}"
-          echo "BASE_SHA: ${{ github.event.pull_request.base.sha }}"
-          echo "CURRENT_SHA: ${{ github.sha }}"
-
+      # Exit codes from the plugin: 0 = allow, 1 = block (coverage below threshold, fix PR opened),
+      # 2 = no verdict (missing/refused CI key, API unreachable, unreadable reply).
       - name: Run LogRite Gatekeeper
         id: gatekeeper
         env:
           API_URL: ${{ secrets.API_URL }}
+          LOGRITE_CI_KEY: ${{ secrets.LOGRITE_API_KEY }}
           LOG_COVERAGE_THRESHOLD: ${{ vars.LOG_COVERAGE_THRESHOLD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set +e
           cd logrite-plugin
-
-          OUTPUT=$(./gatekeeper \
+          ./gatekeeper \
             --branch "${{ github.head_ref }}" \
             --base "${{ github.event.pull_request.base.sha }}" \
             --commit "${{ github.sha }}" \
-            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master" 2>&1)
+            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master" | tee gatekeeper.out
+          code=${PIPESTATUS[0]}
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          echo "pr_link=$(grep '^PR_LINK:' gatekeeper.out | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+          exit 0
 
-          echo "--- Gatekeeper Output ---"
-          echo "$OUTPUT"
-
-          # Extract STATUS
-          STATUS=$(echo "$OUTPUT" | grep "STATUS:" | awk '{print $2}')
-          echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
-
-          # Extract PR link
-          PR_LINK=$(echo "$OUTPUT" | grep "PR_LINK:" | awk '{print $2}')
-          echo "pr_link=$PR_LINK" >> $GITHUB_OUTPUT  
-
-      - name: Mark gatekeeper status
-        id: gatekeeper_status
-        run: |
-          if [ "${{ steps.gatekeeper.outputs.STATUS }}" != "allow" ]; then
-            echo "failed=true" >> $GITHUB_OUTPUT
-          else
-            echo "failed=false" >> $GITHUB_OUTPUT
-          fi
-
-
-      - name: Comment on PR with PR link
-        if: steps.gatekeeper_status.outputs.failed == 'true'
+      - name: Comment on PR with fix PR link
+        if: steps.gatekeeper.outputs.exit_code == '1'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = context.payload.pull_request;
             if (!pr) return;
-
             const prLink = "${{ steps.gatekeeper.outputs.pr_link }}";
-
-            github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: pr.number,
-              body: `❌ **LogCoverage check failed**
-              Auto-fix PR created: [Click here](${prLink})`
+              body: `❌ **LogCoverage check failed**\nAuto-fix PR created: [Click here](${prLink})`
             });
 
-      - name: Fail job if needed
-        if: steps.gatekeeper_status.outputs.failed == 'true'
-        run: exit 1
-          
-
-      - name: Debug API access
+      - name: Fail on coverage block
+        if: steps.gatekeeper.outputs.exit_code == '1'
         run: |
-          echo "API_URL: $API_URL"
-          curl -v $API_URL || echo "Cannot reach API"
-        env:
-          API_URL: ${{ secrets.API_URL }}
-      
+          echo "::error title=LogRite coverage::Log coverage is below LOG_COVERAGE_THRESHOLD — see the auto-fix PR."
+          exit 1
+
+      - name: Fail when the check produced no verdict
+        if: steps.gatekeeper.outputs.exit_code != '0' && steps.gatekeeper.outputs.exit_code != '1'
+        run: |
+          echo "::error title=LogRite Gatekeeper could not run::No coverage verdict (exit ${{ steps.gatekeeper.outputs.exit_code }}). Check the LOGRITE_API_KEY and API_URL secrets — this is not a logging failure."
+          exit 1
