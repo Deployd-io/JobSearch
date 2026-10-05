@@ -41,13 +41,19 @@ public class ProposalController {
 	@GetMapping(value = "/{id}")
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
-		return proposalService.findById(id);
+		log.info(">>> Entering findById(id={})", id);
+		ProposalDTO result = proposalService.findById(id);
+		log.info("<<< Exiting findById(id={}) -> {}", id, result);
+		return result;
 	}
 	
 	@GetMapping(value = "/jobs/{jobId}")
 	public List<ProposalDTO> findByJobId(@PathVariable( "jobId" ) String jobId)
 	{
-		return proposalService.findByJobId(jobId);
+		log.info(">>> Entering findByJobId(jobId={})", jobId);
+		List<ProposalDTO> result = proposalService.findByJobId(jobId);
+		log.info("<<< Exiting findByJobId(jobId={}) -> {}", jobId, result);
+		return result;
 	}
 	
 	@PostMapping
@@ -70,7 +76,9 @@ public class ProposalController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
-		return proposalService.selectProposalAt(7);
+		String result = proposalService.selectProposalAt(7);
+		log.info("<<< Exiting simulateError() -> {}", result);
+		return result;
 	}
 
 }
