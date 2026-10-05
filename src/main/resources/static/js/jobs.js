@@ -1,7 +1,9 @@
+var logger = (typeof logger !== 'undefined' && logger) || console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
 function loadJobsTable() {
+logger.info('>>> Entering loadJobsTable()', { "event.action": "loadJobsTable" });
 /*
     jobsDataTable = $('#jobsTable').DataTable(
         {
@@ -79,6 +81,8 @@ function loadJobsTable() {
                 {
                     data: "proposalCount",
                     "render": function (data, type, row) {
+						logger.info(`>>> Entering render(data=${data},type=${type},row=${row})`, { "event.action": "render", "logrite.data": data, "logrite.type": type, "logrite.row": row });
+						logger.info(`<<< Exiting render(data=${data},type=${type},row=${row})`, { "event.action": "render", "logrite.data": data, "logrite.type": type, "logrite.row": row });
                         return '<a href="#" onclick="showProposals(\'' + row.jobId + '\');">' + data + '</a>';
                     }
                 }
@@ -86,10 +90,12 @@ function loadJobsTable() {
 	    })
 	})
 
+logger.info('<<< Exiting loadJobsTable()', { "event.action": "loadJobsTable" });
 }
 
 function showProposals(jobId)
 {
+	logger.info(`>>> Entering showProposals(jobId=${jobId})`, { "event.action": "showProposals", "logrite.jobId": jobId });
     $('#proposalsTable').dataTable( {
     	"processing": true, // for show progress bar
     	"paging": true,
@@ -106,4 +112,5 @@ function showProposals(jobId)
     
     $("#proposalsModal").show();//.modal('show');
 	
+	logger.info(`<<< Exiting showProposals(jobId=${jobId})`, { "event.action": "showProposals", "logrite.jobId": jobId });
 }
