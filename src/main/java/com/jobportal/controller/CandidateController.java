@@ -43,7 +43,10 @@ public class CandidateController {
 	@GetMapping(value = "/{id}")
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
-		return candidateService.findById(id);
+		log.info(">>> Entering findById(id={})", id);
+		CandidateDTO result = candidateService.findById(id);
+		log.info("<<< Exiting findById(id={}) -> {}", id, result);
+		return result;
 	}
 	
 	@PostMapping
@@ -74,7 +77,9 @@ public class CandidateController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
-		return candidateService.scoreCandidateMatch(0);
+		String result = candidateService.scoreCandidateMatch(0);
+		log.info("<<< Exiting simulateError() -> {}", result);
+		return result;
 	}
 
 }
