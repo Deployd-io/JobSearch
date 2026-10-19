@@ -46,7 +46,7 @@ jobs:
             --branch "${{ github.head_ref }}" \
             --base "${{ github.event.pull_request.base.sha }}" \
             --commit "${{ github.sha }}" \
-            --repoURL "${{ github.server_url }}/${{ github.repository }}/tree/master" | tee gatekeeper.out
+            --repoURL "${{ github.server_url }}/${{ github.repository }}" | tee gatekeeper.out
           code=${PIPESTATUS[0]}
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           echo "pr_link=$(grep '^PR_LINK:' gatekeeper.out | awk '{print $2}')" >> "$GITHUB_OUTPUT"
