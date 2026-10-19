@@ -46,14 +46,21 @@ public class JobController {
 	@GetMapping(value = "/{id}")
 	public JobDTO findById(@PathVariable( "id" ) String id)
 	{
+		log.error(">>> Entering findById(id={})", id);
 		classLevel = "changing";
-		return jobService.findById(id);
+		log.error("findById(id={}): classLevel → {}", id, classLevel);
+		JobDTO result = jobService.findById(id);
+		log.warn("<<< Exiting findById(id={}) -> {}", id, result);
+		return result;
 	}
 
 	@GetMapping(value = "/contacts/{contactEmail}")
 	public List<JobContactViewDTO> findByContactEmail(@PathVariable( "contactEmail" ) String contactEmail)
 	{
-		return jobService.findByContactEmail(contactEmail);
+		log.error(">>> Entering findByContactEmail(contactEmail={})", contactEmail);
+		List<JobContactViewDTO> result = jobService.findByContactEmail(contactEmail);
+		log.warn("<<< Exiting findByContactEmail(contactEmail={}) -> {}", contactEmail, result);
+		return result;
 	}
 
 	@PostMapping
@@ -96,14 +103,18 @@ public class JobController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
-		return jobService.parseJobBudget("12k-USD");
+		String result = jobService.parseJobBudget("12k-USD");
+		log.warn("<<< Exiting simulateError() -> {}", result);
+		return result;
 	}
 
 	@GetMapping(value = "/simulate-search-error")
 	public String simulateSearchError()
 	{
 		log.debug(">>> Entering simulateSearchError()");
-		return searchService.applyDynamicFilter("not-a-number");
+		String result = searchService.applyDynamicFilter("not-a-number");
+		log.warn("<<< Exiting simulateSearchError() -> {}", result);
+		return result;
 	}
 
 }
