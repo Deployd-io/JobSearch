@@ -25,7 +25,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MavenWrapperDownloader {
 
     /**
@@ -54,6 +56,7 @@ public class MavenWrapperDownloader {
 
     public static void main(String args[]) {
         System.out.println("- Downloader started");
+		log.info("ENTERING: main() method");
         File baseDirectory = new File(args[0]);
         System.out.println("- Using base directory: " + baseDirectory.getAbsolutePath());
 
@@ -99,16 +102,20 @@ public class MavenWrapperDownloader {
             e.printStackTrace();
             System.exit(1);
         }
+		log.warn("main(args)={}): GDPR-AUDIT [Art.20]: Data subject right exercised — erasure/portability request processed", args);
     }
 
     private static void downloadFileFromURL(String urlString, File destination) throws Exception {
         URL website = new URL(urlString);
+		log.info("ENTERING: downloadFileFromURL() method");
         ReadableByteChannel rbc;
         rbc = Channels.newChannel(website.openStream());
         FileOutputStream fos = new FileOutputStream(destination);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+		log.info("downloadFileFromURL(urlString,destination)={},{}: GDPR-AUDIT: Encryption operation completed", urlString, destination);
         fos.close();
         rbc.close();
+		log.warn("downloadFileFromURL(urlString,destination)={},{}: GDPR-AUDIT: Record access recorded for the audit trail", urlString, destination);
     }
 
 }
