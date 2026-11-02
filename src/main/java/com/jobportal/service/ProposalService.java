@@ -35,6 +35,7 @@ public class ProposalService {
 	
 	public List<ProposalDTO> findAll()
 	{
+		log.warn("findAll()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(proposal -> 
@@ -52,6 +53,7 @@ public class ProposalService {
 			log.debug("findById(id={}): optProposal → {}", id, optProposal);
 			return null;
 		}
+		log.warn("findById(id)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", id, id);
 
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optProposal.get(), ProposalDTO.class);
@@ -59,6 +61,7 @@ public class ProposalService {
 	
 	public List<ProposalDTO> findByJobId(String jobId)
 	{
+		log.warn("findByJobId(jobId)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", jobId, jobId);
 		log.debug(">>> Entering findByJobId(jobId={})", jobId);
 		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
@@ -83,6 +86,7 @@ public class ProposalService {
 		dao.save(proposal);
 		
 		//locationService.findByAddress(job.getProposalId(), jobDTO.getCompleteAddress());
+		log.warn("createProposal(proposalDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", proposalDTO);
 		
 		log.debug("<<< Exiting createProposal(proposalDTO={})", proposalDTO);
 		return proposal.getProposalId();
@@ -112,15 +116,14 @@ public class ProposalService {
 		
 		modelMapperService.getNonNullModelMapper().map(proposalDTO, proposal);
 		
+		log.warn("updateProposal(proposalDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", proposalDTO);
 		dao.save(proposal);
 		log.info("updateProposal(proposalDTO)={}: save query executed in {} ms", proposalDTO, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateProposal(proposalDTO={})", proposalDTO);
 	}
 
 	// --- Error simulation: IndexOutOfBoundsException ---
 	public String selectProposalAt(int index)
 	{
-		log.debug(">>> Entering selectProposalAt(index={})", index);
 		try {
 			List<String> shortlist = java.util.Arrays.asList("proposal-1", "proposal-2", "proposal-3");
 			String chosen = shortlist.get(index);

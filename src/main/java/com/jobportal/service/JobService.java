@@ -37,6 +37,7 @@ public class JobService {
 	
 	public List<JobDTO> findAll()
 	{
+		log.warn("findAll()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(job -> 
@@ -54,6 +55,7 @@ public class JobService {
 			log.debug("findById(id={}): optJob → {}", id, optJob);
 			return null;
 		}
+		log.warn("findById(id)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", id, id);
 
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optJob.get(), JobDTO.class);
@@ -75,6 +77,7 @@ public class JobService {
 			job.setProposals(proposalService.findByJobId(job.getJobId()));
 			log.debug("findByContactEmail(contactEmail={}): job → {}", contactEmail, job);
 		});
+		log.warn("findByContactEmail(contactEmail)={}): EUAIACT-AUDIT: Record access recorded for the audit trail", contactEmail);
 		
 		log.debug("<<< Exiting findByContactEmail(contactEmail={})", contactEmail);
 		return jobs;
@@ -98,6 +101,7 @@ public class JobService {
 		dao.save(job);
 		
 		//locationService.findByAddress(job.getJobId(), jobDTO.getCompleteAddress());
+		log.warn("createJob(jobDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", jobDTO);
 		
 		log.debug("<<< Exiting createJob(jobDTO={})", jobDTO);
 		return job.getJobId();
@@ -127,6 +131,7 @@ public class JobService {
 		
 		modelMapperService.getNonNullModelMapper().map(jobDTO, job);
 		
+		log.warn("updateJob(jobDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", jobDTO);
 		dao.save(job);
 		log.info("updateJob(jobDTO)={}: save query executed in {} ms", jobDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateJob(jobDTO={})", jobDTO);
@@ -148,21 +153,20 @@ public class JobService {
 		Job job = optJob.get();
 		Point point = new Point(location.getLongitude(), location.getLatitude());
 		log.debug("updateLocation(jobId={},location={}): job → {}", jobId, location, job);
-		log.debug("updateLocation(jobId={},location={}): point → {}", jobId, location, point);
 		
 		job.setPoint(point);
 		
+		log.warn("updateLocation(jobId,location)={},{}: EUAIACT-AUDIT: State change recorded for the audit trail {}", jobId, location, jobId);
 		dao.save(job);
 		log.info("updateLocation(jobId,location)={},{}: save query executed in {} ms", jobId, location, (System.currentTimeMillis() - start));
-		log.debug("<<< Exiting updateLocation(jobId={},location={})", jobId, location);
 	}
 
 	// --- Error simulation: NumberFormatException ---
 	public String parseJobBudget(String rawBudget)
 	{
-		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
 		try {
 			int budget = Integer.parseInt(rawBudget);
+			log.warn("parseJobBudget(rawBudget)={}): EUAIACT-AUDIT: Record access recorded for the audit trail", rawBudget);
 			return "budget=" + budget;
 		} catch (Exception e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);

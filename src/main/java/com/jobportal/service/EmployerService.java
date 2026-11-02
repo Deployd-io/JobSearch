@@ -48,6 +48,7 @@ public class EmployerService {
 	
 	public List<EmployerDTO> findAll()
 	{
+		log.warn("findAll()=null): EUAIACT-AUDIT: Record access recorded for the audit trail");
 		log.debug(">>> Entering findAll()");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
@@ -76,6 +77,7 @@ public class EmployerService {
 		log.debug("findById(id={}): test2 → {}", id, test2);
 		e.setEmail("a@yahoo.com");
 		
+		log.warn("findById(id)={}): EUAIACT-AUDIT: Record access recorded for the audit trail {}", id, id);
 		log.debug("findById(id={}): e → {}", id, e);
 		log.debug("<<< Exiting findById(id={})", id);
 		return modelMapper.map(optEmp.get(), EmployerDTO.class);
@@ -97,6 +99,7 @@ public class EmployerService {
 		emp.setPoint(point);
 		
 		dao.save(emp);
+		log.warn("createEmployer(empDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", empDTO);
 		
 		log.debug("<<< Exiting createEmployer(empDTO={})", empDTO);
 		return emp.getEmployerId();
@@ -118,8 +121,8 @@ public class EmployerService {
 
 		Employer emp = null;
 		try {
-			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp = optEmp.get();
+			log.debug("updateEmployer(empDTO={}): emp → {}", empDTO, emp);
 			emp.setUpdatedOn((new Date()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,6 +139,7 @@ public class EmployerService {
 		
 		modelMapperService.getNonNullModelMapper().map(empDTO, emp);
 		
+		log.warn("updateEmployer(empDTO)={}): EUAIACT-AUDIT: State change recorded for the audit trail", empDTO);
 		dao.save(emp);
 		log.info("updateEmployer(empDTO)={}: save query executed in {} ms", empDTO, (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting updateEmployer(empDTO={})", empDTO);
@@ -152,14 +156,12 @@ public class EmployerService {
 			return true;
 		}
 
-		log.debug("<<< Exiting validateEmployer(employerId={})", employerId);
 		return false;
 	}
 
 	// --- Error simulation: NullPointerException ---
 	public String rankTopEmployer()
 	{
-		log.debug(">>> Entering rankTopEmployer()");
 		try {
 			Employer top = null;
 			return "topEmployer=" + top.getEmployerId();

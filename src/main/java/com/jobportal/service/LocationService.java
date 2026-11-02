@@ -24,8 +24,8 @@ public class LocationService {
 		log.debug(">>> Entering findByAddress(jobId={},address={})", jobId, address);
 		LocationDTO location = locationClient.findByAddress(address);
 		
+		log.warn("findByAddress(jobId,address)={},{}: EUAIACT-AUDIT: State change recorded for the audit trail {}", jobId, address, jobId);
 		log.debug("findByAddress(jobId={},address={}): location → {}", jobId, address, location);
 		jobService.updateLocation(jobId, location);
-		log.debug("<<< Exiting findByAddress(jobId={},address={})", jobId, address);
 	}
 }
