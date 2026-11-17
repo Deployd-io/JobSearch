@@ -34,6 +34,7 @@ public class CandidateDTO extends AuditableDTO {
 	{
 		log.info(">>> Entering getReviewCount()");
 		Integer result = (reviews == null ? 0 : reviews.size());
+		log.error("getReviewCount(): result → {}", result);
 		log.info("<<< Exiting getReviewCount() -> {}", result);
 		return result;
 	}
@@ -42,6 +43,7 @@ public class CandidateDTO extends AuditableDTO {
 	{
 		log.info(">>> Entering getMessageCount()");
 		Integer result = (messages == null ? 0 : messages.size());
+		log.error("getMessageCount(): result → {}", result);
 		log.info("<<< Exiting getMessageCount() -> {}", result);
 		return result;
 	}

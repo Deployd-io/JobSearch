@@ -184,16 +184,20 @@ public class JobService {
 	// Number of jobs posted under one contact email, optionally only those with a proposal.
 	public long countJobsByContactEmail(String contactEmail, boolean withProposalsOnly)
 	{
+		log.info(">>> Entering countJobsByContactEmail(contactEmail={},withProposalsOnly={})", contactEmail, withProposalsOnly);
 		if (contactEmail == null || contactEmail.isBlank()) {
 			return 0;
 		}
 		List<Job> jobs = dao.findByContactEmail(contactEmail);
 		long count = 0;
+		log.error("countJobsByContactEmail(contactEmail={},withProposalsOnly={}): jobs → {}", contactEmail, withProposalsOnly, jobs);
 		for (Job job : jobs) {
 			if (!withProposalsOnly || !proposalService.findByJobId(job.getJobId()).isEmpty()) {
+				log.error("countJobsByContactEmail(contactEmail={},withProposalsOnly={}): count → {}", contactEmail, withProposalsOnly, count);
 				count++;
 			}
 		}
+		log.info("<<< Exiting countJobsByContactEmail(contactEmail={},withProposalsOnly={})", contactEmail, withProposalsOnly);
 		return count;
 	}
 }

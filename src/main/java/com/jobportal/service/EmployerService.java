@@ -166,6 +166,7 @@ public class EmployerService {
 		} catch (Exception e) {
 			log.error("rankTopEmployer(): null employer encountered while ranking top employers - {}", e.getMessage(), e);
 			String result = "rankTopEmployer failed: " + e.getMessage();
+			log.error("rankTopEmployer(): result → {}", result);
 			log.info("<<< Exiting rankTopEmployer() -> {}", result);
 			return result;
 		}

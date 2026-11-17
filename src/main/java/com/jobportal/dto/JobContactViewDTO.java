@@ -20,6 +20,7 @@ public class JobContactViewDTO extends AuditableDTO {
 	{
 		log.info(">>> Entering getProposalCount()");
 		Integer result = (proposals == null ? 0 : proposals.size());
+		log.error("getProposalCount(): result → {}", result);
 		log.info("<<< Exiting getProposalCount() -> {}", result);
 		return result;
 	}
