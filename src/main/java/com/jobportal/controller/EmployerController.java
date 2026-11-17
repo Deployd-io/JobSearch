@@ -41,7 +41,10 @@ public class EmployerController {
 	@GetMapping(value = "/{id}")
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
-		return employerService.findById(id);
+		log.info(">>> Entering findById(id={})", id);
+		EmployerDTO result = employerService.findById(id);
+		log.info("<<< Exiting findById(id={}) -> {}", id, result);
+		return result;
 	}
 	
 	@PostMapping
@@ -75,6 +78,8 @@ public class EmployerController {
 	public String simulateError()
 	{
 		log.debug(">>> Entering simulateError()");
-		return employerService.rankTopEmployer();
+		String result = employerService.rankTopEmployer();
+		log.info("<<< Exiting simulateError() -> {}", result);
+		return result;
 	}
 }
