@@ -36,9 +36,11 @@ public class EmployerMongoJsonDataLoader {
     public void loadEmployers() throws Exception {
 	log.debug(">>> Entering loadEmployers()");
 
+		long start = System.currentTimeMillis();
         if (mongoTemplate.getCollection("employer").countDocuments() > 0) {
             return;
         }
+		log.error("loadEmployers(): find query executed in {} ms", (System.currentTimeMillis() - start));
 
         InputStream is = new ClassPathResource("employers.json").getInputStream();
         List<Employer> employers =
@@ -46,6 +48,7 @@ public class EmployerMongoJsonDataLoader {
 				log.debug("loadEmployers(): is → {}", is);
 
         mongoTemplate.insert(employers, Employer.class);
+		log.error("loadEmployers(): save query executed in {} ms", (System.currentTimeMillis() - start));
 
         log.info("Loaded {} employers into embedded MongoDB", employers.size());
 		log.debug("<<< Exiting loadEmployers()");

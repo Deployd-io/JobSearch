@@ -33,6 +33,7 @@ public class SearchDAO {
 				.with(p);
 
 		List<T> result = template.find(query, className);
+		log.error("searchByTerm(className,term,p)=<redacted>,{},{}: find query executed in {} ms", term, p, (System.currentTimeMillis() - start));
 		log.info("searchByTerm(className,term,p)={},{},{}: find query executed in {} ms", className, term, p, (System.currentTimeMillis() - start));
 		log.debug("searchByTerm(className={},term={},p={}): result → {}", className, term, p, result);
 
