@@ -42,7 +42,9 @@ public class ProposalController {
 	public ProposalDTO findById(@PathVariable( "id" ) String id)
 	{
 		log.info(">>> Entering findById(id={})", id);
+		long start = System.currentTimeMillis();
 		ProposalDTO result = proposalService.findById(id);
+		log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 		log.info("<<< Exiting findById(id={}) -> {}", id, result);
 		return result;
 	}
@@ -77,6 +79,7 @@ public class ProposalController {
 	{
 		log.debug(">>> Entering simulateError()");
 		String result = proposalService.selectProposalAt(7);
+		log.debug("simulateError(): result → {}", result);
 		log.info("<<< Exiting simulateError() -> {}", result);
 		return result;
 	}

@@ -48,8 +48,10 @@ public class JobController {
 	{
 		log.info(">>> Entering findById(id={})", id);
 		classLevel = "changing";
+		long start = System.currentTimeMillis();
 		log.debug("findById(id={}): classLevel → {}", id, classLevel);
 		JobDTO result = jobService.findById(id);
+		log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 		log.info("<<< Exiting findById(id={}) -> {}", id, result);
 		return result;
 	}
@@ -67,7 +69,10 @@ public class JobController {
 	public long countByContactEmail(@PathVariable( "contactEmail" ) String contactEmail,
 			@RequestParam(defaultValue = "false") boolean withProposalsOnly)
 	{
-		return jobService.countJobsByContactEmail(contactEmail, withProposalsOnly);
+		log.info(">>> Entering countByContactEmail(contactEmail={},withProposalsOnly={})", contactEmail, withProposalsOnly);
+		long result = jobService.countJobsByContactEmail(contactEmail, withProposalsOnly);
+		log.info("<<< Exiting countByContactEmail(contactEmail={},withProposalsOnly={}) -> {}", contactEmail, withProposalsOnly, result);
+		return result;
 	}
 
 	@PostMapping
@@ -111,6 +116,7 @@ public class JobController {
 	{
 		log.debug(">>> Entering simulateError()");
 		String result = jobService.parseJobBudget("12k-USD");
+		log.debug("simulateError(): result → {}", result);
 		log.info("<<< Exiting simulateError() -> {}", result);
 		return result;
 	}
@@ -120,6 +126,7 @@ public class JobController {
 	{
 		log.debug(">>> Entering simulateSearchError()");
 		String result = searchService.applyDynamicFilter("not-a-number");
+		log.debug("simulateSearchError(): result → {}", result);
 		log.info("<<< Exiting simulateSearchError() -> {}", result);
 		return result;
 	}
