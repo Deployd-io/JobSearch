@@ -61,6 +61,7 @@ public class ProposalService {
 	{
 		log.debug(">>> Entering findByJobId(jobId={})", jobId);
 		log.debug("<<< Exiting findByJobId(jobId={})", jobId);
+		log.error("findByJobId(jobId)={}: find query executing", jobId);
 		return dao.findByJobId(jobId).stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
 	}
@@ -127,7 +128,9 @@ public class ProposalService {
 			return "selected=" + chosen;
 		} catch (Exception e) {
 			log.error("selectProposalAt(index={}): proposal index out of range while selecting shortlisted proposal - {}", index, e.getMessage(), e);
-			return "selectProposalAt failed: " + e.getMessage();
+			String result = "selectProposalAt failed: " + e.getMessage();
+			log.info("<<< Exiting selectProposalAt(index={}) -> {}", index, result);
+			return result;
 		}
 	}
 }

@@ -34,16 +34,19 @@ public class MongoJsonDataLoader {
     @PostConstruct
     public void loadData() throws Exception {
 		log.debug(">>> Entering loadData()");
+		long start = System.currentTimeMillis();
         if (mongoTemplate.getCollection("job").countDocuments() > 0) {
 			log.debug("MongoJsonDataLoader(mongoTemplate={},objectMapper={}): mongoTemplate → {}", mongoTemplate, objectMapper, mongoTemplate);
             return;
         }
+		log.error("loadData(): find query executed in {} ms", (System.currentTimeMillis() - start));
 
         InputStream is = new ClassPathResource("jobs.json").getInputStream();
 		log.debug("loadData(): is → {}", is);
         List<Job> jobs = objectMapper.readValue(is, new TypeReference<List<Job>>() {});
 		log.debug("loadData(): jobs → {}", jobs);
         mongoTemplate.insert(jobs, Job.class);
+		log.error("loadData(): save query executed in {} ms", (System.currentTimeMillis() - start));
 		log.debug("<<< Exiting loadData()");
     }
 }
