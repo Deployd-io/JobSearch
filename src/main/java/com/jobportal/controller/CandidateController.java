@@ -44,7 +44,9 @@ public class CandidateController {
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
 		log.info(">>> Entering findById(id={})", id);
+		long start = System.currentTimeMillis();
 		CandidateDTO result = candidateService.findById(id);
+		log.error("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 		log.info("<<< Exiting findById(id={}) -> {}", id, result);
 		return result;
 	}
@@ -78,6 +80,7 @@ public class CandidateController {
 	{
 		log.debug(">>> Entering simulateError()");
 		String result = candidateService.scoreCandidateMatch(0);
+		log.error("simulateError(): result → {}", result);
 		log.info("<<< Exiting simulateError() -> {}", result);
 		return result;
 	}
