@@ -163,13 +163,38 @@ public class JobService {
 	{
 		log.debug(">>> Entering parseJobBudget(rawBudget={})", rawBudget);
 		try {
-			int budget = Integer.parseInt(rawBudget);
-			return "budget=" + budget;
+			String normalized = rawBudget.trim().toUpperCase();
+			int dash = normalized.indexOf('-');
+			String currency = dash >= 0 ? normalized.substring(dash + 1) : "USD";
+			String amount = dash >= 0 ? normalized.substring(0, dash) : normalized;
+			int multiplier = 1;
+			if (amount.endsWith("K")) {
+				multiplier = 1000;
+				amount = amount.substring(0, amount.length() - 1);
+			}
+			int budget = Integer.parseInt(amount) * multiplier;
+			return "budget=" + budget + " " + currency;
 		} catch (Exception e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
 			String result = "parseJobBudget failed: " + e.getMessage();
 			log.info("<<< Exiting parseJobBudget(rawBudget={}) -> {}", rawBudget, result);
 			return result;
 		}
+	}
+
+	// Number of jobs posted under one contact email, optionally only those with a proposal.
+	public long countJobsByContactEmail(String contactEmail, boolean withProposalsOnly)
+	{
+		if (contactEmail == null || contactEmail.isBlank()) {
+			return 0;
+		}
+		List<Job> jobs = dao.findByContactEmail(contactEmail);
+		long count = 0;
+		for (Job job : jobs) {
+			if (!withProposalsOnly || !proposalService.findByJobId(job.getJobId()).isEmpty()) {
+				count++;
+			}
+		}
+		return count;
 	}
 }

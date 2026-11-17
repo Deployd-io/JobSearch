@@ -63,6 +63,13 @@ public class JobController {
 		return result;
 	}
 
+	@GetMapping(value = "/contacts/{contactEmail}/count")
+	public long countByContactEmail(@PathVariable( "contactEmail" ) String contactEmail,
+			@RequestParam(defaultValue = "false") boolean withProposalsOnly)
+	{
+		return jobService.countJobsByContactEmail(contactEmail, withProposalsOnly);
+	}
+
 	@PostMapping
 	public String createJob(@RequestBody JobDTO jobDTO)
 	{
