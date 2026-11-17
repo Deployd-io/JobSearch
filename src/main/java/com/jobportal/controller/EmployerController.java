@@ -42,7 +42,9 @@ public class EmployerController {
 	public EmployerDTO findById(@PathVariable( "id" ) String id)
 	{
 		log.info(">>> Entering findById(id={})", id);
+		long start = System.currentTimeMillis();
 		EmployerDTO result = employerService.findById(id);
+		log.info("findById(id)={}: find query executed in {} ms", id, (System.currentTimeMillis() - start));
 		log.info("<<< Exiting findById(id={}) -> {}", id, result);
 		return result;
 	}
@@ -80,6 +82,7 @@ public class EmployerController {
 	{
 		log.debug(">>> Entering simulateError()");
 		String result = employerService.rankTopEmployer();
+		log.debug("simulateError(): result → {}", result);
 		log.info("<<< Exiting simulateError() -> {}", result);
 		return result;
 	}

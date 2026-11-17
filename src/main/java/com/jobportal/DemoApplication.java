@@ -25,6 +25,7 @@ public class DemoApplication {
 	public ModelMapper modelMapper() {
 		log.info(">>> Entering modelMapper()");
 	    ModelMapper result = new ModelMapper();
+		log.debug("modelMapper(): result → {}", result);
 		log.info("<<< Exiting modelMapper() -> {}", result);
 	    return result;
 	}
@@ -32,8 +33,11 @@ public class DemoApplication {
     @Bean
     public RestTemplate restTemplate() {
 		log.info(">>> Entering restTemplate()");
+		long start = System.currentTimeMillis();
         RestTemplate result = new RestTemplate();
+		log.debug("restTemplate(): result → {}", result);
 		log.info("<<< Exiting restTemplate() -> {}", result);
+		log.info("restTemplate(): external service call took {} ms", (System.currentTimeMillis() - start));
         return result;
     }
 
