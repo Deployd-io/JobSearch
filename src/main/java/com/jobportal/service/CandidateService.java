@@ -42,6 +42,7 @@ public class CandidateService {
 	public CandidateDTO findById(String id, boolean includeInactive)
 	{
 		if (id == null || id.isBlank()) {
+			log.error("Throwing IllegalArgumentException from findById(id={},includeInactive={})", id, includeInactive);
 			throw new IllegalArgumentException(includeInactive ? "candidate id is required (inactive search)" : "candidate id is required");
 		}
 		log.debug(">>> Entering findById(id={})", id);
