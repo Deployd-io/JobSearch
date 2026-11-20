@@ -49,6 +49,7 @@ public class EmployerService {
 	public List<EmployerDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		log.info("findAll(): find query executing");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());
@@ -165,7 +166,9 @@ public class EmployerService {
 			return "topEmployer=" + top.getEmployerId();
 		} catch (Exception e) {
 			log.error("rankTopEmployer(): null employer encountered while ranking top employers - {}", e.getMessage(), e);
-			return "rankTopEmployer failed: " + e.getMessage();
+			String result = "rankTopEmployer failed: " + e.getMessage();
+			log.info("<<< Exiting rankTopEmployer() -> {}", result);
+			return result;
 		}
 	}
 
