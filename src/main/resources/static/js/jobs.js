@@ -1,7 +1,9 @@
+var logger = (typeof logger !== 'undefined' && logger) || console;
 var jobsDataTable;
 var jobProposalMap = new Map();
 
 function loadJobsTable() {
+logger.info('>>> Entering loadJobsTable()', { "event.action": "loadJobsTable" });
 /*
     jobsDataTable = $('#jobsTable').DataTable(
         {
@@ -86,10 +88,12 @@ function loadJobsTable() {
 	    })
 	})
 
+logger.info('<<< Exiting loadJobsTable()', { "event.action": "loadJobsTable" });
 }
 
 function showProposals(jobId)
 {
+	logger.info(`>>> Entering showProposals(jobId=${jobId})`, { "event.action": "showProposals", "logrite.jobId": jobId });
     $('#proposalsTable').dataTable( {
     	"processing": true, // for show progress bar
     	"paging": true,
@@ -106,4 +110,5 @@ function showProposals(jobId)
     
     $("#proposalsModal").show();//.modal('show');
 	
+	logger.info(`<<< Exiting showProposals(jobId=${jobId})`, { "event.action": "showProposals", "logrite.jobId": jobId });
 }
