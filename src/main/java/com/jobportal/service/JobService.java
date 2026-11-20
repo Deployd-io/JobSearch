@@ -38,6 +38,7 @@ public class JobService {
 	public List<JobDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		log.info("findAll(): find query executing");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
@@ -166,7 +167,9 @@ public class JobService {
 			return "budget=" + budget;
 		} catch (Exception e) {
 			log.error("parseJobBudget(rawBudget={}): failed to parse job budget amount - {}", rawBudget, e.getMessage(), e);
-			return "parseJobBudget failed: " + e.getMessage();
+			String result = "parseJobBudget failed: " + e.getMessage();
+			log.info("<<< Exiting parseJobBudget(rawBudget={}) -> {}", rawBudget, result);
+			return result;
 		}
 	}
 }
