@@ -39,8 +39,11 @@ public class CandidateService {
 			modelMapper.map(cndt, CandidateDTO.class)).collect(Collectors.toList());
 	}
 	
-	public CandidateDTO findById(String id)
+	public CandidateDTO findById(String id, boolean includeInactive)
 	{
+		if (id == null || id.isBlank()) {
+			throw new IllegalArgumentException(includeInactive ? "candidate id is required (inactive search)" : "candidate id is required");
+		}
 		log.debug(">>> Entering findById(id={})", id);
 		long start = System.currentTimeMillis();
 		Optional<Candidate> optCndt = dao.findById(id);

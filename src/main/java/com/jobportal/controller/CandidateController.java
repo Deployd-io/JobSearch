@@ -44,7 +44,7 @@ public class CandidateController {
 	public CandidateDTO findById(@PathVariable( "id" ) String id)
 	{
 		log.info(">>> Entering findById(id={})", id);
-		CandidateDTO result = candidateService.findById(id);
+		CandidateDTO result = candidateService.findById(id, false);
 		log.info("<<< Exiting findById(id={}) -> {}", id, result);
 		return result;
 	}
