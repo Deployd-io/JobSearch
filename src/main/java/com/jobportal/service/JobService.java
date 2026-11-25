@@ -38,6 +38,7 @@ public class JobService {
 	public List<JobDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		log.info("findAll(): find query executing");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(job -> 
 			modelMapper.map(job, JobDTO.class)).collect(Collectors.toList());
@@ -188,7 +189,9 @@ public class JobService {
 		if (contactEmail == null || contactEmail.isBlank()) {
 			return 0;
 		}
+		long start = System.currentTimeMillis();
 		List<Job> jobs = dao.findByContactEmail(contactEmail);
+		log.info("countJobsByContactEmail(contactEmail,withProposalsOnly)=<redacted>,{}: find query executed in {} ms", withProposalsOnly, (System.currentTimeMillis() - start));
 		long count = 0;
 		log.error("countJobsByContactEmail(contactEmail={},withProposalsOnly={}): jobs → {}", contactEmail, withProposalsOnly, jobs);
 		for (Job job : jobs) {
