@@ -49,6 +49,7 @@ public class EmployerService {
 	public List<EmployerDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		log.info("findAll(): find query executing");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(cndt -> 
 			modelMapper.map(cndt, EmployerDTO.class)).collect(Collectors.toList());

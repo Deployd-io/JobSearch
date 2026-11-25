@@ -36,6 +36,7 @@ public class ProposalService {
 	public List<ProposalDTO> findAll()
 	{
 		log.debug(">>> Entering findAll()");
+		log.info("findAll(): find query executing");
 		log.debug("<<< Exiting findAll()");
 		return dao.findAll().stream().map(proposal -> 
 			modelMapper.map(proposal, ProposalDTO.class)).collect(Collectors.toList());
